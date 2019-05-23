@@ -73,9 +73,11 @@ class Jaba(
         createAndIntegrateAppClass()
         logDone()
 
-        //TODO: createAndIntegrateAppClass
-        //TODO: integrateAppClass
-        //TODO: createSplashActivity
+        //TODO: create dagger modules and components
+        //TODO: createSplashActivityWithViewModelIntegration
+        //TODO: createSplashViewModel
+        //TODO: integrateSplashViewModel with dagger
+
         //TODO: integrateSplashActivity
         //TODO: createLogInActivity
         //TODO: integrateLogInActivity
