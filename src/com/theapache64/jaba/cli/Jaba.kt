@@ -109,6 +109,9 @@ class Jaba(
             addImportTo(newMainPath, "${project.packageName}.R")
             val manifestFile = File("${project.dir}/app/src/main/AndroidManifest.xml")
             replaceOn(manifestFile, ".MainActivity", "$subPackageName.MainActivity")
+            val mainLayoutFile = File("${project.dir}/app/src/main/res/layout/activity_main.xml")
+            val mainContentLayoutFile = File("${project.dir}/app/src/main/res/layout/content_main.xml")
+            replaceOn(mainLayoutFile, ".MainActivity", "$subPackageName.MainActivity")
             //TODO: addTwinKill deps
             //TODO: createAppClass
             //TODO: integrateAppClass

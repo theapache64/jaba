@@ -9,7 +9,6 @@ object LabUtils {
 
         // Removing lab directory
         FileUtils.deleteDir("lab")
-
         val jabroidZipFile = File("assets/jabroid.zip")
         if (jabroidZipFile.exists()) {
 

@@ -9,6 +9,8 @@ object FileUtils {
 
     fun unzip(file: File, destination: String) {
 
+        File(destination).mkdirs()
+
         file.inputStream().use { fis ->
 
             ZipInputStream(fis).use { zis ->
