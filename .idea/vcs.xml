@@ -3,5 +3,6 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/assets/jabroid" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/lab/jabroid" vcs="Git" />
   </component>
 </project>
