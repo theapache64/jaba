@@ -2,8 +2,7 @@ package com.theapache64.jaba.cli
 
 import com.theapache64.jaba.cli.models.Architectures
 import com.theapache64.jaba.cli.models.Project
-import com.theapache64.jaba.cli.utils.InputUtils
-import com.theapache64.jaba.cli.utils.LabUtils
+import com.theapache64.jaba.cli.utils.*
 import java.util.*
 
 const val IS_DEBUG = true
@@ -16,20 +15,23 @@ const val ERROR_NOT_KOTLIN_PROJECT = "NOT_KOTLIN_PROJECT"
  */
 fun main() {
 
+    logDoing("Cleaning lab...")
     LabUtils.clean()
+    logDone()
+
 
     // Current directory will be treated as an android project
 //    val currentDir = if (IS_DEBUG) "lab/jabroid" else System.getProperty("user.dir") + "/../android"
     val currentDir = "lab/jabroid"
-    val jaba = Jaba(currentDir)
+    val androidUtils = AndroidUtils(currentDir)
 
-    if (jaba.isAndroidProject()) {
+    if (androidUtils.isAndroidProject()) {
 
         // Getting project name
-        val projectName = jaba.provideProjectName()
-        val packageName = jaba.providePackageName()
+        val projectName = androidUtils.provideProjectName()
+        val packageName = androidUtils.providePackageName()
 
-        if (jaba.isKotlinProject()) {
+        if (androidUtils.isKotlinProject()) {
 
             println("Project : $projectName")
             println("Package : $packageName")
@@ -88,7 +90,8 @@ fun main() {
                 isNeedLogInScreen
             )
 
-            jaba.startBuilding(project)
+            Jaba(androidUtils, project).build()
+
         } else {
             failure(ERROR_NOT_KOTLIN_PROJECT, "$currentDir is not a kotlin android project")
         }

@@ -5,7 +5,6 @@ import java.io.File
 object LabUtils {
 
     fun clean() {
-        println("Cleaning lab")
 
         // Removing lab directory
         FileUtils.deleteDir("lab")

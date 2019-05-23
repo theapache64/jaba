@@ -144,7 +144,6 @@ object FixItXml {
                     // Creating new file with new content
                     if (codeStyleFile.createNewFile()) {
                         codeStyleFile.writeText(output)
-                        println("Success, Fixed!!")
                     } else {
                         printError("Failed to create new style file")
                     }
