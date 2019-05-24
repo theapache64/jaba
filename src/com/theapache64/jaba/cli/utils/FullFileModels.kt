@@ -23,7 +23,6 @@ object FullFileModels {
      */
     fun getAppModel(packageName: String, isNeedGoogleFonts: Boolean): String {
         return """
-
             package $packageName
 
             import android.app.Application

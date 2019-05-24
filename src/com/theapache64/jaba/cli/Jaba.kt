@@ -17,11 +17,18 @@ class Jaba(
         const val FLOATING_ACTION_BUTTON = "com.google.android.material.floatingactionbutton.FloatingActionButton"
         const val TOOLBAR = "androidx.appcompat.widget.Toolbar"
         const val SYNTHETIC_IMPORT = "import kotlinx.android.synthetic.main.activity_main.*"
+        const val APPCOMPAT_IMPORT = "import androidx.appcompat.app.AppCompatActivity;"
+        const val TWINKILL_BASE_APPCOMPAT_IMPORT =
+            "import com.theapache64.twinkill.ui.activities.base.BaseAppCompatActivity"
     }
 
     private val mainProPath = project.packageName.replace(".", "/")
 
     fun build() {
+
+        logDoing("Adding dependencies and other gradle friendly tasks")
+        doGradleThings()
+        logDone()
 
         logDoing("Creating dirs...")
         createDirs()
@@ -42,6 +49,7 @@ class Jaba(
         val newMainPath = moveMainActivity()
         logDone("Done (moved to $newMainPath)")
 
+
         // Change package name of main activity
         logDoing("Changing it's package name and replacing synthetic reference with findViewByid")
         val subPackageName = ".ui.activities.main"
@@ -49,12 +57,15 @@ class Jaba(
         changePackageNameAndRemoveSynthetic(newMainPath, mainPackageName)
         logDone()
 
+        // Changing parent activity
+        logDoing("Changing parent...")
+        changeMainParent()
+        logDone()
 
         // Add R import to main
         logDoing("Fixing missing R issue")
         addImportTo(newMainPath, "${project.packageName}.R")
         logDone()
-
 
         // Change package name in manifest of main
         logDoing("Changing package name in several places")
@@ -65,22 +76,38 @@ class Jaba(
         replaceOn(androidUtils.contentMainLayoutFile, ".MainActivity", "$subPackageName.MainActivity")
         logDone()
 
-        logDoing("Adding dependencies and other gradle friendly tasks")
-        doGradleThings()
-        logDone()
-
         logDoing("Creating App class...")
         createAndIntegrateAppClass()
         logDone()
 
-        //TODO: createAndIntegrateAppClass
-        //TODO: integrateAppClass
-        //TODO: createSplashActivity
-        //TODO: integrateSplashActivity
+        createAndIntegrateMainViewModel()
+        //TODO: createMainViewModel
+        //TODO: integrateMainViewMOdel
+
+        //TODO: createDaggerComponentsAndModules
+        //TODO: createSplashActivityWithViewModelIntegratedWithDagger
+        //TODO: createSplashViewModel
+        //TODO: integrateSplashActivityWithManifest
+
         //TODO: createLogInActivity
         //TODO: integrateLogInActivity
         //TODO:
 
+    }
+
+    private fun changeMainParent() {
+        var mainContent = androidUtils.mainActivityFile.readText()
+        mainContent = mainContent.replace(APPCOMPAT_IMPORT, "")
+
+        androidUtils.mainActivityFile.delete()
+        androidUtils.mainActivityFile.writeText(mainContent)
+    }
+
+    private fun createAndIntegrateMainViewModel() {
+        val mainPackageName = "${project.packageName}.ui.activities.main"
+        val mainViewModelContent = FullFileModels.getViewModel("MainViewModel", mainPackageName)
+        val mainViewModelFile = File("${androidUtils.provideRootSourcePath()}/ui/activities/main/MainViewModel.kt")
+        mainViewModelFile.writeText(mainViewModelContent)
     }
 
     private fun createAndIntegrateAppClass() {
@@ -146,11 +173,12 @@ class Jaba(
 
         // Add TwinKill
         var deps = """
-                // Lifecycle extension
-                    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0-alpha01'
+
+                    // Lifecycle extension
+                    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0-alpha04'
 
                     // Dagger 2
-                    def daggerVersion = '2.17'
+                    def daggerVersion = '2.22.1'
                     implementation "com.google.dagger:dagger:${dollar}daggerVersion"
                     implementation "com.google.dagger:dagger-android-support:${dollar}daggerVersion"
                     kapt "com.google.dagger:dagger-compiler:${dollar}daggerVersion"
@@ -162,6 +190,7 @@ class Jaba(
                     // TwinKill
                     def twinkill_version = '0.0.1-alpha04'
                     implementation "com.theapache64.twinkill:core:${dollar}twinkill_version"
+
             """.trimIndent()
 
         if (project.isNeedNetworkModule) {
