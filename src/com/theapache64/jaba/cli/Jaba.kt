@@ -16,7 +16,7 @@ class Jaba(
 
         const val FLOATING_ACTION_BUTTON = "com.google.android.material.floatingactionbutton.FloatingActionButton"
         const val TOOLBAR = "androidx.appcompat.widget.Toolbar"
-        const val SYNTHETIC_IMPORT = "import kotlinx.android.synthetic.main.activity_main.*"
+        const val SYNTHETIC_IMPORT = "import kotlinx.android.synthetic.main.activity_main.xml.*"
         const val APPCOMPAT_IMPORT = "import androidx.appcompat.app.AppCompatActivity;"
         const val TWINKILL_BASE_APPCOMPAT_IMPORT =
             "import com.theapache64.twinkill.ui.activities.base.BaseAppCompatActivity"
@@ -24,7 +24,8 @@ class Jaba(
 
     private val mainProPath = project.packageName.replace(".", "/")
 
-    fun build() {
+
+    fun buildOld() {
 
         logDoing("Adding dependencies and other gradle friendly tasks")
         doGradleThings()

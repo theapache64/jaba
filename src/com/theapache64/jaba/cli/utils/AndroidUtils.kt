@@ -11,7 +11,6 @@ class AndroidUtils(private val projectDir: String) {
     val gradleFile: File = File("$projectDir/app/build.gradle")
     val projectGradleFile = File("$projectDir/build.gradle")
 
-
     // Common properties
     private var packageName: String? = null
     private var projectName: String? = null
@@ -20,8 +19,10 @@ class AndroidUtils(private val projectDir: String) {
     val mainLayoutFile = File("$projectDir/app/src/main/res/layout/activity_main.xml")
     val contentMainLayoutFile = File("$projectDir/app/src/main/res/layout/content_main.xml")
     val manifestFile = File("$projectDir/app/src/main/AndroidManifest.xml")
+    val oldMainActivityFile = File("${provideRootSourcePath()}/MainActivity.kt")
     val mainActivityFile = File("${provideRootSourcePath()}/ui/activities/main/MainActivity.kt")
-
+    val appFile = File("${provideRootSourcePath()}/App.kt")
+    val mainViewModelFile = File("${provideRootSourcePath()}/ui/activities/main/MainViewModel.kt")
 
     /**
      * Return true if it's an android project.
@@ -32,7 +33,7 @@ class AndroidUtils(private val projectDir: String) {
 
 
     /**
-     * To get package name from app/build.gradle
+     * To get package name from app/app.build.gradle
      */
     fun providePackageName(): String {
 
@@ -64,7 +65,7 @@ class AndroidUtils(private val projectDir: String) {
 
 
     /**
-     * To return kotlin version from project/build.gradle
+     * To return kotlin version from project/app.build.gradle
      */
     fun getKotlinVersion(): String {
         val readText = projectGradleFile.readText()
