@@ -12,6 +12,7 @@ import $PACKAGE_NAME.R
 import $PACKAGE_NAME.databinding.ActivityMainBinding
 import com.theapache64.twinkill.ui.activities.base.BaseAppCompatActivity
 import com.theapache64.twinkill.utils.extensions.bindContentView
+import dagger.android.AndroidInjection
 import javax.inject.Inject
 
 class MainActivity : BaseAppCompatActivity() {
@@ -21,7 +22,9 @@ class MainActivity : BaseAppCompatActivity() {
     private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
+
         val binding = bindContentView<ActivityMainBinding>(R.layout.activity_main)
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)

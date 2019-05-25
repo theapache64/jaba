@@ -3,7 +3,7 @@
     <data>
         <variable
                 name="viewModel"
-                type="com.theapache64.jabroid.ui.activities.main.MainViewModel"/>
+                type="$PACKAGE_NAME.ui.activities.main.MainViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"

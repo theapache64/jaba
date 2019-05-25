@@ -79,6 +79,10 @@ class Jaba2(
         androidUtils.mainLayoutFile.delete()
         androidUtils.mainLayoutFile.writeText(mainLayoutContent)
 
+        // Creating content main
+        val contentMainLayoutContent = AssetManager.getContentMainLayout(project.packageName)
+        androidUtils.contentMainLayoutFile.delete()
+        androidUtils.contentMainLayoutFile.writeText(contentMainLayoutContent)
     }
 
     /**

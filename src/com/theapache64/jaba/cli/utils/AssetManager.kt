@@ -32,6 +32,7 @@ object AssetManager {
     private val appFile by lazy { File("assets/App.kt") }
     private val mainViewModelFile by lazy { File("assets/MainViewModel.kt") }
     private val mainLayoutFile by lazy { File("assets/activity_main.xml") }
+    private val contentMainLayout by lazy { File("assets/content_main.xml") }
     private val activityBuilderModuleFile by lazy { File("assets/ActivitiesBuilderModule.kt") }
 
     /**
@@ -107,6 +108,11 @@ object AssetManager {
 
     fun getActivityMainLayout(packageName: String): String {
         return mainLayoutFile.readText()
+            .replace(KEY_PACKAGE_NAME, packageName)
+    }
+
+    fun getContentMainLayout(packageName: String): String {
+        return contentMainLayout.readText()
             .replace(KEY_PACKAGE_NAME, packageName)
     }
 
