@@ -10,7 +10,7 @@ class Jaba2(
     private val androidUtils: AndroidUtils
 ) {
 
-    private val assetManager = assetManager(project)
+    private val assetManager = AssetManager(project)
 
     companion object {
 

@@ -95,7 +95,7 @@ class AssetManager(
     }
 
     private fun withPackageNameReplaced(file: File): String {
-        return withPackageNameReplaced(file)
+        return file.readText().replace(KEY_PACKAGE_NAME, project.packageName)
     }
 
     /**
