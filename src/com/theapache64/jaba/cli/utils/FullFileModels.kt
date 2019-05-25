@@ -1,6 +1,20 @@
 package com.theapache64.jaba.cli.utils
 
+import java.io.File
+
 object FullFileModels {
+
+    private const val ASSET_APP_GRADLE_PATH = "assets/app.build.gradle"
+
+    /**
+     * To get build.gradle file
+     */
+
+    fun getAppGradle() {
+        val assetAppGradle = File(ASSET_APP_GRADLE_PATH)
+        var fileContents = assetAppGradle.readText()
+
+    }
 
     /**
      * To get ViewModel model
@@ -23,7 +37,6 @@ object FullFileModels {
      */
     fun getAppModel(packageName: String, isNeedGoogleFonts: Boolean): String {
         return """
-
             package $packageName
 
             import android.app.Application

@@ -90,9 +90,9 @@ fun main() {
                 isNeedLogInScreen
             )
 
-            logDoing("Building...")
-            Jaba(androidUtils, project).build()
-            logDone("Done building")
+
+            Jaba2(project, androidUtils).build()
+            // Jaba(androidUtils, project).buildOld()
 
         } else {
             failure(ERROR_NOT_KOTLIN_PROJECT, "$currentDir is not a kotlin android project")
