@@ -1,7 +1,7 @@
 package $PACKAGE_NAME.di.components
 
-import com.tp.heads.App
-import com.tp.heads.di.modules.AppModule
+import $PACKAGE_NAME.App
+import $PACKAGE_NAME.di.modules.AppModule
 import dagger.Component
 import javax.inject.Singleton
 

@@ -23,6 +23,12 @@ class AndroidUtils(private val projectDir: String) {
     val mainActivityFile = File("${provideRootSourcePath()}/ui/activities/main/MainActivity.kt")
     val appFile = File("${provideRootSourcePath()}/App.kt")
     val mainViewModelFile = File("${provideRootSourcePath()}/ui/activities/main/MainViewModel.kt")
+    val activityBuilderModuleFile = File("${provideRootSourcePath()}/di/modules/ActivitiesBuilderModule.kt")
+    val appComponentFile = File("${provideRootSourcePath()}/di/components/AppComponent.kt")
+    val logInRequestFile = File("${provideRootSourcePath()}/data/remote/login/LogInRequest.kt")
+    val logInResponseFile = File("${provideRootSourcePath()}/data/remote/login/LogInResponse.kt")
+    val userRepoFile = File("${provideRootSourcePath()}/data/repositories/UserPrefRepository.kt")
+    val appModuleFile = File("${provideRootSourcePath()}/di/modules/AppModule.kt")
 
     /**
      * Return true if it's an android project.

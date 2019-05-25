@@ -1,46 +1,56 @@
 package com.theapache64.jaba.cli.utils
 
+import com.theapache64.jaba.cli.models.Project
 import java.io.File
 
 /**
  * To get files from assets directory
  */
-object AssetManager {
+class AssetManager(
+    private val project: Project
+) {
 
-    // app/build.gradle
-    private const val KEY_PACKAGE_NAME = "\$PACKAGE_NAME"
+    companion object {
 
-    // project/build.gradle
-    private const val KEY_KOTLIN_VERSION = "\$KOTLIN_VERSION"
-    private const val KEY_COMPILE_SDK_VERSION = "\$COMPILE_SDK_VERSION"
-    private const val KEY_MIN_SDK_VERSION = "\$MIN_SDK_VERSION"
-    private const val KEY_TARGET_SDK_VERSION = "\$TARGET_SDK_VERSION"
-    private const val KEY_APPCOMPAT_VERSION = "\$APPCOMPAT_VERSION"
-    private const val KEY_KTX_VERSION = "\$KTX_VERSION"
-    private const val KEY_CONSTRAINT_VERSION = "\$CONSTRAINT_VERSION"
-    private const val KEY_MATERIAL_VERSION = "\$MATERIAL_VERSION"
-    private const val KEY_JUNIT_VERSION = "\$JUNIT_VERSION"
-    private const val KEY_RUNNER_VERSION = "\$RUNNER_VERSION"
-    private const val KEY_ESPRESSO_VERSION = "\$ESPRESSO_VERSION"
-    private const val KEY_GRADLE_VERSION = "\$GRADLE_VERSION"
+        // app/build.gradle
+        private const val KEY_PACKAGE_NAME = "\$PACKAGE_NAME"
+
+        // project/build.gradle
+        private const val KEY_KOTLIN_VERSION = "\$KOTLIN_VERSION"
+        private const val KEY_COMPILE_SDK_VERSION = "\$COMPILE_SDK_VERSION"
+        private const val KEY_MIN_SDK_VERSION = "\$MIN_SDK_VERSION"
+        private const val KEY_TARGET_SDK_VERSION = "\$TARGET_SDK_VERSION"
+        private const val KEY_APPCOMPAT_VERSION = "\$APPCOMPAT_VERSION"
+        private const val KEY_KTX_VERSION = "\$KTX_VERSION"
+        private const val KEY_CONSTRAINT_VERSION = "\$CONSTRAINT_VERSION"
+        private const val KEY_MATERIAL_VERSION = "\$MATERIAL_VERSION"
+        private const val KEY_JUNIT_VERSION = "\$JUNIT_VERSION"
+        private const val KEY_RUNNER_VERSION = "\$RUNNER_VERSION"
+        private const val KEY_ESPRESSO_VERSION = "\$ESPRESSO_VERSION"
+        private const val KEY_GRADLE_VERSION = "\$GRADLE_VERSION"
 
 
-    private val appBuildGradleFile by lazy { File("assets/app.build.gradle") }
-    private val projectBuildGradleFile by lazy { File("assets/project.build.gradle") }
-    private val mainActivityFile by lazy { File("assets/MainActivity.kt") }
-    private val manifestFile by lazy { File("assets/AndroidManifest.xml") }
-    private val appFile by lazy { File("assets/App.kt") }
-    private val mainViewModelFile by lazy { File("assets/MainViewModel.kt") }
-    private val mainLayoutFile by lazy { File("assets/activity_main.xml") }
-    private val contentMainLayout by lazy { File("assets/content_main.xml") }
-    private val activityBuilderModuleFile by lazy { File("assets/ActivitiesBuilderModule.kt") }
+        private val appBuildGradleFile by lazy { File("assets/app.build.gradle") }
+        private val projectBuildGradleFile by lazy { File("assets/project.build.gradle") }
+        private val mainActivityFile by lazy { File("assets/MainActivity.kt") }
+        private val manifestFile by lazy { File("assets/AndroidManifest.xml") }
+        private val appFile by lazy { File("assets/App.kt") }
+        private val mainViewModelFile by lazy { File("assets/MainViewModel.kt") }
+        private val mainLayoutFile by lazy { File("assets/activity_main.xml") }
+        private val contentMainLayout by lazy { File("assets/content_main.xml") }
+        private val activityBuilderModuleFile by lazy { File("assets/ActivitiesBuilderModule.kt") }
+        private val appComponentFile by lazy { File("assets/AppComponent.kt") }
+        private val userRepositoryFile by lazy { File("assets/UserPrefRepository.kt") }
+        private val logInRequestFile by lazy { File("assets/LogInRequest.kt") }
+        private val logInResponseFile by lazy { File("assets/LogInResponse.kt") }
+        private val appModuleFile by lazy { File("assets/AppModule.kt") }
+    }
 
     /**
      * To return new app/build.gradle with given package name
      */
-    fun getAppBuildGradle(packageName: String): String {
-        return appBuildGradleFile.readText()
-            .replace(KEY_PACKAGE_NAME, packageName)
+    fun getAppBuildGradle(): String {
+        return withPackageNameReplaced(appBuildGradleFile)
     }
 
 
@@ -80,40 +90,63 @@ object AssetManager {
     /**
      * To get MainActivity.kt
      */
-    fun getMainActivity(packageName: String): String {
-        return mainActivityFile.readText()
-            .replace(KEY_PACKAGE_NAME, packageName)
+    fun getMainActivity(): String {
+        return withPackageNameReplaced(mainActivityFile)
+    }
+
+    private fun withPackageNameReplaced(file: File): String {
+        return withPackageNameReplaced(file)
     }
 
     /**
      * To get manifest file
      */
-    fun getManifestFile(packageName: String): String {
-        return manifestFile.readText()
-            .replace(KEY_PACKAGE_NAME, packageName)
+    fun getManifestFile(): String {
+        return withPackageNameReplaced(manifestFile)
     }
 
     /**
      * To get App.kt
      */
-    fun getAppFile(packageName: String): String {
-        return appFile.readText()
-            .replace(KEY_PACKAGE_NAME, packageName)
+    fun getAppFile(): String {
+        return withPackageNameReplaced(appFile)
     }
 
-    fun getMainViewModel(packageName: String): String {
-        return mainViewModelFile.readText()
-            .replace(KEY_PACKAGE_NAME, packageName)
+    fun getMainViewModel(): String {
+        return withPackageNameReplaced(mainViewModelFile)
     }
 
-    fun getActivityMainLayout(packageName: String): String {
-        return mainLayoutFile.readText()
-            .replace(KEY_PACKAGE_NAME, packageName)
+    fun getActivityMainLayout(): String {
+        return withPackageNameReplaced(mainLayoutFile)
     }
 
-    fun getContentMainLayout(packageName: String): String {
-        return contentMainLayout.readText()
-            .replace(KEY_PACKAGE_NAME, packageName)
+    fun getContentMainLayout(): String {
+        return withPackageNameReplaced(contentMainLayout)
     }
+
+    fun getActivityBuilder(): String {
+        return withPackageNameReplaced(activityBuilderModuleFile)
+    }
+
+    fun getAppComponent(): String {
+        return withPackageNameReplaced(appComponentFile)
+    }
+
+    fun getUseRepository(): String {
+        return withPackageNameReplaced(userRepositoryFile)
+    }
+
+    fun getLogInRequest(): String {
+        return withPackageNameReplaced(logInRequestFile)
+    }
+
+    fun getLogInResponse(): String {
+        return withPackageNameReplaced(logInResponseFile)
+    }
+
+    fun getAppModule(): String {
+        return withPackageNameReplaced(appModuleFile)
+    }
+
 
 }

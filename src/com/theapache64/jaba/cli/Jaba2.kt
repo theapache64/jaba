@@ -10,6 +10,8 @@ class Jaba2(
     private val androidUtils: AndroidUtils
 ) {
 
+    private val assetManager = assetManager(project)
+
     companion object {
 
         // app/build.gradle
@@ -51,38 +53,103 @@ class Jaba2(
     }
 
     private fun doAppThings() {
-        val appContent = AssetManager.getAppFile(project.packageName)
-        androidUtils.appFile.writeText(appContent)
+
+        // Create app file
+        createFile(
+            assetManager.getAppFile(),
+            androidUtils.appFile
+        )
     }
 
     private fun doManifestThings() {
-        androidUtils.manifestFile.delete()
-        val newManifestContent = AssetManager.getManifestFile(project.packageName)
-        androidUtils.manifestFile.writeText(newManifestContent)
+
+        // Creating manifest file
+        createFile(
+            assetManager.getManifestFile(),
+            androidUtils.manifestFile
+        )
     }
 
     private fun doMainThings() {
 
         // Creating MainViewModel
-        val mainViewModelContent = AssetManager.getMainViewModel(project.packageName)
-        androidUtils.mainViewModelFile.writeText(mainViewModelContent)
+        createFile(
+            assetManager.getMainViewModel(),
+            androidUtils.mainViewModelFile
+        )
 
         // Delete default main activity
         androidUtils.oldMainActivityFile.delete()
 
         // Creating new one
-        val mainContent = AssetManager.getMainActivity(project.packageName)
-        androidUtils.mainActivityFile.writeText(mainContent)
+        createFile(
+            assetManager.getMainActivity(),
+            androidUtils.mainActivityFile
+        )
 
         // Creating new layout file data binding
-        val mainLayoutContent = AssetManager.getActivityMainLayout(project.packageName)
-        androidUtils.mainLayoutFile.delete()
-        androidUtils.mainLayoutFile.writeText(mainLayoutContent)
+        createFile(
+            assetManager.getActivityMainLayout(),
+            androidUtils.mainLayoutFile
+        )
 
         // Creating content main
-        val contentMainLayoutContent = AssetManager.getContentMainLayout(project.packageName)
-        androidUtils.contentMainLayoutFile.delete()
-        androidUtils.contentMainLayoutFile.writeText(contentMainLayoutContent)
+        createFile(
+            assetManager.getContentMainLayout(),
+            androidUtils.contentMainLayoutFile
+        )
+
+        // Create activity builder
+        createFile(
+            assetManager.getActivityBuilder(),
+            androidUtils.activityBuilderModuleFile
+        )
+
+        // Creating dagger component
+        createFile(
+            assetManager.getAppComponent(),
+            androidUtils.appComponentFile
+        )
+
+        // Create login request file
+        createFile(
+            assetManager.getLogInRequest(),
+            androidUtils.logInRequestFile
+        )
+
+        // Creating login response
+        createFile(
+            assetManager.getLogInResponse(),
+            androidUtils.logInResponseFile
+        )
+
+        // Create user pref repositories
+        createFile(
+            assetManager.getUseRepository(),
+            androidUtils.userRepoFile
+        )
+
+        // Create AppModule
+        createFile(
+            assetManager.getAppModule(),
+            androidUtils.appModuleFile
+        )
+
+        // Create NetworkModule
+
+
+    }
+
+    private fun createFile(fileContent: String, file: File) {
+
+        // Deleting old file
+        file.delete()
+
+        // Deleting parent dirs
+        file.parentFile.mkdirs()
+
+        // Writing to file
+        file.writeText(fileContent)
     }
 
     /**
@@ -144,7 +211,7 @@ class Jaba2(
 
         // Get model file
         val newAppGradle =
-            AssetManager.getAppBuildGradle(project.packageName)
+            assetManager.getAppBuildGradle()
 
         // Write
         androidUtils.gradleFile.writeText(newAppGradle)
@@ -159,7 +226,7 @@ class Jaba2(
         // Delete default project
         androidUtils.projectGradleFile.delete()
 
-        val newProjectGradle = AssetManager.getProjectBuildGradle(
+        val newProjectGradle = assetManager.getProjectBuildGradle(
             kotlinVersion!!,
             compileSdkVersion!!,
             minSdkVersion!!,
