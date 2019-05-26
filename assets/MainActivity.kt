@@ -1,5 +1,7 @@
 package $PACKAGE_NAME.ui.activities.main
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -52,6 +54,15 @@ class MainActivity : BaseAppCompatActivity() {
         return when (item.itemId) {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    companion object {
+        const val ID = R.id.MAIN_ACTIVITY_ID
+
+        fun getStartIntent(context: Context): Intent {
+            val intent = Intent(context, MainActivity::class.java)
+            return intent
         }
     }
 }

@@ -14,6 +14,7 @@ class AssetManager(
 
         // app/build.gradle
         private const val KEY_PACKAGE_NAME = "\$PACKAGE_NAME"
+        private const val KEY_APP_NAME = "\$APP_NAME"
 
         // project/build.gradle
         private const val KEY_KOTLIN_VERSION = "\$KOTLIN_VERSION"
@@ -29,30 +30,15 @@ class AssetManager(
         private const val KEY_ESPRESSO_VERSION = "\$ESPRESSO_VERSION"
         private const val KEY_GRADLE_VERSION = "\$GRADLE_VERSION"
 
-
-        private val appBuildGradleFile by lazy { File("assets/app.build.gradle") }
         private val projectBuildGradleFile by lazy { File("assets/project.build.gradle") }
-        private val mainActivityFile by lazy { File("assets/MainActivity.kt") }
-        private val manifestFile by lazy { File("assets/AndroidManifest.xml") }
-        private val appFile by lazy { File("assets/App.kt") }
-        private val mainViewModelFile by lazy { File("assets/MainViewModel.kt") }
-        private val mainLayoutFile by lazy { File("assets/activity_main.xml") }
-        private val contentMainLayout by lazy { File("assets/content_main.xml") }
-        private val activityBuilderModuleFile by lazy { File("assets/ActivitiesBuilderModule.kt") }
-        private val appComponentFile by lazy { File("assets/AppComponent.kt") }
-        private val userRepositoryFile by lazy { File("assets/UserPrefRepository.kt") }
-        private val logInRequestFile by lazy { File("assets/LogInRequest.kt") }
-        private val logInResponseFile by lazy { File("assets/LogInResponse.kt") }
-        private val appModuleFile by lazy { File("assets/AppModule.kt") }
-        private val networkModuleFile by lazy { File("assets/NetworkModule.kt") }
-        private val viewModelModule by lazy { File("assets/ViewModelModule.kt") }
+        val userIcon by lazy { File("assets/ic_user.png") }
     }
 
     /**
      * To return new app/build.gradle with given package name
      */
     fun getAppBuildGradle(): String {
-        return withPackageNameReplaced(appBuildGradleFile)
+        return withPackageNameReplacedFromAssets("app.build.gradle")
     }
 
 
@@ -89,73 +75,133 @@ class AssetManager(
             .replace(KEY_GRADLE_VERSION, gradleVersion)
     }
 
+
+    private fun withPackageNameReplacedFromAssets(fileName: String): String {
+        return getAssetContent(fileName).replace(KEY_PACKAGE_NAME, project.packageName)
+    }
+
+    private fun getAssetContent(fileName: String): String {
+        return File("assets/$fileName").readText()
+    }
+
     /**
      * To get MainActivity.kt
      */
     fun getMainActivity(): String {
-        return withPackageNameReplaced(mainActivityFile)
-    }
-
-    private fun withPackageNameReplaced(file: File): String {
-        return file.readText().replace(KEY_PACKAGE_NAME, project.packageName)
+        return withPackageNameReplacedFromAssets("MainActivity.kt")
     }
 
     /**
      * To get manifest file
      */
     fun getManifestFile(): String {
-        return withPackageNameReplaced(manifestFile)
+        return withPackageNameReplacedFromAssets("AndroidManifest.xml")
     }
 
     /**
      * To get App.kt
      */
     fun getAppFile(): String {
-        return withPackageNameReplaced(appFile)
+        return withPackageNameReplacedFromAssets("App.kt")
     }
 
     fun getMainViewModel(): String {
-        return withPackageNameReplaced(mainViewModelFile)
+        return withPackageNameReplacedFromAssets("MainViewModel.kt")
     }
 
     fun getActivityMainLayout(): String {
-        return withPackageNameReplaced(mainLayoutFile)
+        return withPackageNameReplacedFromAssets("activity_main.xml")
     }
 
     fun getContentMainLayout(): String {
-        return withPackageNameReplaced(contentMainLayout)
+        return withPackageNameReplacedFromAssets("content_main.xml")
     }
 
     fun getActivityBuilder(): String {
-        return withPackageNameReplaced(activityBuilderModuleFile)
+        return withPackageNameReplacedFromAssets("ActivitiesBuilderModule.kt")
     }
 
     fun getAppComponent(): String {
-        return withPackageNameReplaced(appComponentFile)
+        return withPackageNameReplacedFromAssets("AppComponent.kt")
     }
 
-    fun getUseRepository(): String {
-        return withPackageNameReplaced(userRepositoryFile)
+    fun getUserRepository(): String {
+        return withPackageNameReplacedFromAssets("UserPrefRepository.kt")
     }
 
     fun getLogInRequest(): String {
-        return withPackageNameReplaced(logInRequestFile)
+        return withPackageNameReplacedFromAssets("LogInRequest.kt")
     }
 
     fun getLogInResponse(): String {
-        return withPackageNameReplaced(logInResponseFile)
+        return withPackageNameReplacedFromAssets("LogInResponse.kt")
     }
 
     fun getAppModule(): String {
-        return withPackageNameReplaced(appModuleFile)
+        return withPackageNameReplacedFromAssets("AppModule.kt")
     }
 
     fun getNetworkModule(): String {
-        return withPackageNameReplaced(networkModuleFile)
+        return withPackageNameReplacedFromAssets("NetworkModule.kt")
     }
 
     fun getViewModelModule(): String {
-        return withPackageNameReplaced(viewModelModule)
+        return withPackageNameReplacedFromAssets("ViewModelModule.kt")
     }
 
+    fun getApiInterface(): String {
+        return withPackageNameReplacedFromAssets("ApiInterface.kt")
+    }
+
+    fun getSplashViewModel(): String {
+        return withPackageNameReplacedFromAssets("SplashViewModel.kt")
+    }
+
+    fun getSplashActivity(): String {
+        return withPackageNameReplacedFromAssets("SplashActivity.kt")
+    }
+
+    fun getStyles(): String {
+        return withPackageNameReplacedFromAssets("styles.xml")
+    }
+
+    fun getLogInActivity(): String {
+        return withPackageNameReplacedFromAssets("LogInActivity.kt")
+    }
+
+    fun getLogInViewModel(): String {
+        return withPackageNameReplacedFromAssets("LogInViewModel.kt")
+    }
+
+    fun getLogInClickHandler(): String {
+        return withPackageNameReplacedFromAssets("LogInClickHandler.kt")
+    }
+
+    fun getIds(): String {
+        return getAssetContent("ids.xml")
+    }
+
+    fun getAuthRepository(): String {
+        return withPackageNameReplacedFromAssets("AuthRepository.kt")
+    }
+
+    fun getSplashBg(): String {
+        return getAssetContent("splash_bg.xml")
+    }
+
+    fun getAndroidVectorIcon(): String {
+        return getAssetContent("ic_android_green_100dp.xml")
+    }
+
+    fun getLogInLayout(): String {
+        return withPackageNameReplacedFromAssets("activity_log_in.xml")
+    }
+
+    fun getStringsXml(): String {
+        return withAppNameReplacedFromAssets("strings.xml")
+    }
+
+    private fun withAppNameReplacedFromAssets(fileName: String): String {
+        return getAssetContent(fileName).replace(KEY_APP_NAME, project.name)
+    }
 }

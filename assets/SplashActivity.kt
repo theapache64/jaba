@@ -1,0 +1,55 @@
+package $PACKAGE_NAME.ui.activities.splash
+
+import android.os.Bundle
+import android.os.Handler
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import com.theapache64.twinkill.ui.activities.base.BaseAppCompatActivity
+import $PACKAGE_NAME.R
+import $PACKAGE_NAME.ui.activities.login.LogInActivity
+import $PACKAGE_NAME.ui.activities.main.MainActivity
+import dagger.android.AndroidInjection
+import javax.inject.Inject
+
+class SplashActivity : BaseAppCompatActivity() {
+
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
+        super.onCreate(savedInstanceState)
+
+        val viewModel = ViewModelProviders.of(this, factory).get(SplashViewModel::class.java)
+
+        // Watching activity launch command
+        viewModel.getLaunchActivityEvent().observe(this, Observer { activityId ->
+
+            when (activityId) {
+                MainActivity.ID -> {
+                    startActivity(MainActivity.getStartIntent(this))
+                }
+                LogInActivity.ID -> {
+                    startActivity(LogInActivity.getStartIntent(this))
+                }
+                else -> throw IllegalArgumentException("Undefined activity id $activityId")
+            }
+
+            finish()
+
+        })
+
+        // Starting splash timer
+        Handler().postDelayed({
+            viewModel.checkUser()
+        }, SPLASH_DURATION)
+
+    }
+
+
+    companion object {
+        private const val SPLASH_DURATION = 1000L
+    }
+
+}

@@ -20,6 +20,7 @@ class AndroidUtils(private val projectDir: String) {
     private var rootSrcPath: String? = null
 
     val mainLayoutFile = File("$projectDir/app/src/main/res/layout/activity_main.xml")
+    val logInLayoutFile = File("$projectDir/app/src/main/res/layout/activity_login.xml")
     val contentMainLayoutFile = File("$projectDir/app/src/main/res/layout/content_main.xml")
     val manifestFile = File("$projectDir/app/src/main/AndroidManifest.xml")
     val oldMainActivityFile = File("${provideRootSourcePath()}/MainActivity.kt")
@@ -34,6 +35,19 @@ class AndroidUtils(private val projectDir: String) {
     val appModuleFile = File("${provideRootSourcePath()}/di/modules/AppModule.kt")
     val networkModuleFile = File("${provideRootSourcePath()}/di/modules/NetworkModule.kt")
     val viewModelModuleFile = File("${provideRootSourcePath()}/di/modules/ViewModelModule.kt")
+    val apiInterfaceFile = File("${provideRootSourcePath()}/data/remote/ApiInterface.kt")
+    val splashViewModelFile = File("${provideRootSourcePath()}/ui/activities/splash/SplashViewModel.kt")
+    val splashActivityFile = File("${provideRootSourcePath()}/ui/activities/splash/SplashActivity.kt")
+    val stylesFile = File("$projectDir/app/src/main/res/values/styles.xml")
+    val splashBgFile = File("$projectDir/app/src/main/res/drawable/splash_bg.xml")
+    val idsFile = File("$projectDir/app/src/main/res/values/ids.xml")
+    val stringXmlFile = File("$projectDir/app/src/main/res/values/strings.xml")
+    val androidVectorIconFile = File("$projectDir/app/src/main/res/drawable/ic_android_green_100dp.xml")
+    val logInActivityFile = File("${provideRootSourcePath()}/ui/activities/login/LogInActivity.kt")
+    val logInViewModelFile = File("${provideRootSourcePath()}/ui/activities/login/LogInViewModel.kt")
+    val loginClickHandler = File("${provideRootSourcePath()}/ui/activities/login/LogInClickHandler.kt")
+    val authRepositoryFile = File("${provideRootSourcePath()}/data/repositories/AuthRepository.kt")
+    val userIconFile = File("$projectDir/app/src/main/res/drawable/ic_user.png")
 
     /**
      * Return true if it's an android project.

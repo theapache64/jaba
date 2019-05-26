@@ -125,7 +125,7 @@ class Jaba(
 
         // Create user pref repositories
         createFile(
-            assetManager.getUseRepository(),
+            assetManager.getUserRepository(),
             androidUtils.userRepoFile
         )
 
@@ -145,6 +145,85 @@ class Jaba(
         createFile(
             assetManager.getViewModelModule(),
             androidUtils.viewModelModuleFile
+        )
+
+        // Create ApiInterface
+        createFile(
+            assetManager.getApiInterface(),
+            androidUtils.apiInterfaceFile
+        )
+
+        // Create splash view model
+        createFile(
+            assetManager.getSplashViewModel(),
+            androidUtils.splashViewModelFile
+        )
+
+        // Create splash activity
+        createFile(
+            assetManager.getSplashActivity(),
+            androidUtils.splashActivityFile
+        )
+
+        // Replace with styles
+        createFile(
+            assetManager.getStyles(),
+            androidUtils.stylesFile
+        )
+
+        // Create ids
+        createFile(
+            assetManager.getIds(),
+            androidUtils.idsFile
+        )
+
+        // Create login activity
+        createFile(
+            assetManager.getLogInActivity(),
+            androidUtils.logInActivityFile
+        )
+
+        // Create login view model
+        createFile(
+            assetManager.getLogInViewModel(),
+            androidUtils.logInViewModelFile
+        )
+
+        // Create login click handler
+        createFile(
+            assetManager.getLogInClickHandler(),
+            androidUtils.loginClickHandler
+        )
+
+        // Create auth repository
+        createFile(
+            assetManager.getAuthRepository(),
+            androidUtils.authRepositoryFile
+        )
+
+        // Create splash bg
+        createFile(
+            assetManager.getSplashBg(),
+            androidUtils.splashBgFile
+        )
+
+        // Create vector icon
+        createFile(
+            assetManager.getAndroidVectorIcon(),
+            androidUtils.androidVectorIconFile
+        )
+
+        createFile(
+            assetManager.getLogInLayout(),
+            androidUtils.logInLayoutFile
+        )
+
+        AssetManager.userIcon.copyTo(androidUtils.userIconFile)
+
+        // Create string xml
+        createFile(
+            assetManager.getStringsXml(),
+            androidUtils.stringXmlFile
         )
 
     }
