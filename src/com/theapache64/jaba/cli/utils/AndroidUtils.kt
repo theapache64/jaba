@@ -7,6 +7,10 @@ import javax.xml.parsers.DocumentBuilderFactory
 
 class AndroidUtils(private val projectDir: String) {
 
+    companion object {
+        private const val KOTLIN_PLUGIN = "apply plugin: 'kotlin-android'"
+    }
+
     // Common files
     val gradleFile: File = File("$projectDir/app/build.gradle")
     val projectGradleFile = File("$projectDir/build.gradle")
@@ -137,6 +141,6 @@ class AndroidUtils(private val projectDir: String) {
         val mainProPath = providePackageName().replace(".", "/")
         val mainActPath = "$projectDir/app/src/main/java/$mainProPath/MainActivity.kt"
 
-        return gradleFileContents.contains(Jaba2.KOTLIN_PLUGIN) && File(mainActPath).exists()
+        return gradleFileContents.contains(KOTLIN_PLUGIN) && File(mainActPath).exists()
     }
 }
