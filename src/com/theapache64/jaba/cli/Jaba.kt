@@ -5,7 +5,7 @@ import com.theapache64.jaba.cli.utils.*
 import java.io.File
 import java.util.regex.Pattern
 
-class Jaba2(
+class Jaba(
     private val project: Project,
     private val androidUtils: AndroidUtils
 ) {
@@ -136,7 +136,16 @@ class Jaba2(
         )
 
         // Create NetworkModule
+        createFile(
+            assetManager.getNetworkModule(),
+            androidUtils.networkModuleFile
+        )
 
+        // Create viewModelModule
+        createFile(
+            assetManager.getViewModelModule(),
+            androidUtils.viewModelModuleFile
+        )
 
     }
 

@@ -12,8 +12,7 @@ import dagger.android.support.AndroidSupportInjectionModule
         NetworkModule::class,
         PreferenceModule::class,
         ViewModelModule::class,
-        ActivitiesBuilderModule::class,
-        FragmentsBuilderModule::class
+        ActivitiesBuilderModule::class
     ]
 )
 class AppModule(private val application: Application) {

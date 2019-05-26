@@ -1,6 +1,5 @@
 package com.theapache64.jaba.cli.utils
 
-import com.theapache64.jaba.cli.Jaba2
 import java.io.File
 import java.io.IOException
 import javax.xml.parsers.DocumentBuilderFactory
@@ -33,6 +32,8 @@ class AndroidUtils(private val projectDir: String) {
     val logInResponseFile = File("${provideRootSourcePath()}/data/remote/login/LogInResponse.kt")
     val userRepoFile = File("${provideRootSourcePath()}/data/repositories/UserPrefRepository.kt")
     val appModuleFile = File("${provideRootSourcePath()}/di/modules/AppModule.kt")
+    val networkModuleFile = File("${provideRootSourcePath()}/di/modules/NetworkModule.kt")
+    val viewModelModuleFile = File("${provideRootSourcePath()}/di/modules/ViewModelModule.kt")
 
     /**
      * Return true if it's an android project.

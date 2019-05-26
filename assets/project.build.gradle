@@ -2,6 +2,7 @@
 
 buildscript {
     ext {
+        // Core
         kotlin_version = '$KOTLIN_VERSION'
         compile_sdk_version = $COMPILE_SDK_VERSION
         min_sdk_version = $MIN_SDK_VERSION
@@ -11,6 +12,9 @@ buildscript {
         constraint_version = '$CONSTRAINT_VERSION'
         material_version = '$MATERIAL_VERSION'
         lifecycle_version = '2.1.0-alpha04'
+
+        // External
+        retrofit_version = '2.5.0'
 
         // Test
         junit_version = '$JUNIT_VERSION'

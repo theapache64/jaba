@@ -91,7 +91,7 @@ fun main() {
             )
 
 
-            Jaba2(project, androidUtils).build()
+            Jaba(project, androidUtils).build()
             // Jaba(androidUtils, project).buildOld()
 
         } else {

@@ -44,6 +44,8 @@ class AssetManager(
         private val logInRequestFile by lazy { File("assets/LogInRequest.kt") }
         private val logInResponseFile by lazy { File("assets/LogInResponse.kt") }
         private val appModuleFile by lazy { File("assets/AppModule.kt") }
+        private val networkModuleFile by lazy { File("assets/NetworkModule.kt") }
+        private val viewModelModule by lazy { File("assets/ViewModelModule.kt") }
     }
 
     /**
@@ -148,5 +150,12 @@ class AssetManager(
         return withPackageNameReplaced(appModuleFile)
     }
 
+    fun getNetworkModule(): String {
+        return withPackageNameReplaced(networkModuleFile)
+    }
+
+    fun getViewModelModule(): String {
+        return withPackageNameReplaced(viewModelModule)
+    }
 
 }
