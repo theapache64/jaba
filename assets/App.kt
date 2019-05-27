@@ -51,6 +51,6 @@ class App : Application(), HasActivityInjector {
 
 
     companion object {
-        private const val BASE_URL = "YOUR_API_URL_GOES_HERE"
+        private const val BASE_URL = "http://theapache64.com/mock_api/get_json/jaba/"
     }
 }

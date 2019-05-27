@@ -20,7 +20,7 @@ class AndroidUtils(private val projectDir: String) {
     private var rootSrcPath: String? = null
 
     val mainLayoutFile = File("$projectDir/app/src/main/res/layout/activity_main.xml")
-    val logInLayoutFile = File("$projectDir/app/src/main/res/layout/activity_login.xml")
+    val logInLayoutFile = File("$projectDir/app/src/main/res/layout/activity_log_in.xml")
     val contentMainLayoutFile = File("$projectDir/app/src/main/res/layout/content_main.xml")
     val manifestFile = File("$projectDir/app/src/main/AndroidManifest.xml")
     val oldMainActivityFile = File("${provideRootSourcePath()}/MainActivity.kt")

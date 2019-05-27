@@ -1,8 +1,8 @@
 package $PACKAGE_NAME.di.modules
 
-//import $PACKAGE_NAME.ui.activities.login.LogInActivity
+import $PACKAGE_NAME.ui.activities.login.LogInActivity
 import $PACKAGE_NAME.ui.activities.main.MainActivity
-//import $PACKAGE_NAME.ui.activities.splash.SplashActivity
+import $PACKAGE_NAME.ui.activities.splash.SplashActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -12,11 +12,11 @@ abstract class ActivitiesBuilderModule {
     /**
      * Activity
      */
-    /*@ContributesAndroidInjector
+    @ContributesAndroidInjector
     abstract fun getSplashActivity(): SplashActivity
 
     @ContributesAndroidInjector
-    abstract fun getLogInActivity(): LogInActivity*/
+    abstract fun getLogInActivity(): LogInActivity
 
     @ContributesAndroidInjector
     abstract fun getMainActivity(): MainActivity

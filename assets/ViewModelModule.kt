@@ -3,9 +3,9 @@ package $PACKAGE_NAME.di.modules
 import androidx.lifecycle.ViewModel
 import com.theapache64.twinkill.di.modules.BaseViewModelModule
 import com.theapache64.twinkill.utils.viewmodel.ViewModelKey
-//import $PACKAGE_NAME.ui.activities.login.LogInViewModel
+import $PACKAGE_NAME.ui.activities.login.LogInViewModel
 import $PACKAGE_NAME.ui.activities.main.MainViewModel
-//import $PACKAGE_NAME.ui.activities.splash.SplashViewModel
+import $PACKAGE_NAME.ui.activities.splash.SplashViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -15,7 +15,7 @@ import dagger.multibindings.IntoMap
 abstract class ViewModelModule {
 
 
-    /*@Binds
+    @Binds
     @IntoMap
     @ViewModelKey(SplashViewModel::class)
     abstract fun bindSplashViewModel(viewModel: SplashViewModel): ViewModel
@@ -23,7 +23,7 @@ abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(LogInViewModel::class)
-    abstract fun bindLogInViewModel(viewModel: LogInViewModel): ViewModel*/
+    abstract fun bindLogInViewModel(viewModel: LogInViewModel): ViewModel
 
     @Binds
     @IntoMap
