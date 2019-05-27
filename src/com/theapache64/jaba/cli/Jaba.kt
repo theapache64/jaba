@@ -208,10 +208,6 @@ class Jaba(
         )
 
         // Create vector icon
-        createFile(
-            assetManager.getAndroidVectorIcon(),
-            androidUtils.androidVectorIconFile
-        )
 
         createFile(
             assetManager.getLogInLayout(),
@@ -219,6 +215,7 @@ class Jaba(
         )
 
         AssetManager.userIcon.copyTo(androidUtils.userIconFile)
+        AssetManager.androidIcon.copyTo(androidUtils.androidIcon)
 
         // Create string xml
         createFile(

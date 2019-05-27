@@ -32,6 +32,7 @@ class AssetManager(
 
         private val projectBuildGradleFile by lazy { File("assets/project.build.gradle") }
         val userIcon by lazy { File("assets/ic_user.png") }
+        val androidIcon by lazy { File("assets/ic_android.png") }
     }
 
     /**

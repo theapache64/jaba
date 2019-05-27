@@ -10,7 +10,7 @@
     <item>
         <bitmap
                 android:gravity="center"
-                android:src="@drawable/ic_android_green_100dp" />
+                android:src="@drawable/ic_android" />
     </item>
 
 </layer-list>

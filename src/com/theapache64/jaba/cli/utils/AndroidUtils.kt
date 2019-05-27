@@ -42,7 +42,7 @@ class AndroidUtils(private val projectDir: String) {
     val splashBgFile = File("$projectDir/app/src/main/res/drawable/splash_bg.xml")
     val idsFile = File("$projectDir/app/src/main/res/values/ids.xml")
     val stringXmlFile = File("$projectDir/app/src/main/res/values/strings.xml")
-    val androidVectorIconFile = File("$projectDir/app/src/main/res/drawable/ic_android_green_100dp.xml")
+    val androidIcon = File("$projectDir/app/src/main/res/drawable/ic_android.png")
     val logInActivityFile = File("${provideRootSourcePath()}/ui/activities/login/LogInActivity.kt")
     val logInViewModelFile = File("${provideRootSourcePath()}/ui/activities/login/LogInViewModel.kt")
     val loginClickHandler = File("${provideRootSourcePath()}/ui/activities/login/LogInClickHandler.kt")

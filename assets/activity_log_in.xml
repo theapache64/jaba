@@ -86,18 +86,16 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!--Remember Me-->
-                <com.google.android.material.checkbox.MaterialCheckBox
+                <androidx.appcompat.widget.AppCompatCheckBox
                         android:id="@+id/mcb_remember_me"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:checked="@={viewModel.rememberMe}"
                         android:hint="@string/hint_remember_me"
-                        app:buttonTint="@color/blue_500"
                         app:layout_constraintEnd_toEndOf="@id/til_password"
                         app:layout_constraintStart_toStartOf="@id/til_password"
-                        app:layout_constraintTop_toBottomOf="@id/til_password"
-                        app:useMaterialThemeColors="true"/>
+                        app:layout_constraintTop_toBottomOf="@id/til_password"/>
 
                 <!--LogIn-->
                 <com.google.android.material.button.MaterialButton
