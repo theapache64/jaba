@@ -5,4 +5,7 @@
     <string name="hint_password">Password</string>
     <string name="action_login">LogIn</string>
     <string name="hint_remember_me">Remember Me</string>
+    <string name="action_logout">LogOut</string>
+    <string name="title_confirm">Confirm</string>
+    <string name="message_logout_confirm">Do you really want to logout ?</string>
 </resources>

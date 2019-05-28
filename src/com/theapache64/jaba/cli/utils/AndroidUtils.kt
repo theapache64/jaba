@@ -41,13 +41,17 @@ class AndroidUtils(private val projectDir: String) {
     val stylesFile = File("$projectDir/app/src/main/res/values/styles.xml")
     val splashBgFile = File("$projectDir/app/src/main/res/drawable/splash_bg.xml")
     val idsFile = File("$projectDir/app/src/main/res/values/ids.xml")
+    val colors = File("$projectDir/app/src/main/res/values/colors.xml")
     val stringXmlFile = File("$projectDir/app/src/main/res/values/strings.xml")
+    val colorsFile = File("$projectDir/app/src/main/res/values/colors.xml")
+    val menuMainFile = File("$projectDir/app/src/main/res/menu/menu_main.xml")
     val androidIcon = File("$projectDir/app/src/main/res/drawable/ic_android.png")
     val logInActivityFile = File("${provideRootSourcePath()}/ui/activities/login/LogInActivity.kt")
     val logInViewModelFile = File("${provideRootSourcePath()}/ui/activities/login/LogInViewModel.kt")
     val loginClickHandler = File("${provideRootSourcePath()}/ui/activities/login/LogInClickHandler.kt")
     val authRepositoryFile = File("${provideRootSourcePath()}/data/repositories/AuthRepository.kt")
     val userIconFile = File("$projectDir/app/src/main/res/drawable/ic_user.png")
+    val logOutIcon = File("$projectDir/app/src/main/res/drawable/ic_logout_white.xml")
 
     /**
      * Return true if it's an android project.

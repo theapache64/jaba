@@ -33,6 +33,8 @@ class AssetManager(
         private val projectBuildGradleFile by lazy { File("assets/project.build.gradle") }
         val userIcon by lazy { File("assets/ic_user.png") }
         val androidIcon by lazy { File("assets/ic_android.png") }
+        val logOutIcon by lazy { File("assets/ic_logout_white.xml") }
+        val colorsFile by lazy { File("assets/colors.xml") }
     }
 
     /**
@@ -204,5 +206,9 @@ class AssetManager(
 
     private fun withAppNameReplacedFromAssets(fileName: String): String {
         return getAssetContent(fileName).replace(KEY_APP_NAME, project.name)
+    }
+
+    fun getMenuMain(): String {
+        return getAssetContent("menu_main.xml")
     }
 }

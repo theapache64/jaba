@@ -216,6 +216,7 @@ class Jaba(
 
         AssetManager.userIcon.copyTo(androidUtils.userIconFile)
         AssetManager.androidIcon.copyTo(androidUtils.androidIcon)
+        AssetManager.logOutIcon.copyTo(androidUtils.logOutIcon)
 
         // Create string xml
         createFile(
@@ -223,6 +224,14 @@ class Jaba(
             androidUtils.stringXmlFile
         )
 
+        // Create menu main
+        createFile(
+            assetManager.getMenuMain(),
+            androidUtils.menuMainFile
+        )
+
+        // Create colors
+        AssetManager.colorsFile.copyTo(androidUtils.colorsFile, true)
     }
 
     private fun createFile(fileContent: String, file: File) {
