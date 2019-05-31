@@ -2,9 +2,5 @@
       xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="com.theapache64.jabroid.MainActivity">
-    <item
-            android:id="@+id/action_logout"
-            android:icon="@drawable/ic_logout_white"
-            android:title="@string/action_logout"
-            app:showAsAction="always"/>
+    $MENU_ITEM
 </menu>

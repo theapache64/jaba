@@ -6,10 +6,10 @@ import android.content.Context
 import com.theapache64.twinkill.TwinKill
 import com.theapache64.twinkill.di.modules.ContextModule
 import com.theapache64.twinkill.googlefonts.GoogleFonts
-import com.theapache64.twinkill.network.di.modules.BaseNetworkModule
+$TWINKILL_NETWORK_MODULE_IMPORTS
 import com.theapache64.twinkill.network.utils.retrofit.interceptors.AuthorizationInterceptor
 import com.theapache64.twinkill.network.utils.retrofit.interceptors.CurlInterceptor
-import $PACKAGE_NAME.data.repositories.UserPrefRepository
+$USER_REPOSITORY_IMPORT
 import $PACKAGE_NAME.di.components.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -32,7 +32,7 @@ class App : Application(), HasActivityInjector {
         // Dagger
         DaggerAppComponent.builder()
             .contextModule(ContextModule(this))
-            .baseNetworkModule(BaseNetworkModule(BASE_URL))
+            $DAGGER_NETWORK_MODULE_INIT
             .build()
             .inject(this)
 
@@ -40,9 +40,8 @@ class App : Application(), HasActivityInjector {
         TwinKill.init(
             TwinKill
                 .builder()
-                .setNeedDeepCheckOnNetworkResponse(true)
-                .addOkHttpInterceptor(AuthorizationInterceptor(userPrefRepository?.getUser()?.apiKey))
-                .addOkHttpInterceptor(CurlInterceptor())
+                $TWINKILL_NETWORK_MODULE_INIT
+                $TWINKILL_AUTHORIZATION_INIT
                 .setDefaultFont(GoogleFonts.GoogleSansRegular)
                 .build()
         )

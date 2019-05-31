@@ -50,13 +50,7 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
 
-    // Retrofit
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.14.0'
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
-
-    // Moshi
-    implementation 'com.squareup.moshi:moshi:1.8.0'
+    $NETWORK_DEPS
 
     // MaterialColors
     implementation 'com.theah64.materialcolors:materialcolors:1.0.0'
@@ -64,9 +58,9 @@ dependencies {
     // TwinKill
     def twinkill_version = '0.0.1-alpha04'
     implementation "com.theapache64.twinkill:core:$twinkill_version"
-    implementation "com.theapache64.twinkill:network:$twinkill_version"
     implementation "com.theapache64.twinkill:logger:$twinkill_version"
-    implementation "com.theapache64.twinkill:google_fonts:0.0.1-alpha01"
+    $TWINKILL_NETWORK_MODULE_DEPS
+    $GOOGLE_FONTS_DEPS
 
     // Test
     testImplementation "junit:junit:$junit_version"

@@ -48,7 +48,8 @@ class Jaba(
 
         doAppThings()
         doManifestThings()
-        doMainThings()
+
+        doMiscThings()
 
     }
 
@@ -70,7 +71,7 @@ class Jaba(
         )
     }
 
-    private fun doMainThings() {
+    private fun doMiscThings() {
 
         // Creating MainViewModel
         createFile(

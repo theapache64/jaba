@@ -5,7 +5,7 @@ import com.theapache64.jaba.cli.models.Project
 import com.theapache64.jaba.cli.utils.*
 import java.util.*
 
-const val IS_DEBUG = true
+const val IS_DEBUG = false
 const val ERROR_NOT_AN_ANDROID_PROJECT = "ERROR_NOT_AN_ANDROID_PROJECT"
 const val ERROR_UNSUPPORTED_ARCH = "UNSUPPORTED_ARCH"
 const val ERROR_NOT_KOTLIN_PROJECT = "NOT_KOTLIN_PROJECT"
@@ -21,8 +21,9 @@ fun main() {
 
 
     // Current directory will be treated as an android project
-//    val currentDir = if (IS_DEBUG) "lab/jabroid" else System.getProperty("user.dir") + "/../android"
+    //val currentDir = if (IS_DEBUG) "lab/jabroid" else System.getProperty("user.dir")
     val currentDir = "lab/jabroid"
+    //val currentDir = "/home/theapache64/Documents/projects/MyApp"
     val androidUtils = AndroidUtils(currentDir)
 
     if (androidUtils.isAndroidProject()) {
@@ -73,9 +74,14 @@ fun main() {
             val splashResponse = if (IS_DEBUG) "yes" else inputUtils.getString("Do you need splash screen? (y/N)", true)
             val isNeedSplashScreen = isYes(splashResponse)
 
-            // LogIn
-            val logInResponse = if (IS_DEBUG) "yes" else inputUtils.getString("Do you need login screen? (y/N)", true)
-            val isNeedLogInScreen = isYes(logInResponse)
+
+            val isNeedLogInScreen = if (isNeedNetwork) {
+                val logInResponse =
+                    if (IS_DEBUG) "yes" else inputUtils.getString("Do you need login screen? (y/N)", true)
+                isYes(logInResponse)
+            } else {
+                false
+            }
 
 
             val project = Project(
