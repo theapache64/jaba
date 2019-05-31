@@ -52,8 +52,19 @@ class AssetManager(
         private const val KEY_SPLASH_ACTIVITY_DECLARATION = "\$SPLASH_ACTIVITY_DECLARATION"
         private const val KEY_SPLASH_ACTIVITY_BUILDER = "\$SPLASH_ACTIVITY_BUILDER"
         private const val KEY_SPLASH_ACTIVITY_IMPORT = "\$SPLASH_ACTIVITY_IMPORT"
+        private const val KEY_RETROFIT_LOGIN_IMPORTS = "\$RETROFIT_LOGIN_IMPORTS"
 
 
+        private val RETROFIT_LOGIN_IMPORTS = """
+
+            import androidx.lifecycle.LiveData
+            import com.theapache64.twinkill.network.utils.Resource
+            import ${'$'}PACKAGE_NAME.data.remote.login.LogInRequest
+            import ${'$'}PACKAGE_NAME.data.remote.login.LogInResponse
+            import retrofit2.http.Body
+            import retrofit2.http.POST
+
+        """.trimIndent()
         private val SPLASH_ACTIVITY_IMPORT = "import \$PACKAGE_NAME.ui.activities.splash.SplashActivity"
         private val SPLASH_ACTIVITY_BUILDER = """
 
@@ -197,6 +208,18 @@ class AssetManager(
 
 
         private val USER_REPOSITORY_IMPORT = "import \$PACKAGE_NAME.data.repositories.UserPrefRepository"
+
+        /**
+         * Google fonts import
+         */
+        private const val KEY_GOOGLE_FONTS_IMPORT = "\$GOOGLE_FONTS_IMPORT"
+        private val GOOGLE_FONTS_IMPORT = "import com.theapache64.twinkill.googlefonts.GoogleFonts"
+
+        /**
+         * Google fonts init
+         */
+        private const val KEY_GOOGLE_FONTS_INIT = "\$GOOGLE_FONTS_INIT"
+        private const val GOOGLE_FONTS_INIT = " .setDefaultFont(GoogleFonts.GoogleSansRegular)"
     }
 
     /**
@@ -326,10 +349,10 @@ class AssetManager(
     fun getManifestFile(): String {
         return withPackageNameReplacedFromAssets("AndroidManifest.xml")
             .replace(KEY_LOGIN_ACTIVITY_DECLARATION, getLogInActivityDeclaration())
+            .replace(KEY_SPLASH_ACTIVITY_DECLARATION, getSplashActivityDeclaration())
             .replace(KEY_SPLASH_AS_MAIN, getSplashAsMain())
             .replace(KEY_MAIN_AS_MAIN, getMainAsMain())
             .replace(KEY_INTERNET_PERMISSION, INTERNET_PERMISSION)
-            .replace(KEY_SPLASH_ACTIVITY_DECLARATION, getSplashActivityDeclaration())
     }
 
 
@@ -373,10 +396,28 @@ class AssetManager(
         return getAssetContent("App.kt")
             .replace(KEY_TWINKILL_NETWORK_MODULE_IMPORTS, getTwinKillModuleImports())
             .replace(KEY_USER_REPOSITORY_IMPORT, getUserRepositoryImport())
-            .replace(KEY_PACKAGE_NAME, project.packageName)
             .replace(KEY_TWINKILL_NETWORK_MODULE_INIT, getTwinKillNetworkModuleInit())
             .replace(KEY_DAGGER_NETWORK_MODULE_INIT, getDaggerNetworkModuleInit())
             .replace(KEY_TWINKILL_AUTHORIZATION_INIT, getTwinKillAuthorizationInit())
+            .replace(KEY_GOOGLE_FONTS_IMPORT, getGoogleFontsImport())
+            .replace(KEY_GOOGLE_FONTS_INIT, getGoogleFontsInit())
+            .replace(KEY_PACKAGE_NAME, project.packageName)
+    }
+
+    private fun getGoogleFontsInit(): String {
+        return if (project.isNeedGoogleFontsModule) {
+            GOOGLE_FONTS_INIT
+        } else {
+            ""
+        }
+    }
+
+    private fun getGoogleFontsImport(): String {
+        return if (project.isNeedGoogleFontsModule) {
+            GOOGLE_FONTS_IMPORT
+        } else {
+            ""
+        }
     }
 
     private fun getTwinKillAuthorizationInit(): String {
@@ -485,8 +526,19 @@ class AssetManager(
     }
 
     fun getApiInterface(): String {
-        return withPackageNameReplacedFromAssets("ApiInterface.kt")
+        return getAssetContent("ApiInterface.kt")
             .replace(KEY_RETROFIT_LOGIN_METHOD, getRetrofitLogInMethod())
+            .replace(KEY_RETROFIT_LOGIN_IMPORTS, getRetrofitLogInImports())
+            .replace(KEY_PACKAGE_NAME, project.packageName)
+    }
+
+
+    private fun getRetrofitLogInImports(): String {
+        return if (project.isNeedLogInScreen) {
+            RETROFIT_LOGIN_IMPORTS
+        } else {
+            ""
+        }
     }
 
     private fun getRetrofitLogInMethod(): String {

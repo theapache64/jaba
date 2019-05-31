@@ -5,10 +5,8 @@ import android.app.Application
 import android.content.Context
 import com.theapache64.twinkill.TwinKill
 import com.theapache64.twinkill.di.modules.ContextModule
-import com.theapache64.twinkill.googlefonts.GoogleFonts
+$GOOGLE_FONTS_IMPORT
 $TWINKILL_NETWORK_MODULE_IMPORTS
-import com.theapache64.twinkill.network.utils.retrofit.interceptors.AuthorizationInterceptor
-import com.theapache64.twinkill.network.utils.retrofit.interceptors.CurlInterceptor
 $USER_REPOSITORY_IMPORT
 import $PACKAGE_NAME.di.components.DaggerAppComponent
 import dagger.android.AndroidInjector
@@ -42,7 +40,7 @@ class App : Application(), HasActivityInjector {
                 .builder()
                 $TWINKILL_NETWORK_MODULE_INIT
                 $TWINKILL_AUTHORIZATION_INIT
-                .setDefaultFont(GoogleFonts.GoogleSansRegular)
+                $GOOGLE_FONTS_INIT
                 .build()
         )
 
