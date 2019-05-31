@@ -220,6 +220,24 @@ class AssetManager(
          */
         private const val KEY_GOOGLE_FONTS_INIT = "\$GOOGLE_FONTS_INIT"
         private const val GOOGLE_FONTS_INIT = " .setDefaultFont(GoogleFonts.GoogleSansRegular)"
+
+        /**
+         * Network module
+         */
+        private const val KEY_NETWORK_MODULE_INC = "\$NETWORK_MODULE_INC"
+        private const val NETWORK_MODULE_INC = "NetworkModule::class,"
+
+        /**
+         * Preference module
+         */
+        private const val KEY_PREFERENCE_MODULE_INC = "\$PREFERENCE_MODULE_INC"
+        private const val PREFERENCE_MODULE_INC = "PreferenceModule::class,"
+
+        /**
+         * Preference module import
+         */
+        private const val KEY_PREFERENCE_MODULE_IMPORT = "\$PREFERENCE_MODULE_IMPORT"
+        private const val PREFERENCE_MODULE_IMPORT = "import com.theapache64.twinkill.di.modules.PreferenceModule"
     }
 
     /**
@@ -515,6 +533,33 @@ class AssetManager(
 
     fun getAppModule(): String {
         return withPackageNameReplacedFromAssets("AppModule.kt")
+            .replace(KEY_NETWORK_MODULE_INC, getNetworkModuleInclude())
+            .replace(KEY_PREFERENCE_MODULE_IMPORT, getPreferenceModuleImport())
+            .replace(KEY_PREFERENCE_MODULE_INC, getPreferenceModuleInclude())
+    }
+
+    private fun getPreferenceModuleImport(): String {
+        return if (project.isNeedLogInScreen) {
+            PREFERENCE_MODULE_IMPORT
+        } else {
+            ""
+        }
+    }
+
+    private fun getPreferenceModuleInclude(): String {
+        return if (project.isNeedLogInScreen) {
+            PREFERENCE_MODULE_INC
+        } else {
+            ""
+        }
+    }
+
+    private fun getNetworkModuleInclude(): String {
+        return if (project.isNeedNetworkModule) {
+            NETWORK_MODULE_INC
+        } else {
+            ""
+        }
     }
 
     fun getNetworkModule(): String {

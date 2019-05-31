@@ -1,7 +1,7 @@
 package $PACKAGE_NAME.di.modules
 
 import android.app.Application
-import com.theapache64.twinkill.di.modules.PreferenceModule
+$PREFERENCE_MODULE_IMPORT
 import dagger.Module
 import dagger.Provides
 import dagger.android.support.AndroidSupportInjectionModule
@@ -9,8 +9,8 @@ import dagger.android.support.AndroidSupportInjectionModule
 @Module(
     includes = [
         AndroidSupportInjectionModule::class,
-        NetworkModule::class,
-        PreferenceModule::class,
+        $NETWORK_MODULE_INC
+        $PREFERENCE_MODULE_INC
         ViewModelModule::class,
         ActivitiesBuilderModule::class
     ]
