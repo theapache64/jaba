@@ -1,13 +1,10 @@
 package $PACKAGE_NAME.ui.activities.main
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import $PACKAGE_NAME.data.repositories.UserPrefRepository
+$LOGIN_IMPORTS
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
-    private val userRepository: UserPrefRepository
+   $USER_PREF_CONSTRUCTOR
 ) : ViewModel() {
 
 

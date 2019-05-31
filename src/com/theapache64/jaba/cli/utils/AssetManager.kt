@@ -238,6 +238,25 @@ class AssetManager(
          */
         private const val KEY_PREFERENCE_MODULE_IMPORT = "\$PREFERENCE_MODULE_IMPORT"
         private const val PREFERENCE_MODULE_IMPORT = "import com.theapache64.twinkill.di.modules.PreferenceModule"
+
+        /**
+         * LogIn imports
+         */
+        private const val KEY_LOGIN_IMPORTS = "\$LOGIN_IMPORTS"
+        private val LOGIN_IMPORTS = """
+
+            import androidx.lifecycle.LiveData
+            import androidx.lifecycle.MutableLiveData
+            import androidx.lifecycle.ViewModel
+            import ${'$'}PACKAGE_NAME.data.repositories.UserPrefRepository
+
+        """.trimIndent()
+
+        /**
+         * User pref constructor
+         */
+        private const val KEY_USER_PREF_CONSTRUCTOR = "USER_PREF_CONSTRUCTOR"
+        private const val USER_PREF_CONSTRUCTOR = " private val userRepository: UserPrefRepository"
     }
 
     /**
@@ -479,7 +498,18 @@ class AssetManager(
     }
 
     fun getMainViewModel(): String {
-        return withPackageNameReplacedFromAssets("MainViewModel.kt")
+        return getAssetContent("MainViewModel.kt")
+            .replace(KEY_LOGIN_IMPORTS, getLogInImports())
+            .replace(KEY_USER_PREF_CONSTRUCTOR, getUserPrefConstructor())
+            .replace(KEY_PACKAGE_NAME, project.packageName)
+    }
+
+    private fun getLogInImports(): String {
+        return if (project.isNeedLogInScreen) {
+            LOGIN_IMPORTS
+        } else {
+            ""
+        }
     }
 
     fun getActivityMainLayout(): String {
