@@ -112,23 +112,51 @@ class Jaba(
             androidUtils.appComponentFile
         )
 
-        // Create login request file
-        createFile(
-            assetManager.getLogInRequest(),
-            androidUtils.logInRequestFile
-        )
+        if (project.isNeedLogInScreen) {
+            // Create login request file
+            createFile(
+                assetManager.getLogInRequest(),
+                androidUtils.logInRequestFile
+            )
 
-        // Creating login response
-        createFile(
-            assetManager.getLogInResponse(),
-            androidUtils.logInResponseFile
-        )
+            // Creating login response
+            createFile(
+                assetManager.getLogInResponse(),
+                androidUtils.logInResponseFile
+            )
 
-        // Create user pref repositories
-        createFile(
-            assetManager.getUserRepository(),
-            androidUtils.userRepoFile
-        )
+
+            // Create user pref repositories
+            createFile(
+                assetManager.getUserRepository(),
+                androidUtils.userRepoFile
+            )
+
+            // Create login activity
+            createFile(
+                assetManager.getLogInActivity(),
+                androidUtils.logInActivityFile
+            )
+
+            // Create login view model
+            createFile(
+                assetManager.getLogInViewModel(),
+                androidUtils.logInViewModelFile
+            )
+
+            // Create login click handler
+            createFile(
+                assetManager.getLogInClickHandler(),
+                androidUtils.loginClickHandler
+            )
+
+            // Create auth repository
+            createFile(
+                assetManager.getAuthRepository(),
+                androidUtils.authRepositoryFile
+            )
+        }
+
 
         // Create AppModule
         createFile(
@@ -178,29 +206,7 @@ class Jaba(
             androidUtils.idsFile
         )
 
-        // Create login activity
-        createFile(
-            assetManager.getLogInActivity(),
-            androidUtils.logInActivityFile
-        )
 
-        // Create login view model
-        createFile(
-            assetManager.getLogInViewModel(),
-            androidUtils.logInViewModelFile
-        )
-
-        // Create login click handler
-        createFile(
-            assetManager.getLogInClickHandler(),
-            androidUtils.loginClickHandler
-        )
-
-        // Create auth repository
-        createFile(
-            assetManager.getAuthRepository(),
-            androidUtils.authRepositoryFile
-        )
 
         // Create splash bg
         createFile(

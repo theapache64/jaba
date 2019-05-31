@@ -47,6 +47,31 @@ class AssetManager(
         private const val KEY_USER_REPOSITORY_IMPORT = "\$USER_REPOSITORY_IMPORT"
         private const val KEY_DAGGER_NETWORK_MODULE_INIT = "\$DAGGER_NETWORK_MODULE_INIT"
         private const val KEY_TWINKILL_AUTHORIZATION_INIT = "\$TWINKILL_AUTHORIZATION_INIT"
+        private const val KEY_INTERNET_PERMISSION = "\$INTERNET_PERMISSION"
+        private const val KEY_RETROFIT_LOGIN_METHOD = "\$RETROFIT_LOGIN_METHOD"
+        private const val KEY_SPLASH_ACTIVITY_DECLARATION = "\$SPLASH_ACTIVITY_DECLARATION"
+        private const val KEY_SPLASH_ACTIVITY_BUILDER = "\$SPLASH_ACTIVITY_BUILDER"
+        private const val KEY_SPLASH_ACTIVITY_IMPORT = "\$SPLASH_ACTIVITY_IMPORT"
+
+
+        private val SPLASH_ACTIVITY_IMPORT = "import \$PACKAGE_NAME.ui.activities.splash.SplashActivity"
+        private val SPLASH_ACTIVITY_BUILDER = """
+
+            @ContributesAndroidInjector
+            abstract fun getSplashActivity(): SplashActivity
+
+        """.trimIndent()
+
+
+        private val SPLASH_ACTIVITY_DECLARATION = """
+
+        <activity
+                android:name=".ui.activities.splash.SplashActivity"
+                android:theme="@style/SplashTheme">
+            ${'$'}SPLASH_AS_MAIN
+        </activity>
+
+    """.trimIndent()
 
         private val projectBuildGradleFile by lazy { File("assets/project.build.gradle") }
         val userIcon by lazy { File("assets/ic_user.png") }
@@ -54,9 +79,17 @@ class AssetManager(
         val logOutIcon by lazy { File("assets/ic_logout_white.xml") }
         val colorsFile by lazy { File("assets/colors.xml") }
 
+        private val RETROFIT_LOGIN_METHOD = """
+
+             @POST("login")
+            fun login(@Body logInRequest: LogInRequest): LiveData<Resource<LogInResponse>>
+
+        """.trimIndent()
         private val DAGGER_NETWORK_MODULE_INIT = ".baseNetworkModule(BaseNetworkModule(BASE_URL))"
         private val TWINKILL_AUTHORIZATION_INIT =
             ".addOkHttpInterceptor(AuthorizationInterceptor(userPrefRepository?.getUser()?.apiKey))"
+
+        private const val INTERNET_PERMISSION = "<uses-permission android:name=\"android.permission.INTERNET\"/>"
 
         private val NETWORK_DEPS = """
 
@@ -258,9 +291,9 @@ class AssetManager(
     fun getMainActivity(): String {
         return getAssetContent("MainActivity.kt")
             .replace(KEY_LOGIN_ACTIVITY_IMPORT, getLogInActivityImport())
-            .replace(KEY_PACKAGE_NAME, project.packageName)
             .replace(KEY_MENU_ITEM_HANDLER, getMenuItemHandler())
             .replace(KEY_LOGOUT_WATCHER, getLogOutWatcher())
+            .replace(KEY_PACKAGE_NAME, project.packageName)
     }
 
     private fun getLogOutWatcher(): String {
@@ -295,6 +328,17 @@ class AssetManager(
             .replace(KEY_LOGIN_ACTIVITY_DECLARATION, getLogInActivityDeclaration())
             .replace(KEY_SPLASH_AS_MAIN, getSplashAsMain())
             .replace(KEY_MAIN_AS_MAIN, getMainAsMain())
+            .replace(KEY_INTERNET_PERMISSION, INTERNET_PERMISSION)
+            .replace(KEY_SPLASH_ACTIVITY_DECLARATION, getSplashActivityDeclaration())
+    }
+
+
+    private fun getSplashActivityDeclaration(): String {
+        return if (project.isNeedSplashScreen) {
+            SPLASH_ACTIVITY_DECLARATION
+        } else {
+            ""
+        }
     }
 
     private fun getMainAsMain(): String {
@@ -337,7 +381,7 @@ class AssetManager(
 
     private fun getTwinKillAuthorizationInit(): String {
         return if (project.isNeedLogInScreen) {
-            return KEY_TWINKILL_AUTHORIZATION_INIT
+            return TWINKILL_AUTHORIZATION_INIT
         } else {
             ""
         }
@@ -391,7 +435,17 @@ class AssetManager(
         return getAssetContent("ActivitiesBuilderModule.kt")
             .replace(KEY_LOGIN_ACTIVITY_IMPORT, getLogInActivityImport())
             .replace(KEY_LOGIN_ACTIVITY_BUILDER, getLogInActivityBuilder())
+            .replace(KEY_SPLASH_ACTIVITY_IMPORT, getSplashActivityImport())
+            .replace(KEY_SPLASH_ACTIVITY_BUILDER, getSplashActivityBuilder())
             .replace(KEY_PACKAGE_NAME, project.packageName)
+    }
+
+    private fun getSplashActivityImport(): String {
+        return if (project.isNeedSplashScreen) {
+            SPLASH_ACTIVITY_IMPORT
+        } else {
+            ""
+        }
     }
 
     private fun getLogInActivityBuilder(): String {
@@ -432,6 +486,15 @@ class AssetManager(
 
     fun getApiInterface(): String {
         return withPackageNameReplacedFromAssets("ApiInterface.kt")
+            .replace(KEY_RETROFIT_LOGIN_METHOD, getRetrofitLogInMethod())
+    }
+
+    private fun getRetrofitLogInMethod(): String {
+        return if (project.isNeedNetworkModule) {
+            RETROFIT_LOGIN_METHOD
+        } else {
+            ""
+        }
     }
 
     fun getSplashViewModel(): String {
@@ -440,6 +503,14 @@ class AssetManager(
 
     fun getSplashActivity(): String {
         return withPackageNameReplacedFromAssets("SplashActivity.kt")
+    }
+
+    private fun getSplashActivityBuilder(): String {
+        return if (project.isNeedSplashScreen) {
+            SPLASH_ACTIVITY_BUILDER
+        } else {
+            ""
+        }
     }
 
     fun getStyles(): String {

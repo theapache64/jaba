@@ -3,7 +3,7 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="$PACKAGE_NAME">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    $INTERNET_PERMISSION
 
     <application
             android:name=".App"
@@ -18,11 +18,7 @@
             tools:targetApi="m">
 
         <!-- Splash -->
-        <activity
-                android:name=".ui.activities.splash.SplashActivity"
-                android:theme="@style/SplashTheme">
-            $SPLASH_AS_MAIN
-        </activity>
+        $SPLASH_ACTIVITY_DECLARATION
 
         $LOGIN_ACTIVITY_DECLARATION
 

@@ -8,8 +8,6 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface ApiInterface {
-
-    @POST("login")
-    fun login(@Body logInRequest: LogInRequest): LiveData<Resource<LogInResponse>>
+    $RETROFIT_LOGIN_METHOD
 }
 
