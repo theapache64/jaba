@@ -4,7 +4,7 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import com.theapache64.twinkill.TwinKill
-import com.theapache64.twinkill.di.modules.ContextModule
+$CONTEXT_MODULE_IMPORT
 $GOOGLE_FONTS_IMPORT
 $TWINKILL_NETWORK_MODULE_IMPORTS
 $USER_REPOSITORY_IMPORT
@@ -19,8 +19,7 @@ class App : Application(), HasActivityInjector {
     @Inject
     lateinit var activityInjector: DispatchingAndroidInjector<Activity>
 
-    var userPrefRepository: UserPrefRepository? = null
-        @Inject set
+    $USER_PREF_REPO_INJECT
 
     override fun activityInjector(): AndroidInjector<Activity> = activityInjector
 
@@ -29,7 +28,7 @@ class App : Application(), HasActivityInjector {
 
         // Dagger
         DaggerAppComponent.builder()
-            .contextModule(ContextModule(this))
+            $CONTEXT_MODULE_INIT
             $DAGGER_NETWORK_MODULE_INIT
             .build()
             .inject(this)

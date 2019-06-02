@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="MAIN_ACTIVITY_ID" type="id" />
-    <item name="LOG_IN_ACTIVITY_ID" type="id" />
+    $LOGIN_ACT_ID_RES
 </resources>

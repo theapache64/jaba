@@ -4,13 +4,12 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.theapache64.twinkill.utils.livedata.SingleLiveEvent
-import $PACKAGE_NAME.data.repositories.UserPrefRepository
-import $PACKAGE_NAME.ui.activities.login.LogInActivity
+$LOGIN_IMPORTS
 import $PACKAGE_NAME.ui.activities.main.MainActivity
 import javax.inject.Inject
 
 class SplashViewModel @Inject constructor(
-    private val userPrefRepository: UserPrefRepository
+    $USER_PREF_CONSTRUCTOR
 ) : ViewModel() {
 
     private val launchActivityEvent = SingleLiveEvent<Int>()
@@ -19,12 +18,9 @@ class SplashViewModel @Inject constructor(
         return launchActivityEvent
     }
 
-    fun checkUser() {
-        // if theUser == null -> login else main
-        val user = userPrefRepository.getUser()
-        val activityId = if (user == null) LogInActivity.ID else MainActivity.ID
+    fun goToNextScreen() {
 
-        Log.i(TAG, "User is ${user?.name}")
+        $ACTIVITY_ID
 
         // passing id with the finish notification
         launchActivityEvent.notifyFinished(activityId)

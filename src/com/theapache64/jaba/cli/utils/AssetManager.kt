@@ -247,16 +247,158 @@ class AssetManager(
 
             import androidx.lifecycle.LiveData
             import androidx.lifecycle.MutableLiveData
-            import androidx.lifecycle.ViewModel
             import ${'$'}PACKAGE_NAME.data.repositories.UserPrefRepository
 
         """.trimIndent()
 
+        private val LOGIN_IMPORTS_SPLASH_VM = """
+
+            import ${'$'}PACKAGE_NAME.data.repositories.UserPrefRepository
+            import ${'$'}PACKAGE_NAME.ui.activities.login.LogInActivity
+
+        """.trimIndent()
+
+        private const val KEY_ACTIVITY_ID = "\$ACTIVITY_ID"
+        private val SPLASH_VM_CHECK_USER = """
+
+            // if theUser == null -> login else main
+            val user = userPrefRepository.getUser()
+            val activityId = if (user == null) LogInActivity.ID else MainActivity.ID
+
+            Log.i(TAG, "User is ${'$'}{user?.name}")
+
+        """.trimIndent()
+
+        private val SPLASH_VM_MAIN_ACT = "val activityId = MainActivity.ID"
+
         /**
          * User pref constructor
          */
-        private const val KEY_USER_PREF_CONSTRUCTOR = "USER_PREF_CONSTRUCTOR"
+        private const val KEY_USER_PREF_CONSTRUCTOR = "\$USER_PREF_CONSTRUCTOR"
         private const val USER_PREF_CONSTRUCTOR = " private val userRepository: UserPrefRepository"
+
+        /**
+         * Logout methods
+         */
+        private const val KEY_LOGOUT_METHODS = "\$LOGOUT_METHODS"
+        private val LOGOUT_METHODS = """
+
+            private val isLoggedOut = MutableLiveData<Boolean>()
+            fun getLoggedOut(): LiveData<Boolean> = isLoggedOut
+
+            /**
+             * Clears preference and logout user
+             */
+            fun logout() {
+                userRepository.clearUser()
+                isLoggedOut.value = true
+            }
+
+        """.trimIndent()
+
+
+        /**
+         * LogIn strings
+         */
+        private const val KEY_LOGIN_STRINGS = "\$LOGIN_STRINGS"
+        private val LOGIN_STRINGS = """
+
+            <string name="hint_username">Username</string>
+            <string name="hint_password">Password</string>
+            <string name="action_login">LogIn</string>
+            <string name="hint_remember_me">Remember Me</string>
+            <string name="action_logout">LogOut</string>
+            <string name="title_confirm">Confirm</string>
+            <string name="message_logout_confirm">Do you really want to logout ?</string>
+
+        """.trimIndent()
+
+        /**
+         * Splash theme
+         */
+        private const val KEY_SPLASH_THEME = "\$SPLASH_THEME"
+        private val SPLASH_THEME = """
+            <style name="SplashTheme" parent="AppTheme">
+                <item name="android:windowBackground">@drawable/splash_bg</item>
+            </style>
+        """.trimIndent()
+
+        /**
+         * Splash VM Import
+         */
+        private const val KEY_SPLASH_VM_IMPORT = "\$SPLASH_VM_IMPORT"
+        private const val SPLASH_VM_IMPORT = "import \$PACKAGE_NAME.ui.activities.splash.SplashViewModel"
+
+        /**
+         * LogIn VM Import
+         */
+        private const val KEY_LOGIN_VM_IMPORT = "\$LOGIN_VM_IMPORT"
+        private const val LOGIN_VM_IMPORT = "import \$PACKAGE_NAME.ui.activities.login.LogInViewModel"
+
+        /**
+         * Splash VM bind
+         */
+        private const val KEY_SPLASH_VM_BIND = "\$SPLASH_VM_BIND"
+        private val SPLASH_VM_BIND = """
+
+            @Binds
+            @IntoMap
+            @ViewModelKey(SplashViewModel::class)
+            abstract fun bindSplashViewModel(viewModel: SplashViewModel): ViewModel
+
+        """.trimIndent()
+
+        /**
+         * LogIn VM bind
+         */
+        private const val KEY_LOGIN_VM_BIND = "\$LOGIN_VM_BIND"
+        private val LOGIN_VM_BIND = """
+
+            @Binds
+            @IntoMap
+            @ViewModelKey(LogInViewModel::class)
+            abstract fun bindLogInViewModel(viewModel: LogInViewModel): ViewModel
+
+        """.trimIndent()
+
+
+        /**
+         * LogIN launcher
+         */
+        private const val KEY_LOGIN_LAUNCHER = "\$LOGIN_LAUNCHER"
+        private val LOGIN_LAUNCHER = """
+
+             LogInActivity.ID -> {
+                startActivity(LogInActivity.getStartIntent(this))
+             }
+
+        """.trimIndent()
+
+        private const val KEY_LOGIN_ACT_ID_RES = "\$LOGIN_ACT_ID_RES"
+        private const val LOGIN_ACT_ID_RES = "<item name=\"LOG_IN_ACTIVITY_ID\" type=\"id\" />"
+
+        /**
+         * User pref repo inject
+         */
+        private const val KEY_USER_PREF_REPO_INJECT = "\$USER_PREF_REPO_INJECT"
+        private val USER_PREF_REPO_INJECT = """
+
+            var userPrefRepository: UserPrefRepository? = null
+            @Inject set
+
+        """.trimIndent()
+
+        /**
+         * Context module import
+         */
+        private const val KEY_CONTEXT_MODULE_IMPORT = "\$CONTEXT_MODULE_IMPORT"
+        private const val CONTEXT_MODULE_IMPORT = "import com.theapache64.twinkill.di.modules.ContextModule"
+
+        /**
+         * Context module init
+         */
+        private const val KEY_CONTEXT_MODULE_INIT = "\$CONTEXT_MODULE_INIT"
+        private const val CONTEXT_MODULE_INIT = ".contextModule(ContextModule(this))"
     }
 
     /**
@@ -433,12 +575,39 @@ class AssetManager(
         return getAssetContent("App.kt")
             .replace(KEY_TWINKILL_NETWORK_MODULE_IMPORTS, getTwinKillModuleImports())
             .replace(KEY_USER_REPOSITORY_IMPORT, getUserRepositoryImport())
+            .replace(KEY_USER_PREF_REPO_INJECT, getUserPrefRepoInject())
+            .replace(KEY_CONTEXT_MODULE_IMPORT, getContextModuleImport())
+            .replace(KEY_CONTEXT_MODULE_INIT, getContextModuleInit())
             .replace(KEY_TWINKILL_NETWORK_MODULE_INIT, getTwinKillNetworkModuleInit())
             .replace(KEY_DAGGER_NETWORK_MODULE_INIT, getDaggerNetworkModuleInit())
             .replace(KEY_TWINKILL_AUTHORIZATION_INIT, getTwinKillAuthorizationInit())
             .replace(KEY_GOOGLE_FONTS_IMPORT, getGoogleFontsImport())
             .replace(KEY_GOOGLE_FONTS_INIT, getGoogleFontsInit())
             .replace(KEY_PACKAGE_NAME, project.packageName)
+    }
+
+    private fun getContextModuleInit(): String {
+        return if (project.isNeedLogInScreen) {
+            CONTEXT_MODULE_INIT
+        } else {
+            ""
+        }
+    }
+
+    private fun getContextModuleImport(): String {
+        return if (project.isNeedLogInScreen) {
+            CONTEXT_MODULE_IMPORT
+        } else {
+            ""
+        }
+    }
+
+    private fun getUserPrefRepoInject(): String {
+        return if (project.isNeedLogInScreen) {
+            USER_PREF_REPO_INJECT
+        } else {
+            ""
+        }
     }
 
     private fun getGoogleFontsInit(): String {
@@ -501,7 +670,24 @@ class AssetManager(
         return getAssetContent("MainViewModel.kt")
             .replace(KEY_LOGIN_IMPORTS, getLogInImports())
             .replace(KEY_USER_PREF_CONSTRUCTOR, getUserPrefConstructor())
+            .replace(KEY_LOGOUT_METHODS, getLogOutMethods())
             .replace(KEY_PACKAGE_NAME, project.packageName)
+    }
+
+    private fun getLogOutMethods(): String {
+        return if (project.isNeedLogInScreen) {
+            LOGOUT_METHODS
+        } else {
+            ""
+        }
+    }
+
+    private fun getUserPrefConstructor(): String {
+        return if (project.isNeedLogInScreen) {
+            USER_PREF_CONSTRUCTOR
+        } else {
+            ""
+        }
     }
 
     private fun getLogInImports(): String {
@@ -597,8 +783,46 @@ class AssetManager(
     }
 
     fun getViewModelModule(): String {
-        return withPackageNameReplacedFromAssets("ViewModelModule.kt")
+        return getAssetContent("ViewModelModule.kt")
+            .replace(KEY_SPLASH_VM_IMPORT, getSplashVmImport())
+            .replace(KEY_LOGIN_VM_IMPORT, getLogInVmImport())
+            .replace(KEY_SPLASH_VM_BIND, getSplashVmBind())
+            .replace(KEY_LOGIN_VM_BIND, getLogInVmBind())
+            .replace(KEY_PACKAGE_NAME, project.packageName)
     }
+
+    private fun getLogInVmBind(): String {
+        return if (project.isNeedLogInScreen) {
+            LOGIN_VM_BIND
+        } else {
+            ""
+        }
+    }
+
+    private fun getSplashVmBind(): String {
+        return if (project.isNeedSplashScreen) {
+            SPLASH_VM_BIND
+        } else {
+            ""
+        }
+    }
+
+    private fun getLogInVmImport(): String {
+        return if (project.isNeedLogInScreen) {
+            LOGIN_VM_IMPORT
+        } else {
+            ""
+        }
+    }
+
+    private fun getSplashVmImport(): String {
+        return if (project.isNeedSplashScreen) {
+            SPLASH_VM_IMPORT
+        } else {
+            ""
+        }
+    }
+
 
     fun getApiInterface(): String {
         return getAssetContent("ApiInterface.kt")
@@ -625,11 +849,42 @@ class AssetManager(
     }
 
     fun getSplashViewModel(): String {
-        return withPackageNameReplacedFromAssets("SplashViewModel.kt")
+        return getAssetContent("SplashViewModel.kt")
+            .replace(KEY_LOGIN_IMPORTS, getLogInImportsForSplashVM())
+            .replace(KEY_ACTIVITY_ID, getActivityId())
+            .replace(KEY_USER_PREF_CONSTRUCTOR, getUserPrefConstructor())
+            .replace(KEY_PACKAGE_NAME, project.packageName)
+    }
+
+    private fun getActivityId(): String {
+        return if (project.isNeedLogInScreen) {
+            SPLASH_VM_CHECK_USER
+        } else {
+            SPLASH_VM_MAIN_ACT
+        }
+    }
+
+    private fun getLogInImportsForSplashVM(): String {
+        return if (project.isNeedLogInScreen) {
+            LOGIN_IMPORTS_SPLASH_VM
+        } else {
+            ""
+        }
     }
 
     fun getSplashActivity(): String {
-        return withPackageNameReplacedFromAssets("SplashActivity.kt")
+        return getAssetContent("SplashActivity.kt")
+            .replace(KEY_LOGIN_LAUNCHER, getLogInLauncher())
+            .replace(KEY_LOGIN_ACTIVITY_IMPORT, getLogInActivityImport())
+            .replace(KEY_PACKAGE_NAME, project.packageName)
+    }
+
+    private fun getLogInLauncher(): String {
+        return if (project.isNeedLogInScreen) {
+            LOGIN_LAUNCHER
+        } else {
+            ""
+        }
     }
 
     private fun getSplashActivityBuilder(): String {
@@ -641,7 +896,16 @@ class AssetManager(
     }
 
     fun getStyles(): String {
-        return withPackageNameReplacedFromAssets("styles.xml")
+        return getAssetContent("styles.xml")
+            .replace(KEY_SPLASH_THEME, getSplashTheme())
+    }
+
+    private fun getSplashTheme(): String {
+        return if (project.isNeedSplashScreen) {
+            SPLASH_THEME
+        } else {
+            ""
+        }
     }
 
     fun getLogInActivity(): String {
@@ -658,6 +922,15 @@ class AssetManager(
 
     fun getIds(): String {
         return getAssetContent("ids.xml")
+            .replace(KEY_LOGIN_ACT_ID_RES, getLogInActIdRes())
+    }
+
+    private fun getLogInActIdRes(): String {
+        return if (project.isNeedLogInScreen) {
+            LOGIN_ACT_ID_RES
+        } else {
+            ""
+        }
     }
 
     fun getAuthRepository(): String {
@@ -677,7 +950,17 @@ class AssetManager(
     }
 
     fun getStringsXml(): String {
-        return withAppNameReplacedFromAssets("strings.xml")
+        return getAssetContent("strings.xml")
+            .replace(KEY_LOGIN_STRINGS, getLogInStrings())
+            .replace(KEY_APP_NAME, project.name)
+    }
+
+    private fun getLogInStrings(): String {
+        return if (project.isNeedLogInScreen) {
+            LOGIN_STRINGS
+        } else {
+            ""
+        }
     }
 
     private fun withAppNameReplacedFromAssets(fileName: String): String {

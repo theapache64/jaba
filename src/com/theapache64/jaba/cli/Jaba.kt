@@ -112,49 +112,74 @@ class Jaba(
             androidUtils.appComponentFile
         )
 
-        if (project.isNeedLogInScreen) {
-            // Create login request file
+        if (project.isNeedNetworkModule) {
+
+            // Create NetworkModule
             createFile(
-                assetManager.getLogInRequest(),
-                androidUtils.logInRequestFile
+                assetManager.getNetworkModule(),
+                androidUtils.networkModuleFile
             )
 
-            // Creating login response
+            // Create ApiInterface
             createFile(
-                assetManager.getLogInResponse(),
-                androidUtils.logInResponseFile
+                assetManager.getApiInterface(),
+                androidUtils.apiInterfaceFile
             )
 
+            if (project.isNeedLogInScreen) {
 
-            // Create user pref repositories
-            createFile(
-                assetManager.getUserRepository(),
-                androidUtils.userRepoFile
-            )
+                // Create login request file
+                createFile(
+                    assetManager.getLogInRequest(),
+                    androidUtils.logInRequestFile
+                )
 
-            // Create login activity
-            createFile(
-                assetManager.getLogInActivity(),
-                androidUtils.logInActivityFile
-            )
+                // Creating login response
+                createFile(
+                    assetManager.getLogInResponse(),
+                    androidUtils.logInResponseFile
+                )
 
-            // Create login view model
-            createFile(
-                assetManager.getLogInViewModel(),
-                androidUtils.logInViewModelFile
-            )
 
-            // Create login click handler
-            createFile(
-                assetManager.getLogInClickHandler(),
-                androidUtils.loginClickHandler
-            )
+                // Create user pref repositories
+                createFile(
+                    assetManager.getUserRepository(),
+                    androidUtils.userRepoFile
+                )
 
-            // Create auth repository
-            createFile(
-                assetManager.getAuthRepository(),
-                androidUtils.authRepositoryFile
-            )
+                // Create login activity
+                createFile(
+                    assetManager.getLogInActivity(),
+                    androidUtils.logInActivityFile
+                )
+
+                // Create login view model
+                createFile(
+                    assetManager.getLogInViewModel(),
+                    androidUtils.logInViewModelFile
+                )
+
+                // Create login click handler
+                createFile(
+                    assetManager.getLogInClickHandler(),
+                    androidUtils.loginClickHandler
+                )
+
+                // Create auth repository
+                createFile(
+                    assetManager.getAuthRepository(),
+                    androidUtils.authRepositoryFile
+                )
+
+                createFile(
+                    assetManager.getLogInLayout(),
+                    androidUtils.logInLayoutFile
+                )
+
+
+                AssetManager.userIcon.copyTo(androidUtils.userIconFile)
+                AssetManager.logOutIcon.copyTo(androidUtils.logOutIcon)
+            }
         }
 
 
@@ -164,11 +189,6 @@ class Jaba(
             androidUtils.appModuleFile
         )
 
-        // Create NetworkModule
-        createFile(
-            assetManager.getNetworkModule(),
-            androidUtils.networkModuleFile
-        )
 
         // Create viewModelModule
         createFile(
@@ -176,29 +196,36 @@ class Jaba(
             androidUtils.viewModelModuleFile
         )
 
-        // Create ApiInterface
-        createFile(
-            assetManager.getApiInterface(),
-            androidUtils.apiInterfaceFile
-        )
 
-        // Create splash view model
-        createFile(
-            assetManager.getSplashViewModel(),
-            androidUtils.splashViewModelFile
-        )
+        if (project.isNeedSplashScreen) {
 
-        // Create splash activity
-        createFile(
-            assetManager.getSplashActivity(),
-            androidUtils.splashActivityFile
-        )
+            // Create splash view model
+            createFile(
+                assetManager.getSplashViewModel(),
+                androidUtils.splashViewModelFile
+            )
 
-        // Replace with styles
-        createFile(
-            assetManager.getStyles(),
-            androidUtils.stylesFile
-        )
+            // Create splash activity
+            createFile(
+                assetManager.getSplashActivity(),
+                androidUtils.splashActivityFile
+            )
+
+            // Replace with styles
+            createFile(
+                assetManager.getStyles(),
+                androidUtils.stylesFile
+            )
+
+
+            // Create splash bg
+            createFile(
+                assetManager.getSplashBg(),
+                androidUtils.splashBgFile
+            )
+
+        }
+
 
         // Create ids
         createFile(
@@ -207,23 +234,8 @@ class Jaba(
         )
 
 
-
-        // Create splash bg
-        createFile(
-            assetManager.getSplashBg(),
-            androidUtils.splashBgFile
-        )
-
         // Create vector icon
-
-        createFile(
-            assetManager.getLogInLayout(),
-            androidUtils.logInLayoutFile
-        )
-
-        AssetManager.userIcon.copyTo(androidUtils.userIconFile)
         AssetManager.androidIcon.copyTo(androidUtils.androidIcon)
-        AssetManager.logOutIcon.copyTo(androidUtils.logOutIcon)
 
         // Create string xml
         createFile(

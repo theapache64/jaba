@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.theapache64.twinkill.ui.activities.base.BaseAppCompatActivity
 import $PACKAGE_NAME.R
-import $PACKAGE_NAME.ui.activities.login.LogInActivity
+$LOGIN_ACTIVITY_IMPORT
 import $PACKAGE_NAME.ui.activities.main.MainActivity
 import dagger.android.AndroidInjection
 import javax.inject.Inject
@@ -30,9 +30,7 @@ class SplashActivity : BaseAppCompatActivity() {
                 MainActivity.ID -> {
                     startActivity(MainActivity.getStartIntent(this))
                 }
-                LogInActivity.ID -> {
-                    startActivity(LogInActivity.getStartIntent(this))
-                }
+                $LOGIN_LAUNCHER
                 else -> throw IllegalArgumentException("Undefined activity id $activityId")
             }
 
@@ -42,7 +40,7 @@ class SplashActivity : BaseAppCompatActivity() {
 
         // Starting splash timer
         Handler().postDelayed({
-            viewModel.checkUser()
+            viewModel.goToNextScreen()
         }, SPLASH_DURATION)
 
     }
