@@ -272,7 +272,6 @@ class Jaba(
 
         val dirsToCreate = mutableListOf<String>(
             "data/local",
-            "data/remote",
             "data/repositories",
 
             "di/components",
@@ -283,6 +282,10 @@ class Jaba(
             "ui/activities/main",
             "utils"
         )
+
+        if (project.isNeedNetworkModule) {
+            dirsToCreate.add("data/remote")
+        }
 
         if (project.isNeedLogInScreen) {
             dirsToCreate.add("ui/activities/login")

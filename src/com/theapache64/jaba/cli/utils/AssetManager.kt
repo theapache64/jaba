@@ -53,6 +53,7 @@ class AssetManager(
         private const val KEY_SPLASH_ACTIVITY_BUILDER = "\$SPLASH_ACTIVITY_BUILDER"
         private const val KEY_SPLASH_ACTIVITY_IMPORT = "\$SPLASH_ACTIVITY_IMPORT"
         private const val KEY_RETROFIT_LOGIN_IMPORTS = "\$RETROFIT_LOGIN_IMPORTS"
+        private const val KEY_BASE_API_URL = "\$BASE_API_URL"
 
 
         private val RETROFIT_LOGIN_IMPORTS = """
@@ -116,7 +117,7 @@ class AssetManager(
 
         private const val GOOGLE_FONTS_DEPS = "implementation \"com.theapache64.twinkill:google_fonts:0.0.1-alpha01\""
         private const val TWINKILL_NETWORK_MODULE_DEPS =
-            "implementation \"com.theapache64.twinkill:network:\$twinkill_version"
+            "implementation \"com.theapache64.twinkill:network:\$twinkill_version\""
         private const val RETROFIT_VERSION = "retrofit_version = '2.5.0'"
 
         private val LOGOUT_MENU_ITEM = """
@@ -202,7 +203,6 @@ class AssetManager(
             import com.theapache64.twinkill.network.di.modules.BaseNetworkModule
             import com.theapache64.twinkill.network.utils.retrofit.interceptors.AuthorizationInterceptor
             import com.theapache64.twinkill.network.utils.retrofit.interceptors.CurlInterceptor
-            import ${'$'}PACKAGE_NAME.data.repositories.UserPrefRepository
 
         """.trimIndent()
 
@@ -275,7 +275,7 @@ class AssetManager(
          * User pref constructor
          */
         private const val KEY_USER_PREF_CONSTRUCTOR = "\$USER_PREF_CONSTRUCTOR"
-        private const val USER_PREF_CONSTRUCTOR = " private val userRepository: UserPrefRepository"
+        private const val USER_PREF_CONSTRUCTOR = " private val userPrefRepository: UserPrefRepository"
 
         /**
          * Logout methods
@@ -290,7 +290,7 @@ class AssetManager(
              * Clears preference and logout user
              */
             fun logout() {
-                userRepository.clearUser()
+                userPrefRepository.clearUser()
                 isLoggedOut.value = true
             }
 
@@ -399,6 +399,16 @@ class AssetManager(
          */
         private const val KEY_CONTEXT_MODULE_INIT = "\$CONTEXT_MODULE_INIT"
         private const val CONTEXT_MODULE_INIT = ".contextModule(ContextModule(this))"
+
+        /**
+         * Base URL
+         */
+        private const val KEY_BASE_URL = "\$BASE_URL"
+        private val BASE_URL = """
+            companion object {
+                private const val BASE_URL = "${'$'}BASE_API_URL"
+            }
+        """.trimIndent()
     }
 
     /**
@@ -583,7 +593,25 @@ class AssetManager(
             .replace(KEY_TWINKILL_AUTHORIZATION_INIT, getTwinKillAuthorizationInit())
             .replace(KEY_GOOGLE_FONTS_IMPORT, getGoogleFontsImport())
             .replace(KEY_GOOGLE_FONTS_INIT, getGoogleFontsInit())
+            .replace(KEY_BASE_URL, getBaseUrl())
+            .replace(KEY_BASE_API_URL, getBaseApiUrl())
             .replace(KEY_PACKAGE_NAME, project.packageName)
+    }
+
+    private fun getBaseUrl(): String {
+        return if (project.isNeedNetworkModule) {
+            BASE_URL
+        } else {
+            ""
+        }
+    }
+
+    private fun getBaseApiUrl(): String {
+        return if (project.isNeedNetworkModule) {
+            project.baseUrl!!
+        } else {
+            ""
+        }
     }
 
     private fun getContextModuleInit(): String {
@@ -841,7 +869,7 @@ class AssetManager(
     }
 
     private fun getRetrofitLogInMethod(): String {
-        return if (project.isNeedNetworkModule) {
+        return if (project.isNeedLogInScreen) {
             RETROFIT_LOGIN_METHOD
         } else {
             ""

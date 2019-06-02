@@ -9,6 +9,7 @@ const val IS_DEBUG = false
 const val ERROR_NOT_AN_ANDROID_PROJECT = "ERROR_NOT_AN_ANDROID_PROJECT"
 const val ERROR_UNSUPPORTED_ARCH = "UNSUPPORTED_ARCH"
 const val ERROR_NOT_KOTLIN_PROJECT = "NOT_KOTLIN_PROJECT"
+const val JABA_API_BASE_URL = "http://theapache64.com/mock_api/get_json/jaba/"
 
 /**
  * Magic starts from here
@@ -67,7 +68,14 @@ fun main() {
 
             var baseUrl: String? = null
             if (isNeedNetwork) {
-                baseUrl = if (IS_DEBUG) "http://myapi.com/" else inputUtils.getString("Enter base url", true)
+                baseUrl = if (IS_DEBUG) "http://myapi.com/" else inputUtils.getString(
+                    "Enter base url : (empty to use default jaba api)",
+                    false
+                )
+
+                if (baseUrl.trim().isEmpty()) {
+                    baseUrl = JABA_API_BASE_URL
+                }
             }
 
             // Splash
