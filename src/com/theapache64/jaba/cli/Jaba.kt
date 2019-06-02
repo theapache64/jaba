@@ -46,106 +46,130 @@ class Jaba(
         FixItXml.fixIt(project.dir)
         logDone()
 
-        doAppThings()
-        doManifestThings()
+        // Create app file
+        logDoing("Creating App.kt ...")
+        createFile(
+            assetManager.getAppFile(),
+            androidUtils.appFile
+        )
+        logDone()
+
+        // Creating manifest file
+        println("Modifying manifest file...")
+        createFile(
+            assetManager.getManifestFile(),
+            androidUtils.manifestFile
+        )
+        logDone()
 
         doMiscThings()
 
     }
 
-    private fun doAppThings() {
-
-        // Create app file
-        createFile(
-            assetManager.getAppFile(),
-            androidUtils.appFile
-        )
-    }
-
-    private fun doManifestThings() {
-
-        // Creating manifest file
-        createFile(
-            assetManager.getManifestFile(),
-            androidUtils.manifestFile
-        )
-    }
 
     private fun doMiscThings() {
 
         // Creating MainViewModel
+        logDoing("Creating MainViewModel.kt ...")
         createFile(
             assetManager.getMainViewModel(),
             androidUtils.mainViewModelFile
         )
+        logDone()
 
         // Delete default main activity
         androidUtils.oldMainActivityFile.delete()
 
+        logDoing("Modifying MainActivity.kt ...")
         // Creating new one
         createFile(
             assetManager.getMainActivity(),
             androidUtils.mainActivityFile
         )
+        logDone()
 
+
+        logDoing("Adding data binding to main layout file...")
         // Creating new layout file data binding
         createFile(
             assetManager.getActivityMainLayout(),
             androidUtils.mainLayoutFile
         )
+        logDone()
 
+
+        logDoing("Updating content_main.xml to support data binding")
         // Creating content main
         createFile(
             assetManager.getContentMainLayout(),
             androidUtils.contentMainLayoutFile
         )
+        logDone()
 
+        logDoing("Creating dagger activity builder...")
         // Create activity builder
         createFile(
             assetManager.getActivityBuilder(),
             androidUtils.activityBuilderModuleFile
         )
+        logDone()
 
+
+        logDoing("Creating dagger AppComponent.kt ...")
         // Creating dagger component
         createFile(
             assetManager.getAppComponent(),
             androidUtils.appComponentFile
         )
+        logDone()
+
 
         if (project.isNeedNetworkModule) {
 
+            logDoing("Creating network module...")
             // Create NetworkModule
             createFile(
                 assetManager.getNetworkModule(),
                 androidUtils.networkModuleFile
             )
+            logDone()
 
+            logDoing("Creating ApiInterface.kt ...")
             // Create ApiInterface
             createFile(
                 assetManager.getApiInterface(),
                 androidUtils.apiInterfaceFile
             )
+            logDone()
+
 
             if (project.isNeedLogInScreen) {
 
+                logDoing("Creating LogInRequest.kt ...")
                 // Create login request file
                 createFile(
                     assetManager.getLogInRequest(),
                     androidUtils.logInRequestFile
                 )
+                logDone()
 
+
+                logDoing("Creating LogInResponse.kt ...")
                 // Creating login response
                 createFile(
                     assetManager.getLogInResponse(),
                     androidUtils.logInResponseFile
                 )
+                logDone()
 
 
+                logDoing("Creating UserPrefRepository.kt ...")
                 // Create user pref repositories
                 createFile(
                     assetManager.getUserRepository(),
                     androidUtils.userRepoFile
                 )
+                logDone()c
 
                 // Create login activity
                 createFile(

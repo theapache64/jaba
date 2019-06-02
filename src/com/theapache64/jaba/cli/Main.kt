@@ -16,14 +16,16 @@ const val JABA_API_BASE_URL = "http://theapache64.com/mock_api/get_json/jaba/"
  */
 fun main() {
 
-    logDoing("Cleaning lab...")
-    LabUtils.clean()
-    logDone()
+    if (IS_DEBUG) {
+        logDoing("Cleaning lab...")
+        LabUtils.clean()
+        logDone()
+    }
 
 
     // Current directory will be treated as an android project
-    //val currentDir = if (IS_DEBUG) "lab/jabroid" else System.getProperty("user.dir")
-    val currentDir = "lab/jabroid"
+    val currentDir = if (IS_DEBUG) "lab/jabroid" else System.getProperty("user.dir")
+    //val currentDir = "lab/jabroid"
     //val currentDir = "/home/theapache64/Documents/projects/MyApp"
     val androidUtils = AndroidUtils(currentDir)
 
