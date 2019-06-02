@@ -169,112 +169,153 @@ class Jaba(
                     assetManager.getUserRepository(),
                     androidUtils.userRepoFile
                 )
-                logDone()c
+                logDone()
 
                 // Create login activity
+                logDoing("Creating LogInActivity.kt ...")
                 createFile(
                     assetManager.getLogInActivity(),
                     androidUtils.logInActivityFile
                 )
+                logDone()
 
+
+                logDoing("Creating LogInViewModel.kt ...")
                 // Create login view model
                 createFile(
                     assetManager.getLogInViewModel(),
                     androidUtils.logInViewModelFile
                 )
+                logDone()
 
+                logDoing("Creating LogInClickHandler.kt ...")
                 // Create login click handler
                 createFile(
                     assetManager.getLogInClickHandler(),
                     androidUtils.loginClickHandler
                 )
+                logDone()
 
+
+                logDoing("Creating AuthRepository.kt ...")
                 // Create auth repository
                 createFile(
                     assetManager.getAuthRepository(),
                     androidUtils.authRepositoryFile
                 )
+                logDone()
 
+
+                logDoing("Creating login layout...")
                 createFile(
                     assetManager.getLogInLayout(),
                     androidUtils.logInLayoutFile
                 )
+                logDone()
 
-
+                logDoing("Creating login related icons")
                 AssetManager.userIcon.copyTo(androidUtils.userIconFile)
                 AssetManager.logOutIcon.copyTo(androidUtils.logOutIcon)
+                logDone()
+
+                // Create string xml
+                logDoing("Adding login strings to strings.xml")
+                createFile(
+                    assetManager.getStringsXml(),
+                    androidUtils.stringXmlFile
+                )
+                logDone()
+
+                // Create menu main
+                logDoing("Modifying menu_main.xml file")
+                createFile(
+                    assetManager.getMenuMain(),
+                    androidUtils.menuMainFile
+                )
+                logDone()
             }
         }
 
 
         // Create AppModule
+        logDoing("Creating dagger AppModule.kt ...")
         createFile(
             assetManager.getAppModule(),
             androidUtils.appModuleFile
         )
+        logDone()
 
 
+        logDoing("Creating dagger ViewModelModule.kt ...")
         // Create viewModelModule
         createFile(
             assetManager.getViewModelModule(),
             androidUtils.viewModelModuleFile
         )
+        logDone()
 
 
         if (project.isNeedSplashScreen) {
 
             // Create splash view model
+            logDoing("Creating SplashViewModel.kt")
             createFile(
                 assetManager.getSplashViewModel(),
                 androidUtils.splashViewModelFile
             )
+            logDone()
 
+
+            logDoing("Creating SplashActivity.kt ...")
             // Create splash activity
             createFile(
                 assetManager.getSplashActivity(),
                 androidUtils.splashActivityFile
             )
+            logDone()
 
             // Replace with styles
+            logDoing("Modifying styles.xml to support splash theme")
             createFile(
                 assetManager.getStyles(),
                 androidUtils.stylesFile
             )
+            logDone()
 
 
             // Create splash bg
+            logDoing("Creating splash_bg.xml ...")
             createFile(
                 assetManager.getSplashBg(),
                 androidUtils.splashBgFile
             )
+            logDone()
 
         }
 
 
         // Create ids
+        logDoing("Creating ids.xml ...")
         createFile(
             assetManager.getIds(),
             androidUtils.idsFile
         )
+        logDone()
 
 
+        logDoing("Creating logo icon...")
         // Create vector icon
         AssetManager.androidIcon.copyTo(androidUtils.androidIcon)
+        logDone()
 
-        // Create string xml
-        createFile(
-            assetManager.getStringsXml(),
-            androidUtils.stringXmlFile
-        )
-
-        // Create menu main
-        createFile(
-            assetManager.getMenuMain(),
-            androidUtils.menuMainFile
-        )
-
+        logDoing("Adding color constants to colors.xml")
         // Create colors
         AssetManager.colorsFile.copyTo(androidUtils.colorsFile, true)
+        logDone()
+
+
+        logDoing("Finishing project setup...")
+        logDone()
     }
 
     private fun createFile(fileContent: String, file: File) {
