@@ -15,7 +15,7 @@ const val JABA_API_BASE_URL = "http://theapache64.com/mock_api/get_json/jaba/"
 /**
  * Magic starts from here
  */
-fun main() {
+fun main(args: Array<String>) {
 
     if (IS_DEBUG) {
         logDoing("Cleaning lab...")
