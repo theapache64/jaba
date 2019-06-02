@@ -120,8 +120,10 @@ fun main(args: Array<String>) {
         } else {
             notAnAndroidProject(currentDir)
         }
+
     } catch (e: FileNotFoundException) {
-        notAnAndroidProject(currentDir)
+        e.printStackTrace()
+        notAnAndroidProject("File not found : $currentDir")
     }
 }
 
