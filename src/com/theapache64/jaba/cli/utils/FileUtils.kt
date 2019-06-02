@@ -116,4 +116,10 @@ object FileUtils {
         x.delete()
     }
 
+    fun copyOneLevelDir(source: File, destination: String) {
+        source.listFiles().forEach { file ->
+            file.copyTo(File("$destination/${file.name}"))
+        }
+    }
+
 }

@@ -3,6 +3,7 @@ package com.theapache64.jaba.cli
 import com.theapache64.jaba.cli.models.Architectures
 import com.theapache64.jaba.cli.models.Project
 import com.theapache64.jaba.cli.utils.*
+import java.io.File
 import java.io.FileNotFoundException
 import java.util.*
 
@@ -12,10 +13,25 @@ const val ERROR_UNSUPPORTED_ARCH = "UNSUPPORTED_ARCH"
 const val ERROR_NOT_KOTLIN_PROJECT = "NOT_KOTLIN_PROJECT"
 const val JABA_API_BASE_URL = "http://theapache64.com/mock_api/get_json/jaba/"
 
+class Main {
+
+}
+
+
+val jarFile = File(Main::class.java.protectionDomain.codeSource.location.toURI().path)
+
+
 /**
  * Magic starts from here
  */
 fun main(args: Array<String>) {
+
+    /**
+     *
+     * return new File(MyClass.class.getProtectionDomain().getCodeSource().getLocation()
+    .toURI()).getPath();
+     */
+
 
     if (IS_DEBUG) {
         logDoing("Cleaning lab...")
@@ -38,6 +54,7 @@ fun main(args: Array<String>) {
             val packageName = androidUtils.providePackageName()
 
             if (androidUtils.isKotlinProject()) {
+
 
                 println("Project : $projectName")
                 println("Package : $packageName")
@@ -96,6 +113,8 @@ fun main(args: Array<String>) {
                     false
                 }
 
+                // Copy assets to current folder
+
 
                 val project = Project(
                     projectName,
@@ -110,7 +129,11 @@ fun main(args: Array<String>) {
                 )
 
 
+
+                copyAssets(project)
                 Jaba(project, androidUtils).build()
+                deleteAssets(project)
+
                 // Jaba(androidUtils, project).buildOld()
 
             } else {
@@ -124,6 +147,21 @@ fun main(args: Array<String>) {
     } catch (e: FileNotFoundException) {
         e.printStackTrace()
         notAnAndroidProject("File not found : $currentDir")
+    }
+}
+
+
+private fun deleteAssets(project: Project) {
+    if (!IS_DEBUG) {
+        FileUtils.deleteDir("${project.dir}/assets")
+    }
+}
+
+private fun copyAssets(project: Project) {
+    if (!IS_DEBUG) {
+        // Copy assets to current project folder from jar folder
+        val assetsDir = File("${jarFile.parent}/assets")
+        FileUtils.copyOneLevelDir(assetsDir, "${project.dir}/assets")
     }
 }
 

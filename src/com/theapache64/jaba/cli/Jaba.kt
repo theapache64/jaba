@@ -33,6 +33,7 @@ class Jaba(
 
     fun build() {
 
+
         logDoing("Creating dirs...")
         createDirs()
         logDone()
@@ -61,13 +62,6 @@ class Jaba(
             androidUtils.manifestFile
         )
         logDone()
-
-        doMiscThings()
-
-    }
-
-
-    private fun doMiscThings() {
 
         // Creating MainViewModel
         logDoing("Creating MainViewModel.kt ...")
@@ -316,7 +310,11 @@ class Jaba(
 
         logDoing("Finishing project setup...")
         logDone()
+
+
     }
+
+
 
     private fun createFile(fileContent: String, file: File) {
 
