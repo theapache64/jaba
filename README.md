@@ -1,6 +1,3 @@
 # Jaba
 
-### TODO
-
-## Milestone
-- LogInScreen
+*docs coming soon...*
