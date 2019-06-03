@@ -6,12 +6,12 @@ $SPLASH_ACTIVITY_IMPORT
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
+/**
+ * To hold activities to support AndroidInjection call from dagger.
+ */
 @Module
 abstract class ActivitiesBuilderModule {
 
-    /**
-     * Activity
-     */
     $SPLASH_ACTIVITY_BUILDER
 
     $LOGIN_ACTIVITY_BUILDER

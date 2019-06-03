@@ -6,27 +6,26 @@
     $INTERNET_PERMISSION
 
     <application
-            android:name=".App"
-            android:allowBackup="false"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/app_name"
-            android:roundIcon="@mipmap/ic_launcher_round"
-            android:supportsRtl="true"
-            android:theme="@style/AppTheme"
-            android:usesCleartextTraffic="true"
-            tools:ignore="GoogleAppIndexingWarning"
-            tools:targetApi="m">
+        android:name=".App"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:targetApi="m">
 
-        <!-- Splash -->
         $SPLASH_ACTIVITY_DECLARATION
 
         $LOGIN_ACTIVITY_DECLARATION
 
         <!-- Main -->
         <activity
-                android:name=".ui.activities.main.MainActivity"
-                android:label="@string/app_name"
-                android:theme="@style/AppTheme.NoActionBar">
+            android:name=".ui.activities.main.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
             $MAIN_AS_MAIN
         </activity>
 

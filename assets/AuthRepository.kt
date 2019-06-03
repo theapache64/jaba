@@ -15,7 +15,7 @@ class AuthRepository @Inject constructor(
 ) {
 
     /**
-     * do API call to login route
+     * To do API call to login route
      */
     fun login(logInRequest: LogInRequest): LiveData<Resource<LogInResponse>> {
         return apiInterface.login(logInRequest)

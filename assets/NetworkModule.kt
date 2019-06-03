@@ -7,10 +7,12 @@ import dagger.Provides
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
+/**
+ * To hold all network related objects.
+ */
 @Module(includes = [BaseNetworkModule::class])
 class NetworkModule {
 
-    // Interface
     @Singleton
     @Provides
     fun provideApiInterface(retrofit: Retrofit): ApiInterface {

@@ -39,7 +39,7 @@ class LogInActivity : BaseAppCompatActivity(), LogInClickHandler {
         // getting viewModel
         this.viewModel = ViewModelProviders.of(this, factory).get(LogInViewModel::class.java)
 
-        // binding viewModel to layout
+        // binding viewModel and clickHandler to layout
         binding.viewModel = viewModel
         binding.clickHandler = this
 
@@ -80,6 +80,9 @@ class LogInActivity : BaseAppCompatActivity(), LogInClickHandler {
 
     }
 
+    /**
+     * To find AuthorizationInterceptor, and set apiKey
+     */
     fun setAuthInterceptorApiKey(apiKey: String) {
         var isKeySet = false
         for (interceptor in TwinKill.INSTANCE.interceptors) {

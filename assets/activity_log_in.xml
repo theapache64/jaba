@@ -6,110 +6,107 @@
     <data>
 
         <variable
-                name="clickHandler"
-                type="$PACKAGE_NAME.ui.activities.login.LogInClickHandler"/>
+            name="clickHandler"
+            type="$PACKAGE_NAME.ui.activities.login.LogInClickHandler"/>
 
         <variable
-                name="viewModel"
-                type="$PACKAGE_NAME.ui.activities.login.LogInViewModel"/>
+            name="viewModel"
+            type="$PACKAGE_NAME.ui.activities.login.LogInViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
 
         <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                    xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                    xmlns:tools="http://schemas.android.com/tools"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:context=".ui.activities.login.LogInActivity">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:context=".ui.activities.login.LogInActivity">
 
 
                 <!--Logo-->
                 <ImageView
-                        android:id="@+id/iv_logo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="100dp"
-                        android:layout_marginTop="100dp"
-                        android:src="@drawable/ic_user"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:ignore="ContentDescription"/>
+                    android:id="@+id/iv_logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="100dp"
+                    android:src="@drawable/ic_user"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription"/>
 
                 <!--Username-->
                 <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_username"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="50dp"
-                        android:layout_marginTop="100dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/iv_logo">
+                    android:id="@+id/til_username"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="50dp"
+                    android:layout_marginTop="100dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_logo">
 
                     <com.google.android.material.textfield.TextInputEditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/hint_username"
-                            android:inputType="text"
-                            android:singleLine="true"
-                            android:text="@={viewModel.username}"/>
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_username"
+                        android:inputType="text"
+                        android:singleLine="true"
+                        android:text="@={viewModel.username}"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!--Password-->
                 <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_password"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        app:layout_constraintEnd_toEndOf="@id/til_username"
-                        app:layout_constraintStart_toStartOf="@id/til_username"
-                        app:layout_constraintTop_toBottomOf="@id/til_username">
+                    android:id="@+id/til_password"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toEndOf="@id/til_username"
+                    app:layout_constraintStart_toStartOf="@id/til_username"
+                    app:layout_constraintTop_toBottomOf="@id/til_username">
 
                     <com.google.android.material.textfield.TextInputEditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/hint_password"
-                            android:inputType="textPassword"
-                            android:singleLine="true"
-                            android:text="@={viewModel.password}"/>
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_password"
+                        android:inputType="textPassword"
+                        android:singleLine="true"
+                        android:text="@={viewModel.password}"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!--Remember Me-->
                 <androidx.appcompat.widget.AppCompatCheckBox
-                        android:id="@+id/mcb_remember_me"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:checked="@={viewModel.rememberMe}"
-                        android:hint="@string/hint_remember_me"
-                        app:layout_constraintEnd_toEndOf="@id/til_password"
-                        app:layout_constraintStart_toStartOf="@id/til_password"
-                        app:layout_constraintTop_toBottomOf="@id/til_password"/>
+                    android:id="@+id/mcb_remember_me"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:checked="@={viewModel.rememberMe}"
+                    android:hint="@string/hint_remember_me"
+                    app:layout_constraintEnd_toEndOf="@id/til_password"
+                    app:layout_constraintStart_toStartOf="@id/til_password"
+                    app:layout_constraintTop_toBottomOf="@id/til_password"/>
 
                 <!--LogIn-->
                 <com.google.android.material.button.MaterialButton
-                        fontPath="fonts/GoogleSans-Medium.ttf"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
-                        android:layout_marginBottom="100dp"
-                        android:onClick="@{()-> clickHandler.onLogInClicked()}"
-                        android:text="@string/action_login"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@id/mcb_remember_me"
-                        app:layout_constraintStart_toStartOf="@id/mcb_remember_me"
-                        app:layout_constraintTop_toBottomOf="@id/mcb_remember_me"/>
+                    fontPath="fonts/GoogleSans-Medium.ttf"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="100dp"
+                    android:onClick="@{()-> clickHandler.onLogInClicked()}"
+                    android:text="@string/action_login"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/mcb_remember_me"
+                    app:layout_constraintStart_toStartOf="@id/mcb_remember_me"
+                    app:layout_constraintTop_toBottomOf="@id/mcb_remember_me"/>
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -118,14 +115,14 @@
 
         <!--Progress-->
         <androidx.core.widget.ContentLoadingProgressBar
-                android:id="@+id/clpb_login"
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:indeterminate="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+            android:id="@+id/clpb_login"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
