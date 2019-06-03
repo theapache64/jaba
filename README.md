@@ -1,7 +1,7 @@
 # Jaba
 
 A simple cli tool to convert your stock android project structure to MVVM architectural pattern. 
-It also includes templates for splash and login screen.
+It also includes templates for splash and login screen. Basically, jaba is a time saver. :)
 
 ## Download
 
