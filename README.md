@@ -18,7 +18,7 @@ alias jaba='java -jar /path/to/jaba/jaba.jar'
 
 Simply run `jaba` in an android studio project, and you'll be prompted with an interactive shell.
 
-```console
+```
 
 Project : MyAwesomeProject
 Package : com.theapache64.myawesomeproject
@@ -104,4 +104,52 @@ Modifying manifest file...
 ✔️ Done
 ⏳ Finishing project setup...
 ✔️ Done
+```
+
+## Project Structure
+
+**Before**
+
+```
+.
+├── MainActivity.kt
+```
+
+**After**
+```
+.
+├── App.kt
+├── data
+│   ├── local
+│   ├── remote
+│   │   ├── ApiInterface.kt
+│   │   └── login
+│   │       ├── LogInRequest.kt
+│   │       └── LogInResponse.kt
+│   └── repositories
+│       ├── AuthRepository.kt
+│       └── UserPrefRepository.kt
+├── di
+│   ├── components
+│   │   └── AppComponent.kt
+│   └── modules
+│       ├── ActivitiesBuilderModule.kt
+│       ├── AppModule.kt
+│       ├── NetworkModule.kt
+│       └── ViewModelModule.kt
+├── models
+├── ui
+│   └── activities
+│       ├── login
+│       │   ├── LogInActivity.kt
+│       │   ├── LogInClickHandler.kt
+│       │   └── LogInViewModel.kt
+│       ├── main
+│       │   ├── MainActivity.kt
+│       │   └── MainViewModel.kt
+│       └── splash
+│           ├── SplashActivity.kt
+│           └── SplashViewModel.kt
+└── utils
+
 ```
