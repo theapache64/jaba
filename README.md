@@ -1,4 +1,4 @@
-[![IMAGE](https://raw.githubusercontent.com/theapache64/jaba/master/youtube_banner.png)](https://www.youtube.com/watch?v=VZ8KAkvw9ck)
+[![IMAGE](https://raw.githubusercontent.com/theapache64/jaba/master/youtube_banner.jpg)](https://www.youtube.com/watch?v=VZ8KAkvw9ck)
 
 
 # Jaba
