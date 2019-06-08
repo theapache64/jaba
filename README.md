@@ -106,6 +106,19 @@ Modifying manifest file...
 ✔️ Done
 ```
 
+## Known Issues
+
+Once the code generation has been done, some files will have some alignment issues.
+To fix this, you may do `Code Refactor` 
+
+- Click on the `Project` panel
+- Click on `app`
+- Press `Control + Alt + L` (linux)
+- Check `Optimize Imports, Rearrange entries and Cleanup code`
+- Click 'Run'
+
+This will solve all alignment issues as well as optimization of imports.
+
 ## Project Structure
 
 **Before**
