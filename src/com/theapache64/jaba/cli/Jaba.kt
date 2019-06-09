@@ -349,6 +349,12 @@ class Jaba(
         val newContentLayoutFile = File("${androidUtils.contentMainLayoutFile.parent}/$newContentLayoutName.xml")
         require(androidUtils.contentMainLayoutFile.renameTo(newContentLayoutFile)) { "Failed to rename content layout file" }
 
+        // Change main menu name
+        val newMenuName = "menu_$compSnackCase"
+        val newMenuFile = File("${androidUtils.menuMainFile.parent}/$newMenuName.xml")
+        require(androidUtils.menuMainFile.renameTo(newMenuFile)) { "Failed to rename main_menu file" }
+
+
         // Change activity name in manifest
         changeContent(
             androidUtils.manifestFile,
@@ -362,6 +368,7 @@ class Jaba(
             mapOf(
                 Pair("activity_main", "activity_$compSnackCase"),
                 Pair("MainActivity", newMainName),
+                Pair("menu_main", newMenuName),
                 Pair("MainViewModel", newViewModelName),
                 Pair("ActivityMainBinding", "Activity${newMainNameWithOutAct}Binding")
             )
