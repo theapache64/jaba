@@ -108,6 +108,8 @@ Modifying manifest file...
 
 ## Known Issues
 
+**Code Alignment**
+
 Once the code generation has been done, some files will have some alignment issues.
 To fix this, you may do `Code Refactor` 
 
