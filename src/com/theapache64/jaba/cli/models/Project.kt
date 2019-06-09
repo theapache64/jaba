@@ -9,7 +9,8 @@ data class Project(
     val isNeedNetworkModule: Boolean,
     val baseUrl: String?,
     val isNeedSplashScreen: Boolean,
-    val isNeedLogInScreen: Boolean
+    val isNeedLogInScreen: Boolean,
+    val newMainName: String?
 ) {
 
     companion object {

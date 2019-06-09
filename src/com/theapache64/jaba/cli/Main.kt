@@ -7,7 +7,7 @@ import java.io.File
 import java.io.FileNotFoundException
 import java.util.*
 
-const val IS_DEBUG = false
+const val IS_DEBUG = true
 const val ERROR_NOT_AN_ANDROID_PROJECT = "ERROR_NOT_AN_ANDROID_PROJECT"
 const val ERROR_UNSUPPORTED_ARCH = "UNSUPPORTED_ARCH"
 const val ERROR_NOT_KOTLIN_PROJECT = "NOT_KOTLIN_PROJECT"
@@ -25,12 +25,6 @@ val jarFile = File(Main::class.java.protectionDomain.codeSource.location.toURI()
  * Magic starts from here
  */
 fun main(args: Array<String>) {
-
-    /**
-     *
-     * return new File(MyClass.class.getProtectionDomain().getCodeSource().getLocation()
-    .toURI()).getPath();
-     */
 
 
     if (IS_DEBUG) {
@@ -113,9 +107,19 @@ fun main(args: Array<String>) {
                     false
                 }
 
+                var newMainName: String? = if (IS_DEBUG) "LabActivity" else
+                    inputUtils.getString("Change default MainActivity name to : (empty to keep default)", false)
+                if (newMainName!!.trim().isEmpty()) {
+                    newMainName = null
+                }
+
+                if (newMainName != null) {
+                    println("MainActivty -> $newMainName")
+                } else {
+                    println("Default will be set")
+                }
+
                 // Copy assets to current folder
-
-
                 val project = Project(
                     projectName,
                     currentDir,
@@ -125,9 +129,9 @@ fun main(args: Array<String>) {
                     isNeedNetwork,
                     baseUrl,
                     isNeedSplashScreen,
-                    isNeedLogInScreen
+                    isNeedLogInScreen,
+                    newMainName
                 )
-
 
 
                 copyAssets(project)
