@@ -416,20 +416,27 @@ class Jaba(
             newViewModelName
         )
 
-        changeContent(
-            androidUtils.splashActivityFile,
-            "MainActivity", newMainName
-        )
+        if (project.isNeedLogInScreen) {
 
-        changeContent(
-            androidUtils.logInActivityFile,
-            "MainActivity", newMainName
-        )
+            changeContent(
+                androidUtils.logInActivityFile,
+                "MainActivity", newMainName
+            )
 
-        changeContent(
-            androidUtils.splashViewModelFile,
-            "MainActivity", newMainName
-        )
+        }
+
+        if (project.isNeedSplashScreen) {
+
+            changeContent(
+                androidUtils.splashActivityFile,
+                "MainActivity", newMainName
+            )
+
+            changeContent(
+                androidUtils.splashViewModelFile,
+                "MainActivity", newMainName
+            )
+        }
 
     }
 

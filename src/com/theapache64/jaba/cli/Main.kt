@@ -20,7 +20,6 @@ class Main {
 
 val jarFile = File(Main::class.java.protectionDomain.codeSource.location.toURI().path)
 
-
 /**
  * Magic starts from here
  */
@@ -149,6 +148,7 @@ fun main(args: Array<String>) {
         }
 
     } catch (e: FileNotFoundException) {
+        e.printStackTrace()
         notAnAndroidProject(currentDir)
     }
 }
