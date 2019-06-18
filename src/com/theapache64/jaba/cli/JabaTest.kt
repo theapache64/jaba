@@ -1,7 +1,7 @@
 package com.theapache64.jaba.cli
 
-import org.junit.Assert.*
 import org.junit.Test
+import kotlin.test.assertEquals
 
 class JabaTest {
 
