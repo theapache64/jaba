@@ -15,6 +15,7 @@ buildscript {
 
         // External
         retrofit_version = '2.5.0'
+        mockito_version = '2.28.2'
 
         // Test
         junit_version = '$JUNIT_VERSION'
