@@ -282,14 +282,6 @@ class Jaba(
             logDone()
 
 
-            // Create splash bg
-            logDoing("Creating splash_bg.xml ...")
-            createFile(
-                assetManager.getSplashBg(),
-                androidUtils.splashBgFile
-            )
-            logDone()
-
         }
 
 

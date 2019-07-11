@@ -79,7 +79,7 @@ class AssetManager(
 
         <activity
                 android:name=".ui.activities.splash.SplashActivity"
-                android:theme="@style/SplashTheme">
+                android:theme="@style/AppTheme.NoActionBaractivity_splash.xml">
             ${'$'}SPLASH_AS_MAIN
         </activity>
 
@@ -313,15 +313,6 @@ class AssetManager(
 
         """.trimIndent()
 
-        /**
-         * Splash theme
-         */
-        private const val KEY_SPLASH_THEME = "\$SPLASH_THEME"
-        private val SPLASH_THEME = """
-            <style name="SplashTheme" parent="AppTheme">
-                <item name="android:windowBackground">@drawable/splash_bg</item>
-            </style>
-        """.trimIndent()
 
         /**
          * Splash VM Import
@@ -925,15 +916,6 @@ class AssetManager(
 
     fun getStyles(): String {
         return getAssetContent("styles.xml")
-            .replace(KEY_SPLASH_THEME, getSplashTheme())
-    }
-
-    private fun getSplashTheme(): String {
-        return if (project.isNeedSplashScreen) {
-            SPLASH_THEME
-        } else {
-            ""
-        }
     }
 
     fun getLogInActivity(): String {
@@ -963,10 +945,6 @@ class AssetManager(
 
     fun getAuthRepository(): String {
         return withPackageNameReplacedFromAssets("AuthRepository.kt")
-    }
-
-    fun getSplashBg(): String {
-        return getAssetContent("splash_bg.xml")
     }
 
     fun getAndroidVectorIcon(): String {

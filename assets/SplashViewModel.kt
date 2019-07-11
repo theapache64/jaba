@@ -6,11 +6,14 @@ import androidx.lifecycle.ViewModel
 import com.theapache64.twinkill.utils.livedata.SingleLiveEvent
 $LOGIN_IMPORTS
 import $PACKAGE_NAME.ui.activities.main.MainActivity
+import $PACKAGE_NAME.BuildConfig
 import javax.inject.Inject
 
 class SplashViewModel @Inject constructor(
     $USER_PREF_CONSTRUCTOR
 ) : ViewModel() {
+
+    val versionName = "v${BuildConfig.VERSION_NAME}"
 
     private val launchActivityEvent = SingleLiveEvent<Int>()
 

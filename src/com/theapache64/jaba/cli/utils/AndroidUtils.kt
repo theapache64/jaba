@@ -39,7 +39,6 @@ class AndroidUtils(private val projectDir: String) {
     val splashViewModelFile = File("${provideRootSourcePath()}/ui/activities/splash/SplashViewModel.kt")
     val splashActivityFile = File("${provideRootSourcePath()}/ui/activities/splash/SplashActivity.kt")
     val stylesFile = File("$projectDir/app/src/main/res/values/styles.xml")
-    val splashBgFile = File("$projectDir/app/src/main/res/drawable/splash_bg.xml")
     val idsFile = File("$projectDir/app/src/main/res/values/ids.xml")
     val colors = File("$projectDir/app/src/main/res/values/colors.xml")
     val stringXmlFile = File("$projectDir/app/src/main/res/values/strings.xml")
