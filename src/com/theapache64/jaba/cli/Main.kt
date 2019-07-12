@@ -19,13 +19,47 @@ class Main {
 
 
 val jarFile = File(Main::class.java.protectionDomain.codeSource.location.toURI().path)
+val currentDir = if (IS_DEBUG) "lab/jabroid" else System.getProperty("user.dir")
 
+const val COMMAND_PROVIDE_ACTIVITY_SUPPORT = "-pas"
+const val COMMAND_PROVIDE_FRAGMENT_SUPPORT = "-paf"
 /**
  * Magic starts from here
  */
 fun main(args: Array<String>) {
 
+    if (args.isNotEmpty()) {
+        // it's not about project init
+        val command = args[0]
+        when (command) {
+            COMMAND_PROVIDE_ACTIVITY_SUPPORT -> {
 
+                val componentName = args[1]
+                val activityName = "${componentName}Activity"
+                val activityFileName = "${componentName}Activity.kt"
+                println("Component Name : $componentName")
+                println("Activity Name : $activityName")
+                println("File Name : $activityFileName")
+                println("Searching for $activityFileName in $currentDir")
+
+            }
+            COMMAND_PROVIDE_FRAGMENT_SUPPORT -> {
+                println("Fragment support coming soon...")
+            }
+            else -> {
+                error("Unknown command $command")
+            }
+        }
+
+    } else {
+        // jaba's initial support
+        performInitialProjectSetup()
+    }
+
+
+}
+
+private fun performInitialProjectSetup() {
     if (IS_DEBUG) {
         logDoing("Cleaning lab...")
         LabUtils.clean()
@@ -34,7 +68,7 @@ fun main(args: Array<String>) {
 
 
     // Current directory will be treated as an android project
-    val currentDir = if (IS_DEBUG) "lab/jabroid" else System.getProperty("user.dir")
+
     //val currentDir = "lab/jabroid"
     //val currentDir = "/home/theapache64/Documents/projects/MyApp"
     try {
