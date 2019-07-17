@@ -35,7 +35,11 @@ fun main(args: Array<String>) {
             COMMAND_PROVIDE_ACTIVITY_SUPPORT -> {
 
                 val componentName = args[1]
-                val activityName = "${componentName}Activity"
+                val activityName = if (componentName.endsWith("Activity")) {
+                    componentName
+                } else {
+                    "${componentName}Activity"
+                }
                 val activityFileName = "${componentName}Activity.kt"
                 println("Component Name : $componentName")
                 println("Activity Name : $activityName")
