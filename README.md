@@ -106,6 +106,42 @@ Modifying manifest file...
 ✔️ Done
 ```
 
+## Activity Support
+
+Once you created a new account, you'll want to create `ViewModel`, `Handler` and integrate them with the `DataBinding`, `Activity` and with `Dagger`. To solve this mundane task, you may use the `pas` flag toProvide Activity Support**
+
+Syntax
+
+```
+jaba -pas COMPONENT_NAME
+```
+
+For example,If you want activity support for `SomeActivity`, you may use below code
+
+```
+jaba -pas SomeActivity
+```
+
+Then it'll do the following
+
+### Creation
+
+- Create `ViewModel` named `SomeViewModel` with `dagger` injection
+- Create `Handler` named `SomeHandler`
+
+### Integration
+
+- Integrate `SomeViewModel` with `SomeActivity` with  `dagger-viewmodel-factory`
+- Implement `SomeHandler` in `SomeActivity`
+- Integrate `SomeViewModel` and `SomeHandler` with `activity_some.xml` (using data binding)
+
+### Finalization
+
+- Add `SomeActivity` builder in `ActivityBuilderModule`
+
+- Add `SomeViewModel` in `ViewModelModule`
+
+
 ## Known Issues
 
 **Code Alignment**
