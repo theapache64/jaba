@@ -95,6 +95,7 @@ fun main(args: Array<String>) {
 }
 
 private fun performInitialProjectSetup() {
+
     if (IS_DEBUG) {
         logDoing("Cleaning lab...")
         LabUtils.clean()
