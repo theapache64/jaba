@@ -39,6 +39,12 @@ fun main(args: Array<String>) {
         when (command) {
             COMMAND_PROVIDE_ACTIVITY_SUPPORT -> {
 
+                if (IS_DEBUG) {
+                    logDoing("Cleaning lab...")
+                    LabUtils.cleanForPAS()
+                    logDone()
+                }
+
                 var componentName = args[1]
                 val activityName = if (componentName.endsWith("Activity")) {
                     val activityName = componentName
@@ -59,7 +65,7 @@ fun main(args: Array<String>) {
                     if (matchingList.size == 1) {
                         val activityFile = matchingList.first()
                         println("Found : ${activityFile.getPathFromCurrentDir()}")
-                        Jaba.provideActivitySupportFor(activityFile, componentName)
+                        Jaba.provideActivitySupport(currentDir, activityFile, componentName)
                     } else {
 
                         println("Multiple files found, choose one")
@@ -70,7 +76,7 @@ fun main(args: Array<String>) {
                         val fileNum = scanner.nextInt()
                         val file = matchingList[fileNum - 1]
                         println("Chosen : ${file.getPathFromCurrentDir()}")
-                        Jaba.provideActivitySupportFor(file, componentName)
+                        Jaba.provideActivitySupport(currentDir, file, componentName)
 
                     }
                 } else {

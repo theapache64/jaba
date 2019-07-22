@@ -33,10 +33,30 @@ class Jaba(
             return input.replace(Regex("([a-z])([A-Z]+)"), "$1_$2").toLowerCase()
         }
 
-        fun provideActivitySupportFor(activityFile: File, componentName: String) {
+        fun provideActivitySupport(currentDir: String, activityFile: File, componentName: String) {
             println("Providing activity support for $componentName")
-//            val viewModelFile = "${activityFile.parent}/${}"
+
+            val assetManager = AndroidUtils(currentDir)
+
+            // Copy file content
+            createFile(
+                assetManager.get
+            )
         }
+
+
+        private fun createFile(fileContent: String, file: File) {
+
+            // Deleting old file
+            file.delete()
+
+            // Deleting parent dirs
+            file.parentFile.mkdirs()
+
+            // Writing to file
+            file.writeText(fileContent)
+        }
+
 
     }
 
@@ -461,18 +481,6 @@ class Jaba(
         )
     }
 
-
-    private fun createFile(fileContent: String, file: File) {
-
-        // Deleting old file
-        file.delete()
-
-        // Deleting parent dirs
-        file.parentFile.mkdirs()
-
-        // Writing to file
-        file.writeText(fileContent)
-    }
 
     /**
      * Creates structured directories
