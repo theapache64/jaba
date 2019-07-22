@@ -108,7 +108,7 @@ Modifying manifest file...
 
 ## Activity Support
 
-Once you created a new account, you'll want to create `ViewModel`, `Handler` and integrate them with the `DataBinding`, `Activity` and with `Dagger`. To solve this mundane task, you may use the `pas` flag toProvide Activity Support**
+Once you created a new activity, you'll want to create `ViewModel`, `Handler` and integrate them with the `DataBinding`, `Activity` and with `Dagger`. To solve this mundane task, you may use the `pas` flag to **Provide Activity Support**
 
 Syntax
 

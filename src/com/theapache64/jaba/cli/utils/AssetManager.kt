@@ -79,7 +79,7 @@ class AssetManager(
 
         <activity
                 android:name=".ui.activities.splash.SplashActivity"
-                android:theme="@style/AppTheme.NoActionBaractivity_splash.xml">
+                android:theme="@style/AppTheme.NoActionBar">
             ${'$'}SPLASH_AS_MAIN
         </activity>
 
@@ -896,6 +896,10 @@ class AssetManager(
             .replace(KEY_LOGIN_LAUNCHER, getLogInLauncher())
             .replace(KEY_LOGIN_ACTIVITY_IMPORT, getLogInActivityImport())
             .replace(KEY_PACKAGE_NAME, project.packageName)
+    }
+
+    fun getSplashLayout(): String {
+        return withPackageNameReplacedFromAssets("activity_splash.xml")
     }
 
     private fun getLogInLauncher(): String {

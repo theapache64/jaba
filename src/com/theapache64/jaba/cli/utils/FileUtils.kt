@@ -122,4 +122,18 @@ object FileUtils {
         }
     }
 
+    fun find(fileName: String, inDir: String, matches: MutableList<File> = mutableListOf()): List<File> {
+        val dir = File(inDir)
+        dir.listFiles()?.forEach { file ->
+            if (file.isDirectory) {
+                find(fileName, file.absolutePath, matches)
+            } else {
+                if (file.name == fileName) {
+                    matches.add(file)
+                }
+            }
+        }
+        return matches
+    }
+
 }

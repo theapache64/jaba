@@ -14,6 +14,8 @@ import $PACKAGE_NAME.ui.activities.main.MainActivity
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
+import com.theapache64.twinkill.utils.extensions.bindContentView
+
 class SplashActivity : BaseAppCompatActivity() {
 
     @Inject

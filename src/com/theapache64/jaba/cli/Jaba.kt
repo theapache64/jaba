@@ -33,6 +33,11 @@ class Jaba(
             return input.replace(Regex("([a-z])([A-Z]+)"), "$1_$2").toLowerCase()
         }
 
+        fun provideActivitySupportFor(activityFile: File, componentName: String) {
+            println("Providing activity support for $componentName")
+//            val viewModelFile = "${activityFile.parent}/${}"
+        }
+
     }
 
 
@@ -270,6 +275,14 @@ class Jaba(
             createFile(
                 assetManager.getSplashActivity(),
                 androidUtils.splashActivityFile
+            )
+            logDone()
+
+            // Create splash activity xml
+            println("Creating splash activity layout")
+            createFile(
+                assetManager.getSplashLayout(),
+                androidUtils.splashActivityLayoutFile
             )
             logDone()
 

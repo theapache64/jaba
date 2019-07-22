@@ -21,8 +21,13 @@ class Main {
 val jarFile = File(Main::class.java.protectionDomain.codeSource.location.toURI().path)
 val currentDir = if (IS_DEBUG) "lab/jabroid" else System.getProperty("user.dir")
 
+fun File.getPathFromCurrentDir(): String {
+    return this.absolutePath.split("$currentDir/")[1]
+}
+
 const val COMMAND_PROVIDE_ACTIVITY_SUPPORT = "-pas"
 const val COMMAND_PROVIDE_FRAGMENT_SUPPORT = "-paf"
+
 /**
  * Magic starts from here
  */
@@ -34,17 +39,43 @@ fun main(args: Array<String>) {
         when (command) {
             COMMAND_PROVIDE_ACTIVITY_SUPPORT -> {
 
-                val componentName = args[1]
+                var componentName = args[1]
                 val activityName = if (componentName.endsWith("Activity")) {
-                    componentName
+                    val activityName = componentName
+                    componentName = componentName.replace("Activity", "")
+                    activityName
                 } else {
                     "${componentName}Activity"
                 }
+
                 val activityFileName = "${componentName}Activity.kt"
                 println("Component Name : $componentName")
                 println("Activity Name : $activityName")
                 println("File Name : $activityFileName")
                 println("Searching for $activityFileName in $currentDir")
+
+                val matchingList = FileUtils.find(activityFileName, currentDir)
+                if (matchingList.isNotEmpty()) {
+                    if (matchingList.size == 1) {
+                        val activityFile = matchingList.first()
+                        println("Found : ${activityFile.getPathFromCurrentDir()}")
+                        Jaba.provideActivitySupportFor(activityFile, componentName)
+                    } else {
+
+                        println("Multiple files found, choose one")
+                        matchingList.forEachIndexed { index, file ->
+                            println("${index + 1}) ${file.getPathFromCurrentDir()}")
+                        }
+                        val scanner = Scanner(System.`in`)
+                        val fileNum = scanner.nextInt()
+                        val file = matchingList[fileNum - 1]
+                        println("Chosen : ${file.getPathFromCurrentDir()}")
+                        Jaba.provideActivitySupportFor(file, componentName)
+
+                    }
+                } else {
+                    error("$activityFileName not found in $currentDir")
+                }
 
             }
             COMMAND_PROVIDE_FRAGMENT_SUPPORT -> {
@@ -120,7 +151,7 @@ private fun performInitialProjectSetup() {
 
                 var baseUrl: String? = null
                 if (isNeedNetwork) {
-                    baseUrl = if (IS_DEBUG) "http://myapi.com/" else inputUtils.getString(
+                    baseUrl = if (IS_DEBUG) JABA_API_BASE_URL else inputUtils.getString(
                         "Enter base url : (empty to use default jaba api)",
                         false
                     )
