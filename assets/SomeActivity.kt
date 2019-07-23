@@ -1,12 +1,12 @@
-package com.theapache64.jabroid.ui.activities.some
+package $PACKAGE_NAME.ui.activities.some
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import com.theapache64.jabroid.R
-import com.theapache64.jabroid.databinding.ActivitySomeBinding
+import $PACKAGE_NAME.R
+import $PACKAGE_NAME.databinding.ActivitySomeBinding
 import com.theapache64.twinkill.ui.activities.base.BaseAppCompatActivity
 import com.theapache64.twinkill.utils.extensions.bindContentView
 import dagger.android.AndroidInjection

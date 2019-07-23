@@ -36,12 +36,13 @@ class Jaba(
         fun provideActivitySupport(currentDir: String, activityFile: File, componentName: String) {
             println("Providing activity support for $componentName")
 
-            val assetManager = AndroidUtils(currentDir)
+            val androidUtils = AndroidUtils(currentDir)
 
-            // Copy file content
+            /*// Copy SomeActivity
             createFile(
-                assetManager.get
-            )
+                ,
+                activityFile
+            )*/
         }
 
 
@@ -62,6 +63,8 @@ class Jaba(
 
 
     fun build() {
+
+        TODO("Create a project.json at the root of the project.")
 
 
         logDoing("Creating dirs...")

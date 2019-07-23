@@ -162,4 +162,8 @@ class AndroidUtils(private val projectDir: String) {
 
         return gradleFileContents.contains(KOTLIN_PLUGIN) && File(mainActPath).exists()
     }
+
+    fun getSomeActivityFile(): String {
+        return get
+    }
 }
