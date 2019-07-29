@@ -164,6 +164,6 @@ class AndroidUtils(private val projectDir: String) {
     }
 
     fun getSomeActivityFile(): String {
-        return get
+        return ""
     }
 }
