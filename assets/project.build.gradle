@@ -19,7 +19,6 @@ buildscript {
 
         // Test
         junit_version = '$JUNIT_VERSION'
-        runner_version = '$RUNNER_VERSION'
         espresso_version = '$ESPRESSO_VERSION'
     }
 

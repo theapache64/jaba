@@ -23,7 +23,6 @@ class Jaba(
         private val CONSTRAINT_VERSION_REGEX by lazy { Pattern.compile("implementation 'androidx\\.constraintlayout:constraintlayout:(.+)'") }
         private val MATERIAL_VERSION_REGEX by lazy { Pattern.compile("implementation 'com\\.google\\.android\\.material:material:(.+)'") }
         private val JUNIT_VERSION_REGEX by lazy { Pattern.compile("testImplementation 'junit:junit:(.+)'") }
-        private val RUNNER_VERSION_REGEX by lazy { Pattern.compile("androidTestImplementation 'androidx\\.test:runner:(.+)'") }
         private val ESPRESSO_VERSION_REGEX by lazy { Pattern.compile("androidTestImplementation 'androidx\\.test\\.espresso:espresso-core:(.+)'") }
 
         private val KOTLIN_VERSION_REGEX by lazy { Pattern.compile("ext.kotlin_version = '(.+)'") }
@@ -64,7 +63,7 @@ class Jaba(
 
     fun build() {
 
-        TODO("Create a project.json at the root of the project.")
+        // TODO("Create a project.json at the root of the project.")
 
 
         logDoing("Creating dirs...")
@@ -539,7 +538,6 @@ class Jaba(
         val constraintVersion = regExParser.getFirst(CONSTRAINT_VERSION_REGEX)
         val materialVersion = regExParser.getFirst(MATERIAL_VERSION_REGEX)
         val jUnitVersion = regExParser.getFirst(JUNIT_VERSION_REGEX)
-        val runnerVersion = regExParser.getFirst(RUNNER_VERSION_REGEX)
         val espressoVersion = regExParser.getFirst(ESPRESSO_VERSION_REGEX)
 
         // Delete default gradle file
@@ -572,7 +570,6 @@ class Jaba(
             constraintVersion!!,
             materialVersion!!,
             jUnitVersion!!,
-            runnerVersion!!,
             espressoVersion!!,
             gradleVersion!!
         )

@@ -27,7 +27,6 @@ class AssetManager(
         private const val KEY_CONSTRAINT_VERSION = "\$CONSTRAINT_VERSION"
         private const val KEY_MATERIAL_VERSION = "\$MATERIAL_VERSION"
         private const val KEY_JUNIT_VERSION = "\$JUNIT_VERSION"
-        private const val KEY_RUNNER_VERSION = "\$RUNNER_VERSION"
         private const val KEY_ESPRESSO_VERSION = "\$ESPRESSO_VERSION"
         private const val KEY_GRADLE_VERSION = "\$GRADLE_VERSION"
         private const val KEY_NETWORK_DEPS = "\$NETWORK_DEPS"
@@ -426,7 +425,6 @@ class AssetManager(
         constraintVersion: String,
         materialVersion: String,
         jUnitVersion: String,
-        runnerVersion: String,
         espressoVersion: String,
         gradleVersion: String
     ): String {
@@ -441,7 +439,6 @@ class AssetManager(
             .replace(KEY_CONSTRAINT_VERSION, constraintVersion)
             .replace(KEY_MATERIAL_VERSION, materialVersion)
             .replace(KEY_JUNIT_VERSION, jUnitVersion)
-            .replace(KEY_RUNNER_VERSION, runnerVersion)
             .replace(KEY_ESPRESSO_VERSION, espressoVersion)
             .replace(KEY_GRADLE_VERSION, gradleVersion)
             .replace(KEY_RETROFIT_VERSION, getRetrofitVersion())
