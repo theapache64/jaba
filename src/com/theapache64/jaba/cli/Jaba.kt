@@ -46,6 +46,9 @@ class Jaba(
                 val assetManager = AssetManager(project)
 
                 // Creating ViewModel
+                createFile(
+                    assetManager.getViewModel(componentName)
+                )
 
             } else {
                 error("$currentDir is not a jaba project. Init jaba by running `jaba` in the project root")
