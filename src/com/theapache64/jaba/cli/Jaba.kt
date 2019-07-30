@@ -37,10 +37,15 @@ class Jaba(
             if (projectFile.exists()) {
 
                 val projectJson = projectFile.readText()
-                val project = MoshiUtils.projectAdapter.fromJson(projectJson)
-                println("Parsed project is $project")
+                val project = MoshiUtils.projectAdapter.fromJson(projectJson)!!
 
-                val assetManager = AssetManager(project!!)
+                println("Project : ${project.packageName}")
+                println("Package : ${project.name}")
+                println()
+
+                val assetManager = AssetManager(project)
+
+                // Creating ViewModel
 
             } else {
                 error("$currentDir is not a jaba project. Init jaba by running `jaba` in the project root")
