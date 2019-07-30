@@ -5,7 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.activities.some.SomeActivity">
+        tools:context="$FULL_PACKAGE_NAME.SomeActivity">
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -13,10 +13,10 @@
 
         <variable
             name="handler"
-            type="com.theapache64.jabroid.ui.activities.some.SomeHandler" />
+            type="$FULL_PACKAGE_NAME.SomeHandler" />
 
         <variable
             name="viewModel"
-            type="com.theapache64.jabroid.ui.activities.some.SomeViewModel" />
+            type="$FULL_PACKAGE_NAME.SomeViewModel" />
     </data>
 </layout>

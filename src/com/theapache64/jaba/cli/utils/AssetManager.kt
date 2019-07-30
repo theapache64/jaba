@@ -34,6 +34,9 @@ class AssetManager(
         private const val KEY_TWINKILL_NETWORK_MODULE_DEPS = "\$TWINKILL_NETWORK_MODULE_DEPS"
         private const val KEY_RETROFIT_VERSION = "\$RETROFIT_VERSION"
         private const val KEY_MENU_ITEM = "\$MENU_ITEM"
+        private const val KEY_FULL_PACKAGE_NAME = "\$FULL_PACKAGE_NAME"
+        private const val KEY_COMPONENT_NAME = "\$COMPONENT_NAME"
+        private const val KEY_COMPONENT_NAME_LOWER_CASE = "\$COMPONENT_NAME_LOWER_CASE"
         private const val KEY_MENU_ITEM_HANDLER = "\$MENU_ITEM_HANDLER"
         private const val KEY_LOGIN_ACTIVITY_DECLARATION = "\$LOGIN_ACTIVITY_DECLARATION"
         private const val KEY_SPLASH_AS_MAIN = "\$SPLASH_AS_MAIN"
@@ -985,5 +988,25 @@ class AssetManager(
         } else {
             DEFAULT_MENU_ITEM
         }
+    }
+
+    fun getViewModel(fullPackageName: String, componentName: String): String {
+        return getAssetContent("SomeViewModel.kt")
+            .replace(KEY_FULL_PACKAGE_NAME, fullPackageName)
+            .replace(KEY_COMPONENT_NAME, componentName)
+    }
+
+    fun getActivity(appPackageName: String, fullPackageName: String, componentName: String): String {
+        return getAssetContent("SomeActivity.kt")
+            .replace(KEY_FULL_PACKAGE_NAME, fullPackageName)
+            .replace(KEY_COMPONENT_NAME_LOWER_CASE, StringUtils.camelCaseToSnackCase(componentName))
+            .replace(KEY_PACKAGE_NAME, appPackageName)
+            .replace(KEY_COMPONENT_NAME, componentName)
+    }
+
+    fun getHandler(fullPackageName: String, componentName: String): String {
+        return getAssetContent("SomeHandler.kt")
+            .replace(KEY_FULL_PACKAGE_NAME, fullPackageName)
+            .replace(KEY_COMPONENT_NAME, componentName)
     }
 }

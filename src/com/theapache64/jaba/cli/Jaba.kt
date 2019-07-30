@@ -16,6 +16,7 @@ class Jaba(
 
         // app/build.gradle
         private val COMPILE_SDK_REGEX by lazy { Pattern.compile("compileSdkVersion (\\d+)") }
+        private val PACKAGE_NAME_REGEX by lazy { Pattern.compile("package (?<packageName>.+)") }
         private val MIN_SDK_REGEX by lazy { Pattern.compile("minSdkVersion (\\d+)") }
         private val TARGET_SDK_REGEX by lazy { Pattern.compile("targetSdkVersion (\\d+)") }
         private val ANDROIDX_APPCOMPAT_REGEX by lazy { Pattern.compile("implementation 'androidx\\.appcompat:appcompat:(.+)'") }
@@ -36,23 +37,67 @@ class Jaba(
             val projectFile = File("$currentDir/jaba_project.json")
             if (projectFile.exists()) {
 
+                println("Decoding project JSON...")
                 val projectJson = projectFile.readText()
                 val project = MoshiUtils.projectAdapter.fromJson(projectJson)!!
 
-                println("Project : ${project.packageName}")
-                println("Package : ${project.name}")
+                println("Project : ${project.name}")
+                println("Package : ${project.packageName}")
                 println()
 
                 val assetManager = AssetManager(project)
 
-                // Creating ViewModel
-                createFile(
-                    assetManager.getViewModel(componentName)
-                )
+                val fullPackageName = getPackageNameFromKotlin(activityFile)
+
+                if (fullPackageName != null) {
+
+                    // Creating new activity
+                    logDoing("Upgrading activity...")
+                    createFile(
+                        assetManager.getActivity(project.packageName, fullPackageName, componentName),
+                        activityFile
+                    )
+                    logDone()
+
+                    // Creating ViewModel
+                    val newViewModelFile = File("${activityFile.parent}/${componentName}ViewModel.kt")
+
+                    logDoing("Creating ViewModel...")
+                    createFile(
+                        assetManager.getViewModel(fullPackageName, componentName),
+                        newViewModelFile
+                    )
+                    logDone()
+
+
+                    logDoing("Creating Handler...")
+                    val handlerFile = File("${activityFile.parent}/${componentName}Handler.kt")
+                    createFile(
+                        assetManager.getHandler(fullPackageName, componentName),
+                        handlerFile
+                    )
+                    logDone()
+
+                    logDoing("Upgrading layout file...")
+                    val layoutFile =
+
+
+                } else {
+                    error("Couldn't get full package name from activity file")
+                }
 
             } else {
                 error("$currentDir is not a jaba project. Init jaba by running `jaba` in the project root")
             }
+        }
+
+        private fun getPackageNameFromKotlin(kotlinFile: File): String? {
+            val fileContent = kotlinFile.readText()
+            val matcher = PACKAGE_NAME_REGEX.matcher(fileContent)
+            if (matcher.find()) {
+                return matcher.group("packageName")
+            }
+            return null
         }
 
 

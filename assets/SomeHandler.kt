@@ -1,4 +1,4 @@
-package com.theapache64.jabroid.ui.activities.some
+package $FULL_PACKAGE_NAME
 
-interface SomeHandler {
+interface $COMPONENT_NAMEHandler {
 }

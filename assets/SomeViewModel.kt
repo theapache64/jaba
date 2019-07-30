@@ -1,8 +1,8 @@
-package com.theapache64.jabroid.ui.activities.some
+package $FULL_PACKAGE_NAME
 
 import androidx.lifecycle.ViewModel
 import javax.inject.Inject
 
-class SomeViewModel @Inject constructor() : ViewModel() {
+class $COMPONENT_NAMEViewModel @Inject constructor() : ViewModel() {
 
 }
