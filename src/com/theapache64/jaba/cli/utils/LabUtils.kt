@@ -28,7 +28,7 @@ object LabUtils {
         if (jabroidZipFile.exists()) {
 
             // Unzip jabroid.zip to lab
-            FileUtils.unzip(jabroidZipFile, "lab")
+            FileUtils.unzip(jabroidZipFile, "lab/jabroid")
 
         } else {
             println("jabroid.zip not found in ${jabroidZipFile.absolutePath}")

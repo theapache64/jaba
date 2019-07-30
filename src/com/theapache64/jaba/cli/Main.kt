@@ -7,7 +7,7 @@ import java.io.File
 import java.io.FileNotFoundException
 import java.util.*
 
-const val IS_DEBUG = false
+const val IS_DEBUG = true
 const val ERROR_NOT_AN_ANDROID_PROJECT = "ERROR_NOT_AN_ANDROID_PROJECT"
 const val ERROR_UNSUPPORTED_ARCH = "UNSUPPORTED_ARCH"
 const val ERROR_NOT_KOTLIN_PROJECT = "NOT_KOTLIN_PROJECT"
@@ -84,6 +84,7 @@ fun main(args: Array<String>) {
                 }
 
             }
+
             COMMAND_PROVIDE_FRAGMENT_SUPPORT -> {
                 println("Fragment support coming soon...")
             }

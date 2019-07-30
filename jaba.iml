@@ -38,5 +38,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="com.squareup.moshi:moshi:1.8.0" level="project" />
   </component>
 </module>

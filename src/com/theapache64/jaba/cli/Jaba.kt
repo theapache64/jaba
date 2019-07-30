@@ -33,15 +33,18 @@ class Jaba(
         }
 
         fun provideActivitySupport(currentDir: String, activityFile: File, componentName: String) {
-            println("Providing activity support for $componentName")
+            val projectFile = File("$currentDir/jaba_project.json")
+            if (projectFile.exists()) {
 
-            val androidUtils = AndroidUtils(currentDir)
+                val projectJson = projectFile.readText()
+                val project = MoshiUtils.projectAdapter.fromJson(projectJson)
+                println("Parsed project is $project")
 
-            /*// Copy SomeActivity
-            createFile(
-                ,
-                activityFile
-            )*/
+                val assetManager = AssetManager(project!!)
+
+            } else {
+                error("$currentDir is not a jaba project. Init jaba by running `jaba` in the project root")
+            }
         }
 
 
@@ -63,8 +66,8 @@ class Jaba(
 
     fun build() {
 
-        // TODO("Create a project.json at the root of the project.")
-
+        // Create jaba_project.json
+        createProjectJson()
 
         logDoing("Creating dirs...")
         createDirs()
@@ -350,6 +353,17 @@ class Jaba(
         logDone()
 
 
+    }
+
+    private fun createProjectJson() {
+
+        val projectJson = MoshiUtils.projectAdapter.toJson(project)
+        val jabaProjectJsonFile = File("$currentDir/jaba_project.json")
+        if (jabaProjectJsonFile.exists()) {
+            jabaProjectJsonFile.delete()
+        }
+
+        jabaProjectJsonFile.writeText(projectJson)
     }
 
     private fun changeMainTo(newMainName: String) {
