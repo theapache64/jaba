@@ -60,6 +60,10 @@ class AndroidUtils(private val projectDir: String) {
         return gradleFile.exists()
     }
 
+    fun getLayoutFile(layoutFileName: String): File {
+        return File("$projectDir/app/src/main/res/layout/$layoutFileName")
+    }
+
 
     /**
      * To get package name from app/app.build.gradle

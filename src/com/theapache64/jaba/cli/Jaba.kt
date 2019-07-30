@@ -79,7 +79,10 @@ class Jaba(
                     logDone()
 
                     logDoing("Upgrading layout file...")
-                    val layoutFile =
+                    val androidUtils = AndroidUtils(currentDir)
+                    val componentNameSnakeCase = StringUtils.camelCaseToSnackCase(componentName)
+                    val layoutFile = androidUtils.getLayoutFile("activity_$componentNameSnakeCase")
+
 
 
                 } else {

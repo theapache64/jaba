@@ -5,7 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="$FULL_PACKAGE_NAME.SomeActivity">
+        tools:context="$FULL_PACKAGE_NAME.$COMPONENT_NAMEActivity">
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -13,10 +13,10 @@
 
         <variable
             name="handler"
-            type="$FULL_PACKAGE_NAME.SomeHandler" />
+            type="$FULL_PACKAGE_NAME.$COMPONENT_NAMEHandler" />
 
         <variable
             name="viewModel"
-            type="$FULL_PACKAGE_NAME.SomeViewModel" />
+            type="$FULL_PACKAGE_NAME.$COMPONENT_NAMEViewModel" />
     </data>
 </layout>
