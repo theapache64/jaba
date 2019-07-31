@@ -1,5 +1,6 @@
 package com.theapache64.jaba.cli
 
+import com.google.gson.Gson
 import com.theapache64.jaba.cli.models.Project
 import com.theapache64.jaba.cli.utils.*
 import java.io.File
@@ -39,7 +40,7 @@ class Jaba(
 
                 println("Decoding project JSON...")
                 val projectJson = projectFile.readText()
-                val project = MoshiUtils.projectAdapter.fromJson(projectJson)!!
+                val project = Gson().fromJson(projectJson, Project::class.java)
 
                 println("Project : ${project.name}")
                 println("Package : ${project.packageName}")
@@ -472,7 +473,7 @@ class Jaba(
 
     private fun createProjectJson() {
 
-        val projectJson = MoshiUtils.projectAdapter.toJson(project)
+        val projectJson = Gson().toJson(project)
         val jabaProjectJsonFile = File("$currentDir/jaba_project.json")
         if (jabaProjectJsonFile.exists()) {
             jabaProjectJsonFile.delete()

@@ -38,7 +38,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="com.squareup.moshi:moshi:1.8.0" level="project" />
-    <orderEntry type="library" name="moshi-1.8.0" level="project" />
+    <orderEntry type="library" exported="" name="com.google.code.gson:gson:2.8.5" level="project" />
   </component>
 </module>
