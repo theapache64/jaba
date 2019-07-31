@@ -19,8 +19,8 @@ class UserPrefRepository @Inject constructor(
      */
     fun getRememberMeData(): Triple<String, String, Boolean> {
 
-        val username = sharedPreferences.getString(KEY_USERNAME, "")
-        val password = sharedPreferences.getString(KEY_PASSWORD, "")
+        val username = sharedPreferences.getString(KEY_USERNAME, "")!!
+        val password = sharedPreferences.getString(KEY_PASSWORD, "")!!
         val rememberMe = sharedPreferences.getBoolean(KEY_REMEMBER_ME, false)
 
         return Triple(username, password, rememberMe)

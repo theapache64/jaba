@@ -38,6 +38,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" exported="" name="com.google.code.gson:gson:2.8.5" level="project" />
+    <orderEntry type="library" name="gson-2.8.5" level="application" />
   </component>
 </module>

@@ -34,123 +34,142 @@ class Jaba(
             return input.replace(Regex("([a-z])([A-Z]+)"), "$1_$2").toLowerCase()
         }
 
-        fun provideActivitySupport(currentDir: String, activityFile: File, componentName: String) {
-            val projectFile = File("$currentDir/jaba_project.json")
-            if (projectFile.exists()) {
+        fun provideActivitySupport(project: Project, currentDir: String, activityFile: File, componentName: String) {
 
-                println("Decoding project JSON...")
-                val projectJson = projectFile.readText()
-                val project = Gson().fromJson(projectJson, Project::class.java)
 
-                println("Project : ${project.name}")
-                println("Package : ${project.packageName}")
-                println()
+            val assetManager = AssetManager(project)
 
-                val assetManager = AssetManager(project)
+            val fullPackageName = getPackageNameFromKotlin(activityFile)
 
-                val fullPackageName = getPackageNameFromKotlin(activityFile)
+            if (fullPackageName != null) {
 
-                if (fullPackageName != null) {
+                // Creating new activity
+                logDoing("Upgrading activity...")
+                createFile(
+                    assetManager.getActivity(project.packageName, fullPackageName, componentName),
+                    activityFile
+                )
+                logDone()
 
-                    // Creating new activity
-                    logDoing("Upgrading activity...")
+                // Creating ViewModel
+                val newViewModelFile = File("${activityFile.parent}/${componentName}ViewModel.kt")
+
+                logDoing("Creating ViewModel...")
+                createFile(
+                    assetManager.getViewModel(fullPackageName, componentName),
+                    newViewModelFile
+                )
+                logDone()
+
+
+
+                logDoing("Creating Handler...")
+                val handlerFile = File("${activityFile.parent}/${componentName}Handler.kt")
+                createFile(
+                    assetManager.getHandler(fullPackageName, componentName),
+                    handlerFile
+                )
+                logDone()
+
+                logDoing("Upgrading layout file...")
+                val androidUtils = AndroidUtils(currentDir)
+                val componentNameSnakeCase = StringUtils.camelCaseToSnackCase(componentName)
+                val layoutFile = androidUtils.getLayoutFile("activity_${componentNameSnakeCase}.xml")
+                createFile(
+                    assetManager.getLayoutFile(fullPackageName, componentName),
+                    layoutFile
+                )
+                logDone()
+
+
+                logDoing("Adding new activity builder for ${componentName}Activity")
+
+
+                // Adding package name to import
+                val actImport = "\nimport ${fullPackageName}.${componentName}Activity"
+                val vmImport = "\nimport ${fullPackageName}.${componentName}ViewModel"
+
+                // Add SomeActivity builder in ActivityBuilderModule
+                val actBuilderFileContent = androidUtils.activityBuilderModuleFile.readText()
+
+
+                val lastIndexOfCbra = actBuilderFileContent.lastIndexOf("}")
+                if (lastIndexOfCbra != -1) {
+                    val builderMethod = assetManager.getActivityBuilder(componentName)
+                    val builder = StringBuilder(actBuilderFileContent)
+                    var newFileContent = builder.insert(
+                        lastIndexOfCbra - 1,
+                        builderMethod
+                    )
+
+                    val firstBlankLineIndex = newFileContent.indexOf("\n").let { blankLineIndex ->
+                        if (blankLineIndex == -1) {
+                            0
+                        } else {
+                            blankLineIndex
+                        }
+                    }
+
+                    // adding act import statement
+                    newFileContent = newFileContent.insert(
+                        firstBlankLineIndex,
+                        actImport
+                    )
+
                     createFile(
-                        assetManager.getActivity(project.packageName, fullPackageName, componentName),
-                        activityFile
+                        newFileContent.toString(),
+                        androidUtils.activityBuilderModuleFile
                     )
                     logDone()
 
-                    // Creating ViewModel
-                    val newViewModelFile = File("${activityFile.parent}/${componentName}ViewModel.kt")
 
-                    logDoing("Creating ViewModel...")
-                    createFile(
-                        assetManager.getViewModel(fullPackageName, componentName),
-                        newViewModelFile
-                    )
-                    logDone()
-
-
-
-                    logDoing("Creating Handler...")
-                    val handlerFile = File("${activityFile.parent}/${componentName}Handler.kt")
-                    createFile(
-                        assetManager.getHandler(fullPackageName, componentName),
-                        handlerFile
-                    )
-                    logDone()
-
-                    logDoing("Upgrading layout file...")
-                    val androidUtils = AndroidUtils(currentDir)
-                    val componentNameSnakeCase = StringUtils.camelCaseToSnackCase(componentName)
-                    val layoutFile = androidUtils.getLayoutFile("activity_${componentNameSnakeCase}.xml")
-                    createFile(
-                        assetManager.getLayoutFile(fullPackageName, componentName),
-                        layoutFile
-                    )
-                    logDone()
-
-
-                    logDoing("Adding new activity builder for ${componentName}Activity")
+                    logDoing("Adding new viewModel to builder for ${componentName}ViewModel")
 
                     // Add SomeActivity builder in ActivityBuilderModule
-                    val actBuilderFileContent = androidUtils.activityBuilderModuleFile.readText()
-                    val lastIndexOfCbra = actBuilderFileContent.lastIndexOf("}")
-                    if (lastIndexOfCbra != -1) {
-                        val builderMethod = assetManager.getActivityBuilder(componentName)
-                        val builder = StringBuilder(actBuilderFileContent)
-                        val newFileContent = builder.insert(
-                            lastIndexOfCbra - 1,
-                            builderMethod
+                    val vmBuilderFileContent = androidUtils.viewModelModuleFile.readText()
+                    val lastIndexOfBuilder = vmBuilderFileContent.lastIndexOf("}")
+                    if (lastIndexOfBuilder != -1) {
+                        val vmBuilderMethod = assetManager.getVmBuilder(componentName)
+                        val vmBuilder = StringBuilder(vmBuilderFileContent)
+                        var newVmBuilderContent = vmBuilder.insert(
+                            lastIndexOfBuilder - 1,
+                            vmBuilderMethod
+                        )
+
+                        val firstBlankLineIndex2 = newVmBuilderContent.indexOf("\n").let { blankLineIndex ->
+                            if (blankLineIndex == -1) {
+                                0
+                            } else {
+                                blankLineIndex
+                            }
+                        }
+
+                        // adding act import statement
+                        newVmBuilderContent = newVmBuilderContent.insert(
+                            firstBlankLineIndex2,
+                            vmImport
                         )
 
                         createFile(
-                            newFileContent.toString(),
-                            androidUtils.activityBuilderModuleFile
+                            newVmBuilderContent.toString(),
+                            androidUtils.viewModelModuleFile
                         )
                         logDone()
 
-
-                        logDoing("Adding new viewModel to builder for ${componentName}ViewModel")
-
-                        // Add SomeActivity builder in ActivityBuilderModule
-                        val vmBuilderFileContent = androidUtils.viewModelModuleFile.readText()
-                        val lastIndexOfBuilder = vmBuilderFileContent.lastIndexOf("}")
-                        if (lastIndexOfBuilder != -1) {
-                            val vmBuilderMethod = assetManager.getVmBuilder(componentName)
-                            val vmBuilder = StringBuilder(vmBuilderFileContent)
-                            val newVmBuilderContent = vmBuilder.insert(
-                                lastIndexOfBuilder - 1,
-                                vmBuilderMethod
-                            )
-
-
-                            createFile(
-                                newVmBuilderContent.toString(),
-                                androidUtils.viewModelModuleFile
-                            )
-                            logDone()
-
-                            logDone("Finish")
-
-                        } else {
-                            error("Couldn't find ViewModelBuilder.kt's end. No curly braces (}) found in the file.")
-                        }
-
+                        logDone("Finish")
 
                     } else {
-                        error("Couldn't find ActivitiesBuilderModule.kt's end. No curly braces (}) found in the file.")
+                        error("Couldn't find ViewModelBuilder.kt's end. No curly braces (}) found in the file.")
                     }
 
 
-
-
                 } else {
-                    error("Couldn't get full package name from activity file")
+                    error("Couldn't find ActivitiesBuilderModule.kt's end. No curly braces (}) found in the file.")
                 }
 
+
             } else {
-                error("$currentDir is not a jaba project. Init jaba by running `jaba` in the project root")
+                error("Couldn't get full package name from activity file")
             }
         }
 

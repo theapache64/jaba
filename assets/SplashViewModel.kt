@@ -26,7 +26,7 @@ class SplashViewModel @Inject constructor(
         $ACTIVITY_ID
 
         // passing id with the finish notification
-        launchActivityEvent.notifyFinished(activityId)
+        launchActivityEvent.value = activityId
     }
 
     companion object {

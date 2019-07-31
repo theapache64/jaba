@@ -1,5 +1,6 @@
 package com.theapache64.jaba.cli
 
+import com.google.gson.Gson
 import com.theapache64.jaba.cli.models.Architectures
 import com.theapache64.jaba.cli.models.Project
 import com.theapache64.jaba.cli.utils.*
@@ -65,7 +66,8 @@ fun main(args: Array<String>) {
                     if (matchingList.size == 1) {
                         val activityFile = matchingList.first()
                         println("Found : ${activityFile.getPathFromCurrentDir()}")
-                        Jaba.provideActivitySupport(currentDir, activityFile, componentName)
+
+                        provideActivitySupport(activityFile, componentName)
                     } else {
 
                         println("Multiple files found, choose one")
@@ -76,7 +78,7 @@ fun main(args: Array<String>) {
                         val fileNum = scanner.nextInt()
                         val file = matchingList[fileNum - 1]
                         println("Chosen : ${file.getPathFromCurrentDir()}")
-                        Jaba.provideActivitySupport(currentDir, file, componentName)
+                        provideActivitySupport(file, componentName)
 
                     }
                 } else {
@@ -96,6 +98,30 @@ fun main(args: Array<String>) {
     } else {
         // jaba's initial support
         performInitialProjectSetup()
+    }
+
+
+}
+
+private fun provideActivitySupport(activityFile: File, componentName: String) {
+
+    val projectFile = File("$currentDir/jaba_project.json")
+    if (projectFile.exists()) {
+
+        println("Decoding project JSON...")
+        val projectJson = projectFile.readText()
+        val project = Gson().fromJson(projectJson, Project::class.java)
+
+        println("Project : ${project.name}")
+        println("Package : ${project.packageName}")
+        println()
+
+        copyAssets(project)
+        Jaba.provideActivitySupport(project, currentDir, activityFile, componentName)
+        deleteAssets(project)
+
+    } else {
+        error("$currentDir is not a jaba project. Init jaba by running `jaba` in the project root")
     }
 
 
