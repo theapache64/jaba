@@ -76,6 +76,13 @@ class AssetManager(
 
         """.trimIndent()
 
+        private val COMPONENT_ACTIVITY_BUILDER = """
+
+            @ContributesAndroidInjector
+            abstract fun get${'$'}COMPONENT_NAMEActivity(): ${'$'}COMPONENT_NAMEActivity
+
+        """.trimIndent()
+
 
         private val SPLASH_ACTIVITY_DECLARATION = """
 
@@ -351,6 +358,15 @@ class AssetManager(
             @IntoMap
             @ViewModelKey(LogInViewModel::class)
             abstract fun bindLogInViewModel(viewModel: LogInViewModel): ViewModel
+
+        """.trimIndent()
+
+        private val COMPONENT_VM_BIND = """
+
+            @Binds
+            @IntoMap
+            @ViewModelKey(${'$'}COMPONENT_NAMEViewModel::class)
+            abstract fun bind${'$'}COMPONENT_NAMEViewModel(viewModel: ${'$'}COMPONENT_NAMEViewModel): ViewModel
 
         """.trimIndent()
 
@@ -734,6 +750,19 @@ class AssetManager(
             .replace(KEY_PACKAGE_NAME, project.packageName)
     }
 
+
+    fun getActivityBuilder(componentName: String): String {
+        return COMPONENT_ACTIVITY_BUILDER
+            .replace(KEY_COMPONENT_NAME, componentName)
+    }
+
+    fun getVmBuilder(componentName: String): String {
+        return COMPONENT_VM_BIND
+            .replace(KEY_COMPONENT_NAME, componentName)
+    }
+
+
+
     private fun getSplashActivityImport(): String {
         return if (project.isNeedSplashScreen) {
             SPLASH_ACTIVITY_IMPORT
@@ -1006,6 +1035,12 @@ class AssetManager(
 
     fun getHandler(fullPackageName: String, componentName: String): String {
         return getAssetContent("SomeHandler.kt")
+            .replace(KEY_FULL_PACKAGE_NAME, fullPackageName)
+            .replace(KEY_COMPONENT_NAME, componentName)
+    }
+
+    fun getLayoutFile(fullPackageName: String, componentName: String): String {
+        return getAssetContent("activity_some.xml")
             .replace(KEY_FULL_PACKAGE_NAME, fullPackageName)
             .replace(KEY_COMPONENT_NAME, componentName)
     }

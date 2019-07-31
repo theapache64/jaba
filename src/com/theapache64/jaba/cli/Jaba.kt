@@ -70,6 +70,7 @@ class Jaba(
                     logDone()
 
 
+
                     logDoing("Creating Handler...")
                     val handlerFile = File("${activityFile.parent}/${componentName}Handler.kt")
                     createFile(
@@ -81,7 +82,65 @@ class Jaba(
                     logDoing("Upgrading layout file...")
                     val androidUtils = AndroidUtils(currentDir)
                     val componentNameSnakeCase = StringUtils.camelCaseToSnackCase(componentName)
-                    val layoutFile = androidUtils.getLayoutFile("activity_$componentNameSnakeCase")
+                    val layoutFile = androidUtils.getLayoutFile("activity_${componentNameSnakeCase}.xml")
+                    createFile(
+                        assetManager.getLayoutFile(fullPackageName, componentName),
+                        layoutFile
+                    )
+                    logDone()
+
+
+                    logDoing("Adding new activity builder for ${componentName}Activity")
+
+                    // Add SomeActivity builder in ActivityBuilderModule
+                    val actBuilderFileContent = androidUtils.activityBuilderModuleFile.readText()
+                    val lastIndexOfCbra = actBuilderFileContent.lastIndexOf("}")
+                    if (lastIndexOfCbra != -1) {
+                        val builderMethod = assetManager.getActivityBuilder(componentName)
+                        val builder = StringBuilder(actBuilderFileContent)
+                        val newFileContent = builder.insert(
+                            lastIndexOfCbra - 1,
+                            builderMethod
+                        )
+
+                        createFile(
+                            newFileContent.toString(),
+                            androidUtils.activityBuilderModuleFile
+                        )
+                        logDone()
+
+
+                        logDoing("Adding new viewModel to builder for ${componentName}ViewModel")
+
+                        // Add SomeActivity builder in ActivityBuilderModule
+                        val vmBuilderFileContent = androidUtils.viewModelModuleFile.readText()
+                        val lastIndexOfBuilder = vmBuilderFileContent.lastIndexOf("}")
+                        if (lastIndexOfBuilder != -1) {
+                            val vmBuilderMethod = assetManager.getVmBuilder(componentName)
+                            val vmBuilder = StringBuilder(vmBuilderFileContent)
+                            val newVmBuilderContent = vmBuilder.insert(
+                                lastIndexOfBuilder - 1,
+                                vmBuilderMethod
+                            )
+
+
+                            createFile(
+                                newVmBuilderContent.toString(),
+                                androidUtils.viewModelModuleFile
+                            )
+                            logDone()
+
+                            logDone("Finish")
+
+                        } else {
+                            error("Couldn't find ViewModelBuilder.kt's end. No curly braces (}) found in the file.")
+                        }
+
+
+                    } else {
+                        error("Couldn't find ActivitiesBuilderModule.kt's end. No curly braces (}) found in the file.")
+                    }
+
 
 
 
