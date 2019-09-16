@@ -6,6 +6,9 @@
         <variable
             name="viewModel"
             type="$PACKAGE_NAME.ui.activities.main.MainViewModel"/>
+        <variable
+            name="handler"
+            type="$PACKAGE_NAME.ui.activities.main.MainHandler"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

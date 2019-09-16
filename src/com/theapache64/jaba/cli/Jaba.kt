@@ -241,6 +241,14 @@ class Jaba(
         )
         logDone()
 
+        // Creating MainHandler
+        logDoing("Creating MainHandler.kt ...")
+        createFile(
+            assetManager.getMainHandler(),
+            androidUtils.mainHandlerFile
+        )
+        logDone()
+
         // Delete default main activity
         androidUtils.oldMainActivityFile.delete()
 
@@ -453,8 +461,6 @@ class Jaba(
                 androidUtils.stylesFile
             )
             logDone()
-
-
         }
 
 
@@ -530,6 +536,11 @@ class Jaba(
         val newMenuFile = File("${androidUtils.menuMainFile.parent}/$newMenuName.xml")
         require(androidUtils.menuMainFile.renameTo(newMenuFile)) { "Failed to rename main_menu file" }
 
+        // Change handler name
+        val newHandlerName = "${newMainNameWithOutAct}Handler"
+        val newHandlerFile = File("${androidUtils.mainHandlerFile.parent}/$newHandlerName.kt")
+        require(androidUtils.mainHandlerFile.renameTo(newHandlerFile)) { "Failed to rename main handler file name" }
+
 
         // Change activity name in manifest
         changeContent(
@@ -542,7 +553,8 @@ class Jaba(
         changeContent(
             newActFile,
             mapOf(
-                Pair("activity_main", "activity_$compSnackCase"),
+                Pair("MainHandler", newHandlerName),
+                Pair("activity_main", newLayoutName),
                 Pair("MainActivity", newMainName),
                 Pair("menu_main", newMenuName),
                 Pair("MainViewModel", newViewModelName),
@@ -555,6 +567,7 @@ class Jaba(
         changeContent(
             newLayoutFile,
             mapOf(
+                Pair("MainHandler", newHandlerName),
                 Pair("MainViewModel", newViewModelName),
                 Pair("MainActivity", newMainName),
                 Pair("i_content_main", "i_$newContentLayoutName"),
@@ -566,6 +579,7 @@ class Jaba(
         changeContent(
             newContentLayoutFile,
             mapOf(
+                Pair("MainHandler", newHandlerName),
                 Pair("MainViewModel", newViewModelName),
                 Pair("MainActivity", newMainName),
                 Pair("activity_main", newLayoutName)

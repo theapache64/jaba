@@ -709,6 +709,11 @@ class AssetManager(
             .replace(KEY_PACKAGE_NAME, project.packageName)
     }
 
+    fun getMainHandler(): String {
+        return getAssetContent("MainHandler.kt")
+            .replace(KEY_PACKAGE_NAME, project.packageName)
+    }
+
     private fun getLogOutMethods(): String {
         return if (project.isNeedLogInScreen) {
             LOGOUT_METHODS
@@ -760,7 +765,6 @@ class AssetManager(
         return COMPONENT_VM_BIND
             .replace(KEY_COMPONENT_NAME, componentName)
     }
-
 
 
     private fun getSplashActivityImport(): String {

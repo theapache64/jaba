@@ -9,6 +9,10 @@
         <variable
             name="viewModel"
             type="$PACKAGE_NAME.ui.activities.main.MainViewModel"/>
+
+        <variable
+            name="handler"
+            type="$PACKAGE_NAME.ui.activities.main.MainHandler"/>
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -33,6 +37,7 @@
         <include
             android:id="@+id/i_content_main"
             bind:viewModel="@{viewModel}"
+            bind:handler="@{handler}"
             layout="@layout/content_main"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

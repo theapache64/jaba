@@ -20,7 +20,7 @@ import com.theapache64.twinkill.utils.extensions.bindContentView
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
-class MainActivity : BaseAppCompatActivity() {
+class MainActivity : BaseAppCompatActivity(), MainHandler {
 
     @Inject
     lateinit var factory: ViewModelProvider.Factory
@@ -36,6 +36,7 @@ class MainActivity : BaseAppCompatActivity() {
 
         this.viewModel = ViewModelProviders.of(this, factory).get(MainViewModel::class.java)
         binding.viewModel = viewModel
+        binding.handler = this
 
         $LOGOUT_WATCHER
 
