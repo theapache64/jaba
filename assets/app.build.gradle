@@ -56,7 +56,7 @@ dependencies {
     implementation 'com.theah64.materialcolors:materialcolors:1.0.0'
 
     // TwinKill
-    def twinkill_version = '1.0.0-alpha01'
+    def twinkill_version = '1.0.0-alpha02'
     implementation "com.theapache64.twinkill:core:$twinkill_version"
     implementation "com.theapache64.twinkill:logger:$twinkill_version"
     $TWINKILL_NETWORK_MODULE_DEPS
