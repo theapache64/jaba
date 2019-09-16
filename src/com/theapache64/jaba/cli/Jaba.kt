@@ -36,7 +36,6 @@ class Jaba(
 
         fun provideActivitySupport(project: Project, currentDir: String, activityFile: File, componentName: String) {
 
-
             val assetManager = AssetManager(project)
 
             val fullPackageName = getPackageNameFromKotlin(activityFile)
@@ -74,7 +73,7 @@ class Jaba(
                 logDoing("Upgrading layout file...")
                 val androidUtils = AndroidUtils(currentDir)
                 val componentNameSnakeCase = StringUtils.camelCaseToSnackCase(componentName)
-                val layoutFile = androidUtils.getLayoutFile("activity_${componentNameSnakeCase}.xml")
+                val layoutFile = androidUtils.getLayoutFile("activity_$componentNameSnakeCase.xml")
                 createFile(
                     assetManager.getLayoutFile(fullPackageName, componentName),
                     layoutFile
@@ -86,8 +85,8 @@ class Jaba(
 
 
                 // Adding package name to import
-                val actImport = "\nimport ${fullPackageName}.${componentName}Activity"
-                val vmImport = "\nimport ${fullPackageName}.${componentName}ViewModel"
+                val actImport = "\nimport $fullPackageName.${componentName}Activity"
+                val vmImport = "\nimport $fullPackageName.${componentName}ViewModel"
 
                 // Add SomeActivity builder in ActivityBuilderModule
                 val actBuilderFileContent = androidUtils.activityBuilderModuleFile.readText()
