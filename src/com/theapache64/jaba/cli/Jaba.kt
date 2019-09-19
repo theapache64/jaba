@@ -15,6 +15,8 @@ class Jaba(
 
     companion object {
 
+        private const val TOOLBAR_WIDGET = "androidx.appcompat.widget.Toolbar"
+
         // app/build.gradle
         private val COMPILE_SDK_REGEX by lazy { Pattern.compile("compileSdkVersion (\\d+)") }
         private val PACKAGE_NAME_REGEX by lazy { Pattern.compile("package (?<packageName>.+)") }
@@ -37,15 +39,22 @@ class Jaba(
         fun provideActivitySupport(project: Project, currentDir: String, activityFile: File, componentName: String) {
 
             val assetManager = AssetManager(project)
-
             val fullPackageName = getPackageNameFromKotlin(activityFile)
 
             if (fullPackageName != null) {
 
+                val androidUtils = AndroidUtils(currentDir)
+                val componentNameSnakeCase = StringUtils.camelCaseToSnackCase(componentName)
+                val layoutFile = androidUtils.getLayoutFile("activity_$componentNameSnakeCase.xml")
+                val hasToolbar = hasToolbar(layoutFile)
+                if (hasToolbar) {
+                    logDone("Toolbar detected")
+                }
+
                 // Creating new activity
                 logDoing("Upgrading activity...")
                 createFile(
-                    assetManager.getActivity(project.packageName, fullPackageName, componentName),
+                    assetManager.getSomeActivity(project.packageName, fullPackageName, componentName, hasToolbar),
                     activityFile
                 )
                 logDone()
@@ -71,13 +80,26 @@ class Jaba(
                 logDone()
 
                 logDoing("Upgrading layout file...")
-                val androidUtils = AndroidUtils(currentDir)
-                val componentNameSnakeCase = StringUtils.camelCaseToSnackCase(componentName)
-                val layoutFile = androidUtils.getLayoutFile("activity_$componentNameSnakeCase.xml")
-                createFile(
-                    assetManager.getLayoutFile(fullPackageName, componentName),
-                    layoutFile
-                )
+                if (hasToolbar) {
+                    // Creating activity_some_toolbar
+                    createFile(
+                        assetManager.getLayoutFileWithToolbar(fullPackageName, componentName, componentNameSnakeCase),
+                        layoutFile
+                    )
+
+                    // Creating content_some
+                    createFile(
+                        assetManager.getLayoutContentFile(fullPackageName, componentName, componentNameSnakeCase),
+                        androidUtils.getLayoutFile("content_$componentNameSnakeCase.xml")
+                    )
+
+                } else {
+                    createFile(
+                        assetManager.getLayoutFile(fullPackageName, componentName),
+                        layoutFile
+                    )
+                }
+
                 logDone()
 
 
@@ -170,6 +192,10 @@ class Jaba(
             } else {
                 error("Couldn't get full package name from activity file")
             }
+        }
+
+        private fun hasToolbar(layoutFile: File): Boolean {
+            return layoutFile.readText().contains(TOOLBAR_WIDGET)
         }
 
         private fun getPackageNameFromKotlin(kotlinFile: File): String? {

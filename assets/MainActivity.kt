@@ -31,8 +31,7 @@ class MainActivity : BaseAppCompatActivity(), MainHandler {
         super.onCreate(savedInstanceState)
 
         val binding = bindContentView<ActivityMainBinding>(R.layout.activity_main)
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.toolbar)
 
         this.viewModel = ViewModelProviders.of(this, factory).get(MainViewModel::class.java)
         binding.viewModel = viewModel
@@ -40,8 +39,7 @@ class MainActivity : BaseAppCompatActivity(), MainHandler {
 
         $LOGOUT_WATCHER
 
-        val fab = findViewById<FloatingActionButton>(R.id.fab)
-        fab.setOnClickListener { view ->
+        binding.fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }

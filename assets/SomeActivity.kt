@@ -34,6 +34,7 @@ class $COMPONENT_NAMEActivity : BaseAppCompatActivity(), $COMPONENT_NAMEHandler 
         super.onCreate(savedInstanceState)
 
         binding = bindContentView(R.layout.activity_$COMPONENT_NAME_LOWER_CASE)
+        $TOOLBAR
         viewModel = ViewModelProviders.of(this, factory).get($COMPONENT_NAMEViewModel::class.java)
 
         binding.handler = this

@@ -418,6 +418,9 @@ class AssetManager(
                 private const val BASE_URL = "${'$'}BASE_API_URL"
             }
         """.trimIndent()
+
+        private const val KEY_TOOLBAR = "\$TOOLBAR"
+        private const val TOOLBAR = "setSupportActionBar(binding.toolbar)"
     }
 
     /**
@@ -1029,11 +1032,19 @@ class AssetManager(
             .replace(KEY_COMPONENT_NAME, componentName)
     }
 
-    fun getActivity(appPackageName: String, fullPackageName: String, componentName: String): String {
+    fun getSomeActivity(
+        appPackageName: String,
+        fullPackageName: String,
+        componentName: String,
+        hasToolbar: Boolean
+    ): String {
+
+
         return getAssetContent("SomeActivity.kt")
             .replace(KEY_FULL_PACKAGE_NAME, fullPackageName)
             .replace(KEY_COMPONENT_NAME_LOWER_CASE, StringUtils.camelCaseToSnackCase(componentName))
             .replace(KEY_PACKAGE_NAME, appPackageName)
+            .replace(KEY_TOOLBAR, if (hasToolbar) TOOLBAR else "")
             .replace(KEY_COMPONENT_NAME, componentName)
     }
 
@@ -1046,6 +1057,24 @@ class AssetManager(
     fun getLayoutFile(fullPackageName: String, componentName: String): String {
         return getAssetContent("activity_some.xml")
             .replace(KEY_FULL_PACKAGE_NAME, fullPackageName)
+            .replace(KEY_COMPONENT_NAME, componentName)
+    }
+
+    fun getLayoutFileWithToolbar(
+        fullPackageName: String,
+        componentName: String,
+        componentNameLowerCase: String
+    ): String {
+        return getAssetContent("activity_some_toolbar.xml")
+            .replace(KEY_FULL_PACKAGE_NAME, fullPackageName)
+            .replace(KEY_COMPONENT_NAME_LOWER_CASE, componentNameLowerCase)
+            .replace(KEY_COMPONENT_NAME, componentName)
+    }
+
+    fun getLayoutContentFile(fullPackageName: String, componentName: String, componentNameSnakeCase: String): String {
+        return getAssetContent("content_some.xml")
+            .replace(KEY_FULL_PACKAGE_NAME, fullPackageName)
+            .replace(KEY_COMPONENT_NAME_LOWER_CASE, componentNameSnakeCase)
             .replace(KEY_COMPONENT_NAME, componentName)
     }
 }
