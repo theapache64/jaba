@@ -478,15 +478,15 @@ class Jaba(
                 androidUtils.splashActivityLayoutFile
             )
             logDone()
-
-            // Replace with styles
-            logDoing("Modifying styles.xml to support splash theme")
-            createFile(
-                assetManager.getStyles(),
-                androidUtils.stylesFile
-            )
-            logDone()
         }
+
+        // Replace with styles
+        logDoing("Modifying styles.xml to implement material theme")
+        createFile(
+            assetManager.getStyles(),
+            androidUtils.stylesFile
+        )
+        logDone()
 
 
         // Create ids
