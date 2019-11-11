@@ -32,7 +32,7 @@ class Jaba(
         private val KOTLIN_VERSION_REGEX by lazy { Pattern.compile("ext.kotlin_version = '(.+)'") }
         private val GRADLE_VERSION_REGEX by lazy { Pattern.compile("classpath 'com.android.tools.build:gradle:(.+)'") }
 
-        fun toSnackCase(input: String): String {
+        fun toSnakeCase(input: String): String {
             return input.replace(Regex("([a-z])([A-Z]+)"), "$1_$2").toLowerCase()
         }
 
@@ -535,16 +535,17 @@ class Jaba(
     private fun changeMainTo(newMainName: String) {
 
         val newMainNameWithOutAct = newMainName.replace("Activity", "")
-        val compSnackCase = toSnackCase(newMainNameWithOutAct)
+        val compSnackCase = toSnakeCase(newMainNameWithOutAct)
 
         // Change MainActivity name
         val newActFile = File("${androidUtils.mainActivityFile.parent}/$newMainName.kt")
-        require(androidUtils.mainActivityFile.renameTo(newActFile)) { "Failed to rename MainActivty.kt to ${newActFile.name}" }
+        require(androidUtils.mainActivityFile.renameTo(newActFile)) { "Failed to rename MainActivity.kt to ${newActFile.name}" }
 
         // Change ViewModel name
         val newViewModelName = "${newMainNameWithOutAct}ViewModel";
         val newViewModel = File("${androidUtils.mainViewModelFile.parent}/$newViewModelName.kt")
         require(androidUtils.mainViewModelFile.renameTo(newViewModel)) { "Failed to rename MainViewModel" }
+
 
         // Change layout file name
         val newLayoutName = "activity_$compSnackCase"
@@ -565,7 +566,6 @@ class Jaba(
         val newHandlerName = "${newMainNameWithOutAct}Handler"
         val newHandlerFile = File("${androidUtils.mainHandlerFile.parent}/$newHandlerName.kt")
         require(androidUtils.mainHandlerFile.renameTo(newHandlerFile)) { "Failed to rename main handler file name" }
-
 
         // Change activity name in manifest
         changeContent(
@@ -608,6 +608,14 @@ class Jaba(
                 Pair("MainViewModel", newViewModelName),
                 Pair("MainActivity", newMainName),
                 Pair("activity_main", newLayoutName)
+            )
+        )
+
+        // Change in handler
+        changeContent(
+            newHandlerFile,
+            mapOf(
+                Pair("MainHandler", newHandlerName)
             )
         )
 
