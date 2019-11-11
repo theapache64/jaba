@@ -19,7 +19,7 @@ import $PACKAGE_NAME.ui.activities.main.MainActivity
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
-class LogInActivity : BaseAppCompatActivity(), LogInClickHandler {
+class LogInActivity : BaseAppCompatActivity(), LogInHandler {
 
 
     @Inject
@@ -41,7 +41,7 @@ class LogInActivity : BaseAppCompatActivity(), LogInClickHandler {
 
         // binding viewModel and clickHandler to layout
         binding.viewModel = viewModel
-        binding.clickHandler = this
+        binding.handler = this
 
         // watching for login
         viewModel.getLogIn().observe(this, Observer { it ->

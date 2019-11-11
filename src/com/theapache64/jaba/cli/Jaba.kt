@@ -385,11 +385,11 @@ class Jaba(
                 )
                 logDone()
 
-                logDoing("Creating LogInClickHandler.kt ...")
+                logDoing("Creating LogInHandler.kt ...")
                 // Create login click handler
                 createFile(
-                    assetManager.getLogInClickHandler(),
-                    androidUtils.loginClickHandler
+                    assetManager.getLogInHandler(),
+                    androidUtils.logInHandler
                 )
                 logDone()
 

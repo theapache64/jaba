@@ -1,5 +1,5 @@
 package $PACKAGE_NAME.ui.activities.login
 
-interface LogInClickHandler {
+interface LogInHandler {
     fun onLogInClicked();
 }

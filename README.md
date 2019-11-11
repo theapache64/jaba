@@ -72,7 +72,7 @@ Modifying manifest file...
 ✔️ Done
 ⏳ Creating LogInViewModel.kt ...
 ✔️ Done
-⏳ Creating LogInClickHandler.kt ...
+⏳ Creating LogInHandler.kt ...
 ✔️ Done
 ⏳ Creating AuthRepository.kt ...
 ✔️ Done
@@ -193,7 +193,7 @@ This will solve all alignment issues as well as optimization of imports.
 │   └── activities
 │       ├── login
 │       │   ├── LogInActivity.kt
-│       │   ├── LogInClickHandler.kt
+│       │   ├── LogInHandler.kt
 │       │   └── LogInViewModel.kt
 │       ├── main
 │       │   ├── MainActivity.kt

@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="clickHandler"
-            type="$PACKAGE_NAME.ui.activities.login.LogInClickHandler"/>
+            name="handler"
+            type="$PACKAGE_NAME.ui.activities.login.LogInHandler"/>
 
         <variable
             name="viewModel"
@@ -101,7 +101,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:layout_marginBottom="100dp"
-                    android:onClick="@{()-> clickHandler.onLogInClicked()}"
+                    android:onClick="@{()-> handler.onLogInClicked()}"
                     android:text="@string/action_login"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@id/mcb_remember_me"

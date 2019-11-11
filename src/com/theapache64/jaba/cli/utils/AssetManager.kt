@@ -966,8 +966,8 @@ class AssetManager(
         return withPackageNameReplacedFromAssets("LogInViewModel.kt")
     }
 
-    fun getLogInClickHandler(): String {
-        return withPackageNameReplacedFromAssets("LogInClickHandler.kt")
+    fun getLogInHandler(): String {
+        return withPackageNameReplacedFromAssets("LogInHandler.kt")
     }
 
     fun getIds(): String {

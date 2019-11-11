@@ -49,7 +49,7 @@ class AndroidUtils(private val projectDir: String) {
     val androidIcon = File("$projectDir/app/src/main/res/drawable/ic_android.png")
     val logInActivityFile = File("${provideRootSourcePath()}/ui/activities/login/LogInActivity.kt")
     val logInViewModelFile = File("${provideRootSourcePath()}/ui/activities/login/LogInViewModel.kt")
-    val loginClickHandler = File("${provideRootSourcePath()}/ui/activities/login/LogInClickHandler.kt")
+    val logInHandler = File("${provideRootSourcePath()}/ui/activities/login/LogInHandler.kt")
     val authRepositoryFile = File("${provideRootSourcePath()}/data/repositories/AuthRepository.kt")
     val userIconFile = File("$projectDir/app/src/main/res/drawable/ic_user.png")
     val logOutIcon = File("$projectDir/app/src/main/res/drawable/ic_logout_white.xml")
