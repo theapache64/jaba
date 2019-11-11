@@ -9,8 +9,8 @@ android {
         applicationId "$PACKAGE_NAME"
         minSdkVersion min_sdk_version
         targetSdkVersion target_sdk_version
-        versionCode 1
-        versionName "1.0"
+        versionCode 10001
+        versionName "1.0.0-alpha01"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
