@@ -764,7 +764,7 @@ class Jaba(
             appCompatVersion!!,
             ktxVersion!!,
             constraintVersion!!,
-            materialVersion!!,
+            materialVersion,
             jUnitVersion!!,
             espressoVersion!!,
             gradleVersion!!
