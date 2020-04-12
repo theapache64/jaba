@@ -445,13 +445,13 @@ class AssetManager(
         appCompatVersion: String,
         ktxVersion: String,
         constraintVersion: String,
-        materialVersion: String?,
+        materialVersion: String,
         jUnitVersion: String,
         espressoVersion: String,
         gradleVersion: String
     ): String {
 
-        var replace = projectBuildGradleFile.readText()
+        return projectBuildGradleFile.readText()
             .replace(KEY_KOTLIN_VERSION, kotlinVersion)
             .replace(KEY_COMPILE_SDK_VERSION, compileSdkVersion)
             .replace(KEY_MIN_SDK_VERSION, minSdkVersion)
@@ -463,12 +463,7 @@ class AssetManager(
             .replace(KEY_ESPRESSO_VERSION, espressoVersion)
             .replace(KEY_GRADLE_VERSION, gradleVersion)
             .replace(KEY_RETROFIT_VERSION, getRetrofitVersion())
-
-        if (materialVersion != null) {
-            replace = replace.replace(KEY_MATERIAL_VERSION, materialVersion)
-        }
-
-        return replace
+            .replace(KEY_MATERIAL_VERSION, materialVersion)
     }
 
     private fun getRetrofitVersion(): String {

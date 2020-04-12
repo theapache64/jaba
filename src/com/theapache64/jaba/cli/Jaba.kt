@@ -17,6 +17,9 @@ class Jaba(
 
         private const val TOOLBAR_WIDGET = "androidx.appcompat.widget.Toolbar"
 
+        // Versions
+        private const val DEFAULT_MATERIAL_VERSION = "1.2.0-alpha05"
+
         // app/build.gradle
         private val COMPILE_SDK_REGEX by lazy { Pattern.compile("compileSdkVersion (\\d+)") }
         private val PACKAGE_NAME_REGEX by lazy { Pattern.compile("package (?<packageName>.+)") }
@@ -29,8 +32,8 @@ class Jaba(
         private val JUNIT_VERSION_REGEX by lazy { Pattern.compile("testImplementation 'junit:junit:(.+)'") }
         private val ESPRESSO_VERSION_REGEX by lazy { Pattern.compile("androidTestImplementation 'androidx\\.test\\.espresso:espresso-core:(.+)'") }
 
-        private val KOTLIN_VERSION_REGEX by lazy { Pattern.compile("ext.kotlin_version = '(.+)'") }
-        private val GRADLE_VERSION_REGEX by lazy { Pattern.compile("classpath 'com.android.tools.build:gradle:(.+)'") }
+        private val KOTLIN_VERSION_REGEX by lazy { Pattern.compile("ext.kotlin_version = \"(.+)\"") }
+        private val GRADLE_VERSION_REGEX by lazy { Pattern.compile("classpath \"com.android.tools.build:gradle:(.+)\"") }
 
         fun toSnakeCase(input: String): String {
             return input.replace(Regex("([a-z])([A-Z]+)"), "$1_$2").toLowerCase()
@@ -764,7 +767,7 @@ class Jaba(
             appCompatVersion!!,
             ktxVersion!!,
             constraintVersion!!,
-            materialVersion,
+            materialVersion ?: DEFAULT_MATERIAL_VERSION,
             jUnitVersion!!,
             espressoVersion!!,
             gradleVersion!!

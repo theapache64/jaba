@@ -8,7 +8,7 @@ import java.io.File
 import java.io.FileNotFoundException
 import java.util.*
 
-const val IS_DEBUG = false
+const val IS_DEBUG = true
 const val ERROR_NOT_AN_ANDROID_PROJECT = "ERROR_NOT_AN_ANDROID_PROJECT"
 const val ERROR_UNSUPPORTED_ARCH = "UNSUPPORTED_ARCH"
 const val ERROR_NOT_KOTLIN_PROJECT = "NOT_KOTLIN_PROJECT"
@@ -20,7 +20,7 @@ class Main {
 
 
 val jarFile = File(Main::class.java.protectionDomain.codeSource.location.toURI().path)
-val currentDir = if (IS_DEBUG) "lab/jabroid" else System.getProperty("user.dir")
+val currentDir: String = if (IS_DEBUG) "lab/jabroid" else System.getProperty("user.dir")
 
 fun File.getPathFromCurrentDir(): String {
     return this.absolutePath.split("$currentDir/")[1]
