@@ -11,17 +11,19 @@ $USER_REPOSITORY_IMPORT
 import $PACKAGE_NAME.di.components.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasActivityInjector
+import dagger.android.HasAndroidInjector
 import javax.inject.Inject
 
-class App : Application(), HasActivityInjector {
+class App : Application(), HasAndroidInjector {
+
+    $BASE_URL
 
     @Inject
-    lateinit var activityInjector: DispatchingAndroidInjector<Activity>
+    lateinit var androidInjector: DispatchingAndroidInjector<Any>
+
+    override fun androidInjector(): AndroidInjector<Any> = androidInjector
 
     $USER_PREF_REPO_INJECT
-
-    override fun activityInjector(): AndroidInjector<Activity> = activityInjector
 
     override fun onCreate() {
         super.onCreate()
@@ -45,6 +47,4 @@ class App : Application(), HasActivityInjector {
 
     }
 
-
-    $BASE_URL
 }
