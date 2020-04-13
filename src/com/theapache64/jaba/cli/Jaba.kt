@@ -16,6 +16,7 @@ class Jaba(
     companion object {
 
         private const val TOOLBAR_WIDGET = "androidx.appcompat.widget.Toolbar"
+        private const val LATEST_KOTLIN_VERSION = "1.3.71"
 
         // Versions
         private const val DEFAULT_MATERIAL_VERSION = "1.2.0-alpha05"
@@ -758,7 +759,7 @@ class Jaba(
         // Get kotlin version
         val projectGradleContent = androidUtils.projectGradleFile.readText()
         val projectRegExParse = RegExParser(projectGradleContent)
-        val kotlinVersion = projectRegExParse.getFirst(KOTLIN_VERSION_REGEX)
+        val kotlinVersion = getKotlinVersion(projectRegExParse.getFirst(KOTLIN_VERSION_REGEX))
         val gradleVersion = projectRegExParse.getFirst(GRADLE_VERSION_REGEX)
 
         // Delete default project
@@ -779,6 +780,22 @@ class Jaba(
         )
 
         androidUtils.projectGradleFile.writeText(newProjectGradle)
+    }
+
+    private fun getKotlinVersion(kotlinVersion: String?): String? {
+        if (kotlinVersion != null) {
+            println("It's $kotlinVersion")
+            val projectVersion = kotlinVersion.trim().replace(".", "").toInt()
+            val latestVersion = LATEST_KOTLIN_VERSION.trim().replace(".", "").toInt()
+            if (projectVersion > latestVersion) {
+                return kotlinVersion
+            } else {
+                LATEST_KOTLIN_VERSION
+            }
+            return kotlinVersion
+        } else {
+            return null
+        }
     }
 
 }
