@@ -783,18 +783,16 @@ class Jaba(
     }
 
     private fun getKotlinVersion(kotlinVersion: String?): String? {
-        if (kotlinVersion != null) {
-            println("It's $kotlinVersion")
-            val projectVersion = kotlinVersion.trim().replace(".", "").toInt()
+        return if (kotlinVersion != null) {
+            val kotlinVersionInt = kotlinVersion.trim().replace(".", "").toInt()
             val latestVersion = LATEST_KOTLIN_VERSION.trim().replace(".", "").toInt()
-            if (projectVersion > latestVersion) {
-                return kotlinVersion
+            if (kotlinVersionInt > latestVersion) {
+                kotlinVersion
             } else {
                 LATEST_KOTLIN_VERSION
             }
-            return kotlinVersion
         } else {
-            return null
+            null
         }
     }
 
