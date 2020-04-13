@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
+
 import com.theapache64.twinkill.TwinKill
 import com.theapache64.twinkill.network.utils.Resource
 import com.theapache64.twinkill.network.utils.retrofit.interceptors.AuthorizationInterceptor
@@ -37,7 +37,7 @@ class LogInActivity : BaseAppCompatActivity(), LogInHandler {
         binding.clpbLogin.hide()
 
         // getting viewModel
-        this.viewModel = ViewModelProviders.of(this, factory).get(LogInViewModel::class.java)
+        this.viewModel = ViewModelProvider(this, factory).get(LogInViewModel::class.java)
 
         // binding viewModel and clickHandler to layout
         binding.viewModel = viewModel

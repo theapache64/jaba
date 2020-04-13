@@ -11,7 +11,7 @@ buildscript {
         ktx_version = '$KTX_VERSION'
         constraint_version = '$CONSTRAINT_VERSION'
         material_version = '$MATERIAL_VERSION'
-        lifecycle_version = '2.1.0-alpha04'
+        lifecycle_version = '2.2.0'
 
         // External
         retrofit_version = '2.5.0'

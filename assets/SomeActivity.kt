@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
+
 import $PACKAGE_NAME.R
 import $PACKAGE_NAME.databinding.Activity$COMPONENT_NAMEBinding
 import com.theapache64.twinkill.ui.activities.base.BaseAppCompatActivity
@@ -35,7 +35,7 @@ class $COMPONENT_NAMEActivity : BaseAppCompatActivity(), $COMPONENT_NAMEHandler 
 
         binding = bindContentView(R.layout.activity_$COMPONENT_NAME_LOWER_CASE)
         $TOOLBAR
-        viewModel = ViewModelProviders.of(this, factory).get($COMPONENT_NAMEViewModel::class.java)
+        viewModel = ViewModelProvider(this, factory).get($COMPONENT_NAMEViewModel::class.java)
 
         binding.handler = this
         binding.viewModel = viewModel

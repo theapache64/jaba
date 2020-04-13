@@ -8,7 +8,7 @@ import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import $PACKAGE_NAME.R
@@ -33,7 +33,7 @@ class MainActivity : BaseAppCompatActivity(), MainHandler {
         val binding = bindContentView<ActivityMainBinding>(R.layout.activity_main)
         setSupportActionBar(binding.toolbar)
 
-        this.viewModel = ViewModelProviders.of(this, factory).get(MainViewModel::class.java)
+        this.viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
         binding.viewModel = viewModel
         binding.handler = this
 

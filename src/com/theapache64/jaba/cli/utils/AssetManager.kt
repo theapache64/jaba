@@ -99,6 +99,7 @@ class AssetManager(
         val androidIcon by lazy { File("assets/ic_android.png") }
         val logOutIcon by lazy { File("assets/ic_logout_white.xml") }
         val colorsFile by lazy { File("assets/colors.xml") }
+        val dimensFile by lazy { File("assets/dimens.xml") }
 
         private val RETROFIT_LOGIN_METHOD = """
 

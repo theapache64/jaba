@@ -511,6 +511,11 @@ class Jaba(
         AssetManager.colorsFile.copyTo(androidUtils.colorsFile, true)
         logDone()
 
+        logDoing("Adding dimens.xml")
+        // Create colors
+        AssetManager.dimensFile.copyTo(androidUtils.dimensFile, true)
+        logDone()
+
         // Finally checking if the user wanted to change the MainActivity name to something else
         project.newMainName?.let { newMainName ->
             logDoing("Changing Main to $newMainName")
