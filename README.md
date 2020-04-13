@@ -6,12 +6,10 @@
 A simple cli tool to convert your stock android project structure to MVVM architectural pattern. 
 It also includes templates for splash and login screen. Basically, jaba is a time saver. :)
 
-## Download
+## Install
 
-Clone or download this repo and set an alias to the `jaba.jar` file
-
-```
-alias jaba='java -jar /path/to/jaba/jaba.jar'
+```shell script
+wget "https://raw.githubusercontent.com/theapache64/jaba/master/install.sh" -q --show-progress -O install.sh && sh install.sh && source ~/.bash_aliases
 ```
 
 ## Usage

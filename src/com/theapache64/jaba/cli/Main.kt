@@ -8,7 +8,7 @@ import java.io.File
 import java.io.FileNotFoundException
 import java.util.*
 
-const val IS_DEBUG = true
+const val IS_DEBUG = false
 const val ERROR_NOT_AN_ANDROID_PROJECT = "ERROR_NOT_AN_ANDROID_PROJECT"
 const val ERROR_UNSUPPORTED_ARCH = "UNSUPPORTED_ARCH"
 const val ERROR_NOT_KOTLIN_PROJECT = "NOT_KOTLIN_PROJECT"
@@ -36,10 +36,10 @@ fun main(args: Array<String>) {
 
     if (args.isNotEmpty()) {
         // it's not about project init
-        val command = args[0]
-        when (command) {
+        when (val command = args[0]) {
             COMMAND_PROVIDE_ACTIVITY_SUPPORT -> {
 
+                @Suppress("ConstantConditionIf")
                 if (IS_DEBUG) {
                     logDoing("Cleaning lab...")
                     LabUtils.cleanForPAS()

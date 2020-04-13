@@ -14,7 +14,7 @@ buildscript {
         lifecycle_version = '2.2.0'
 
         // External
-        retrofit_version = '2.5.0'
+        $RETROFIT_VERSION
         mockito_version = '3.1.0'
 
         // Test
