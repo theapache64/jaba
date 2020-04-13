@@ -22,6 +22,15 @@ import javax.inject.Inject
 
 class MainActivity : BaseAppCompatActivity(), MainHandler {
 
+    companion object {
+        const val ID = R.id.MAIN_ACTIVITY_ID
+
+        fun getStartIntent(context: Context): Intent {
+            val intent = Intent(context, MainActivity::class.java)
+            return intent
+        }
+    }
+
     @Inject
     lateinit var factory: ViewModelProvider.Factory
     private lateinit var viewModel: MainViewModel
@@ -61,12 +70,5 @@ class MainActivity : BaseAppCompatActivity(), MainHandler {
         }
     }
 
-    companion object {
-        const val ID = R.id.MAIN_ACTIVITY_ID
 
-        fun getStartIntent(context: Context): Intent {
-            val intent = Intent(context, MainActivity::class.java)
-            return intent
-        }
-    }
 }
