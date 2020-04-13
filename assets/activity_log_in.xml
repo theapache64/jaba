@@ -14,10 +14,17 @@
             type="$PACKAGE_NAME.ui.activities.login.LogInViewModel"/>
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <!--Progress-->
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:id="@+id/clpb_login"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -113,16 +120,5 @@
 
         </ScrollView>
 
-        <!--Progress-->
-        <androidx.core.widget.ContentLoadingProgressBar
-            android:id="@+id/clpb_login"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:indeterminate="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
 </layout>
