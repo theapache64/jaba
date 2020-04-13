@@ -1,6 +1,5 @@
 package $PACKAGE_NAME
 
-import android.app.Activity
 import android.app.Application
 import android.content.Context
 import com.theapache64.twinkill.TwinKill
@@ -30,19 +29,19 @@ class App : Application(), HasAndroidInjector {
 
         // Dagger
         DaggerAppComponent.builder()
-            $CONTEXT_MODULE_INIT
-            $DAGGER_NETWORK_MODULE_INIT
-            .build()
+        $CONTEXT_MODULE_INIT
+        $DAGGER_NETWORK_MODULE_INIT
+        .build()
             .inject(this)
 
         // TwinKill
         TwinKill.init(
             TwinKill
                 .builder()
-                $TWINKILL_NETWORK_MODULE_INIT
-                $TWINKILL_AUTHORIZATION_INIT
-                $GOOGLE_FONTS_INIT
-                .build()
+            $TWINKILL_NETWORK_MODULE_INIT
+        $TWINKILL_AUTHORIZATION_INIT
+        $GOOGLE_FONTS_INIT
+        .build()
         )
 
     }

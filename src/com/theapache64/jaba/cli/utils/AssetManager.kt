@@ -117,18 +117,18 @@ class AssetManager(
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:${'$'}retrofit_version"
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.14.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.0'
     implementation "com.squareup.retrofit2:adapter-rxjava2:${'$'}retrofit_version"
 
     // Moshi
-    implementation 'com.squareup.moshi:moshi:1.8.0'
+    implementation 'com.squareup.moshi:moshi:1.9.2'
 
         """
 
         private const val GOOGLE_FONTS_DEPS = "implementation \"com.theapache64.twinkill:google_fonts:0.0.1-alpha01\""
         private const val TWINKILL_NETWORK_MODULE_DEPS =
             "implementation \"com.theapache64.twinkill:network:\$twinkill_version\""
-        private const val RETROFIT_VERSION = "retrofit_version = '2.5.0'"
+        private const val RETROFIT_VERSION = "retrofit_version = '2.8.1'"
 
         private val LOGOUT_MENU_ITEM = """
             <item
@@ -203,7 +203,7 @@ class AssetManager(
 
         private val TWINKILL_NETWORK_MODULE_INIT = """
 
-            .setNeedDeepCheckOnNetworkResponse(true)
+            .addCallAdapter(ResourceCallAdapterFactory(true))
             .addOkHttpInterceptor(CurlInterceptor())
 
         """.trimIndent()
@@ -213,6 +213,8 @@ class AssetManager(
             import com.theapache64.twinkill.network.di.modules.BaseNetworkModule
             import com.theapache64.twinkill.network.utils.retrofit.interceptors.AuthorizationInterceptor
             import com.theapache64.twinkill.network.utils.retrofit.interceptors.CurlInterceptor
+            import com.theapache64.twinkill.network.utils.retrofit.adapters.resourcedataadapter.ResourceCallAdapter
+            import com.theapache64.twinkill.network.utils.retrofit.adapters.resourcedataadapter.ResourceCallAdapterFactory
 
         """.trimIndent()
 
