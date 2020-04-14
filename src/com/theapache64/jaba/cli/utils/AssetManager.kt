@@ -125,7 +125,7 @@ class AssetManager(
 
         """
 
-        private const val GOOGLE_FONTS_DEPS = "implementation \"com.theapache64.twinkill:google_fonts:0.0.1-alpha01\""
+        private const val GOOGLE_FONTS_DEPS = "implementation \"com.theapache64.twinkill:google_sans:\$twinkill_version\""
         private const val TWINKILL_NETWORK_MODULE_DEPS =
             "implementation \"com.theapache64.twinkill:network:\$twinkill_version\""
         private const val RETROFIT_VERSION = "retrofit_version = '2.8.1'"

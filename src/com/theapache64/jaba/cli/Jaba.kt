@@ -17,6 +17,7 @@ class Jaba(
 
         private const val TOOLBAR_WIDGET = "androidx.appcompat.widget.Toolbar"
         private const val LATEST_KOTLIN_VERSION = "1.3.71"
+        private const val LATEST_JUNIT_VERSION = "4.13"
 
         // Versions
         private const val DEFAULT_MATERIAL_VERSION = "1.2.0-alpha05"
@@ -418,25 +419,24 @@ class Jaba(
                 AssetManager.userIcon.copyTo(androidUtils.userIconFile)
                 AssetManager.logOutIcon.copyTo(androidUtils.logOutIcon)
                 logDone()
-
-                // Create string xml
-                logDoing("Adding login strings to strings.xml")
-                createFile(
-                    assetManager.getStringsXml(),
-                    androidUtils.stringXmlFile
-                )
-                logDone()
-
-                // Create menu main
-                logDoing("Modifying menu_main.xml file")
-                createFile(
-                    assetManager.getMenuMain(),
-                    androidUtils.menuMainFile
-                )
-                logDone()
             }
         }
 
+        // Create string xml
+        logDoing("Adding login strings to strings.xml")
+        createFile(
+            assetManager.getStringsXml(),
+            androidUtils.stringXmlFile
+        )
+        logDone()
+
+        // Create menu main
+        logDoing("Modifying menu_main.xml file")
+        createFile(
+            assetManager.getMenuMain(),
+            androidUtils.menuMainFile
+        )
+        logDone()
 
         // Create AppModule
         logDoing("Creating dagger AppModule.kt ...")
@@ -742,7 +742,7 @@ class Jaba(
         val ktxVersion = regExParser.getFirst(KTX_VERSION_REGEX)
         val constraintVersion = regExParser.getFirst(CONSTRAINT_VERSION_REGEX)
         val materialVersion = regExParser.getFirst(MATERIAL_VERSION_REGEX)
-        val jUnitVersion = regExParser.getFirst(JUNIT_VERSION_REGEX)
+        val jUnitVersion = getLatest(regExParser.getFirst(JUNIT_VERSION_REGEX), LATEST_JUNIT_VERSION)
         val espressoVersion = regExParser.getFirst(ESPRESSO_VERSION_REGEX)
 
         // Delete default gradle file
@@ -759,7 +759,7 @@ class Jaba(
         // Get kotlin version
         val projectGradleContent = androidUtils.projectGradleFile.readText()
         val projectRegExParse = RegExParser(projectGradleContent)
-        val kotlinVersion = getKotlinVersion(projectRegExParse.getFirst(KOTLIN_VERSION_REGEX))
+        val kotlinVersion = getLatest(projectRegExParse.getFirst(KOTLIN_VERSION_REGEX), LATEST_KOTLIN_VERSION)
         val gradleVersion = projectRegExParse.getFirst(GRADLE_VERSION_REGEX)
 
         // Delete default project
@@ -782,18 +782,17 @@ class Jaba(
         androidUtils.projectGradleFile.writeText(newProjectGradle)
     }
 
-    private fun getKotlinVersion(kotlinVersion: String?): String? {
-        return if (kotlinVersion != null) {
-            val kotlinVersionInt = kotlinVersion.trim().replace(".", "").toInt()
-            val latestVersion = LATEST_KOTLIN_VERSION.trim().replace(".", "").toInt()
-            if (kotlinVersionInt > latestVersion) {
-                kotlinVersion
+    private fun getLatest(currentVersion: String?, latestVersion: String): String? {
+        return if (currentVersion != null) {
+            val currentVersionInt = currentVersion.trim().replace(".", "").toInt()
+            val latestVersionInt = latestVersion.trim().replace(".", "").toInt()
+            if (currentVersionInt > latestVersionInt) {
+                currentVersion
             } else {
-                LATEST_KOTLIN_VERSION
+                latestVersion
             }
         } else {
             null
         }
     }
-
 }
