@@ -125,7 +125,8 @@ class AssetManager(
 
         """
 
-        private const val GOOGLE_FONTS_DEPS = "implementation \"com.theapache64.twinkill:google_sans:\$twinkill_version\""
+        private const val GOOGLE_FONTS_DEPS =
+            "implementation \"com.theapache64.twinkill:google_sans:\$twinkill_version\""
         private const val TWINKILL_NETWORK_MODULE_DEPS =
             "implementation \"com.theapache64.twinkill:network:\$twinkill_version\""
         private const val RETROFIT_VERSION = "retrofit_version = '2.8.1'"
@@ -219,19 +220,19 @@ class AssetManager(
         """.trimIndent()
 
 
-        private val USER_REPOSITORY_IMPORT = "import \$PACKAGE_NAME.data.repositories.UserPrefRepository"
+        private const val USER_REPOSITORY_IMPORT = "import \$PACKAGE_NAME.data.repositories.UserPrefRepository"
 
         /**
          * Google fonts import
          */
         private const val KEY_GOOGLE_FONTS_IMPORT = "\$GOOGLE_FONTS_IMPORT"
-        private val GOOGLE_FONTS_IMPORT = "import com.theapache64.twinkill.googlefonts.GoogleFonts"
+        private const val GOOGLE_FONTS_IMPORT = "import com.theapache64.twinkill.googlesans.GoogleSans"
 
         /**
          * Google fonts init
          */
         private const val KEY_GOOGLE_FONTS_INIT = "\$GOOGLE_FONTS_INIT"
-        private const val GOOGLE_FONTS_INIT = " .setDefaultFont(GoogleFonts.GoogleSansRegular)"
+        private const val GOOGLE_FONTS_INIT = " .setDefaultFont(GoogleSans.Regular)"
 
         /**
          * Network module
