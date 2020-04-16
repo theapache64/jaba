@@ -32,12 +32,12 @@ class SplashActivity : BaseAppCompatActivity() {
         // Watching activity launch command
         viewModel.getLaunchActivityEvent().observe(this, Observer { activityName ->
 
-            when (activityId) {
+            when (activityName) {
                 MainActivity::class.simpleName -> {
                     startActivity(MainActivity.getStartIntent(this))
                 }
                     $LOGIN_LAUNCHER
-                else -> throw IllegalArgumentException("Undefined activity id $activityId")
+                else -> throw IllegalArgumentException("Undefined activity id $activityName")
             }
 
             finish()

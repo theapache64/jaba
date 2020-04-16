@@ -301,7 +301,7 @@ class AssetManager(
 
         """.trimIndent()
 
-        private val SPLASH_VM_MAIN_ACT = "val activityId = MainActivity.ID"
+        private const val SPLASH_VM_MAIN_ACT = "val activityName = MainActivity::class.simpleName"
 
         /**
          * User pref constructor

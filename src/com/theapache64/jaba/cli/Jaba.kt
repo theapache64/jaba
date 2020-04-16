@@ -488,9 +488,10 @@ class Jaba(
             logDoing("Enabling kapt.incremental.apt ...")
             androidUtils.projectGradlePropertiesFile.appendText(
                 """
+                    # Fix room warning
                     # https://stackoverflow.com/questions/57670510/how-to-get-rid-of-incremental-annotation-processing-requested-warning
                     kapt.incremental.apt=true
-                """
+                """.trimIndent()
             )
             logDone()
         }
