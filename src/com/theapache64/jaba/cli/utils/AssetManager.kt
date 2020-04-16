@@ -291,7 +291,11 @@ class AssetManager(
 
             // if theUser == null -> login else main
             val user = userPrefRepository.getUser()
-            val activityId = if (user == null) LogInActivity.ID else MainActivity.ID
+            val activityName = if (user == null) {
+                LogInActivity::class.simpleName
+            } else {
+                MainActivity::class.simpleName
+            }
 
             Log.i(TAG, "User is ${'$'}{user?.name}")
 
@@ -396,7 +400,7 @@ class AssetManager(
         private const val KEY_LOGIN_LAUNCHER = "\$LOGIN_LAUNCHER"
         private val LOGIN_LAUNCHER = """
 
-             LogInActivity.ID -> {
+             LogInActivity::class.simpleName -> {
                 startActivity(LogInActivity.getStartIntent(this))
              }
 
@@ -1011,18 +1015,6 @@ class AssetManager(
         return withPackageNameReplacedFromAssets("LogInHandler.kt")
     }
 
-    fun getIds(): String {
-        return getAssetContent("ids.xml")
-            .replace(KEY_LOGIN_ACT_ID_RES, getLogInActIdRes())
-    }
-
-    private fun getLogInActIdRes(): String {
-        return if (project.isNeedLogInScreen) {
-            LOGIN_ACT_ID_RES
-        } else {
-            ""
-        }
-    }
 
     fun getAuthRepository(): String {
         return withPackageNameReplacedFromAssets("AuthRepository.kt")

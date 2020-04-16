@@ -39,6 +39,7 @@ class AndroidUtils(private val projectDir: String) {
     val sampleDaoFile = File("${provideRootSourcePath()}/data/local/daos/SampleDao.kt")
     val sampleEntityFile = File("${provideRootSourcePath()}/data/local/entities/SampleEntity.kt")
     val databaseModuleFile = File("${provideRootSourcePath()}/di/modules/DatabaseModule.kt")
+    val projectGradlePropertiesFile = File("$projectDir/gradle.properties")
 
     val appModuleFile = File("${provideRootSourcePath()}/di/modules/AppModule.kt")
     val networkModuleFile = File("${provideRootSourcePath()}/di/modules/NetworkModule.kt")
@@ -49,7 +50,6 @@ class AndroidUtils(private val projectDir: String) {
     val splashActivityLayoutFile = File("$projectDir/app/src/main/res/layout/activity_splash.xml")
     val stylesFile = File("$projectDir/app/src/main/res/values/styles.xml")
     val stylesNightFile = File("$projectDir/app/src/main/res/values-night/styles.xml")
-    val idsFile = File("$projectDir/app/src/main/res/values/ids.xml")
     val stringXmlFile = File("$projectDir/app/src/main/res/values/strings.xml")
     val colorsFile = File("$projectDir/app/src/main/res/values/colors.xml")
     val dimensFile = File("$projectDir/app/src/main/res/values/dimens.xml")

@@ -30,10 +30,10 @@ class SplashActivity : BaseAppCompatActivity() {
         binding.viewModel = viewModel
 
         // Watching activity launch command
-        viewModel.getLaunchActivityEvent().observe(this, Observer { activityId ->
+        viewModel.getLaunchActivityEvent().observe(this, Observer { activityName ->
 
             when (activityId) {
-                MainActivity.ID -> {
+                MainActivity::class.simpleName -> {
                     startActivity(MainActivity.getStartIntent(this))
                 }
                     $LOGIN_LAUNCHER

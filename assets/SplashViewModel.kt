@@ -15,9 +15,9 @@ class SplashViewModel @Inject constructor(
 
     val versionName = "v${BuildConfig.VERSION_NAME}"
 
-    private val launchActivityEvent = SingleLiveEvent<Int>()
+    private val launchActivityEvent = SingleLiveEvent<String>()
 
-    fun getLaunchActivityEvent(): LiveData<Int> {
+    fun getLaunchActivityEvent(): LiveData<String> {
         return launchActivityEvent
     }
 
@@ -26,7 +26,7 @@ class SplashViewModel @Inject constructor(
         $ACTIVITY_ID
 
         // passing id with the finish notification
-        launchActivityEvent.value = activityId
+        launchActivityEvent.value = activityName
     }
 
     companion object {

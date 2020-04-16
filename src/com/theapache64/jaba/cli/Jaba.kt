@@ -478,10 +478,19 @@ class Jaba(
             )
             logDone()
 
-            println("Creating DatabaseModule...")
+            logDoing("Creating DatabaseModule...")
             createFile(
                 assetManager.getDatabaseModule(),
                 androidUtils.databaseModuleFile
+            )
+            logDone()
+
+            logDoing("Enabling kapt.incremental.apt ...")
+            androidUtils.projectGradlePropertiesFile.appendText(
+                """
+                    # https://stackoverflow.com/questions/57670510/how-to-get-rid-of-incremental-annotation-processing-requested-warning
+                    kapt.incremental.apt=true
+                """
             )
             logDone()
         }
@@ -531,15 +540,6 @@ class Jaba(
         )
         logDone()
 
-        // Create ids
-        logDoing("Creating ids.xml ...")
-        createFile(
-            assetManager.getIds(),
-            androidUtils.idsFile
-        )
-        logDone()
-
-
         logDoing("Creating logo icon...")
         // Create vector icon
         AssetManager.androidIcon.copyTo(androidUtils.androidIcon)
@@ -567,6 +567,7 @@ class Jaba(
 
 
     }
+
 
     private fun createProjectJson() {
 

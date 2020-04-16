@@ -22,7 +22,6 @@ import javax.inject.Inject
 class LogInActivity : BaseAppCompatActivity(), LogInHandler {
 
     companion object {
-        const val ID = R.id.LOG_IN_ACTIVITY_ID
 
         fun getStartIntent(context: Context): Intent {
             return Intent(context, LogInActivity::class.java).apply {
