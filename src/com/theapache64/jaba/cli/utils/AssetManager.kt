@@ -962,6 +962,10 @@ class AssetManager(
         return getAssetContent("styles.xml")
     }
 
+    fun getNightStyles(): String {
+        return getAssetContent("styles.night.xml")
+    }
+
     fun getLogInActivity(): String {
         return withPackageNameReplacedFromAssets("LogInActivity.kt")
     }

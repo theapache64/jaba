@@ -493,6 +493,14 @@ class Jaba(
         logDone()
 
 
+        // Modifying night theme
+        logDoing("Modifying night theme xml")
+        createFile(
+            assetManager.getNightStyles(),
+            androidUtils.stylesNightFile
+        )
+        logDone()
+
         // Create ids
         logDoing("Creating ids.xml ...")
         createFile(

@@ -7,7 +7,7 @@ import javax.xml.parsers.DocumentBuilderFactory
 class AndroidUtils(private val projectDir: String) {
 
     companion object {
-        private const val KOTLIN_PLUGIN = "apply plugin: 'kotlin-android'"
+        private const val KOTLIN_PLUGIN = "    id 'kotlin-android'"
     }
 
     // Common files
@@ -41,6 +41,7 @@ class AndroidUtils(private val projectDir: String) {
     val splashActivityFile = File("${provideRootSourcePath()}/ui/activities/splash/SplashActivity.kt")
     val splashActivityLayoutFile = File("$projectDir/app/src/main/res/layout/activity_splash.xml")
     val stylesFile = File("$projectDir/app/src/main/res/values/styles.xml")
+    val stylesNightFile = File("$projectDir/app/src/main/res/values-night/styles.xml")
     val idsFile = File("$projectDir/app/src/main/res/values/ids.xml")
     val stringXmlFile = File("$projectDir/app/src/main/res/values/strings.xml")
     val colorsFile = File("$projectDir/app/src/main/res/values/colors.xml")
