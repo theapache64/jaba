@@ -195,6 +195,11 @@ private fun performInitialProjectSetup() {
                     }
                 }
 
+                // Room support
+                val roomResponse =
+                    if (IS_DEBUG) "yes" else inputUtils.getString("Do you need local database (room) ? (y/N)", true)
+                val isNeedRoomSupport = isYes(roomResponse)
+
                 // Splash
                 val splashResponse =
                     if (IS_DEBUG) "yes" else inputUtils.getString("Do you need splash screen? (y/N)", true)
@@ -230,6 +235,7 @@ private fun performInitialProjectSetup() {
                     isNeedGoogleFont,
                     isNeedNetwork,
                     baseUrl,
+                    isNeedRoomSupport,
                     isNeedSplashScreen,
                     isNeedLogInScreen,
                     newMainName

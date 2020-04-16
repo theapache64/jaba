@@ -11,6 +11,7 @@ import dagger.android.support.AndroidSupportInjectionModule
         AndroidSupportInjectionModule::class,
         $NETWORK_MODULE_INC
         $PREFERENCE_MODULE_INC
+        $DB_MODULE_INC
         ViewModelModule::class,
         ActivitiesBuilderModule::class
     ]

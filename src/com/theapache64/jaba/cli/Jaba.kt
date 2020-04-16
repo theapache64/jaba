@@ -456,6 +456,36 @@ class Jaba(
         logDone()
 
 
+        if (project.isNeedRoomSupport) {
+            logDoing("Creating AppDatabase.kt...")
+            createFile(
+                assetManager.getAppDatabase(),
+                androidUtils.appDatabaseFile
+            )
+            logDone()
+
+            logDoing("Creating SampleDao...")
+            createFile(
+                assetManager.getSampleDao(),
+                androidUtils.sampleDaoFile
+            )
+            logDone()
+
+            logDoing("Creating SampleEntity...")
+            createFile(
+                assetManager.getSampleEntity(),
+                androidUtils.sampleEntityFile
+            )
+            logDone()
+
+            println("Creating DatabaseModule...")
+            createFile(
+                assetManager.getDatabaseModule(),
+                androidUtils.databaseModuleFile
+            )
+            logDone()
+        }
+
         if (project.isNeedSplashScreen) {
 
             // Create splash view model

@@ -8,6 +8,7 @@ data class Project(
     val isNeedGoogleFontsModule: Boolean,
     val isNeedNetworkModule: Boolean,
     val baseUrl: String?,
+    val isNeedRoomSupport: Boolean,
     val isNeedSplashScreen: Boolean,
     val isNeedLogInScreen: Boolean,
     val newMainName: String?

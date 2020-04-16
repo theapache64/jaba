@@ -30,6 +30,7 @@ class AssetManager(
         private const val KEY_ESPRESSO_VERSION = "\$ESPRESSO_VERSION"
         private const val KEY_GRADLE_VERSION = "\$GRADLE_VERSION"
         private const val KEY_NETWORK_DEPS = "\$NETWORK_DEPS"
+        private const val KEY_ROOM_DEPS = "\$ROOM_DEPS"
         private const val KEY_GOOGLE_FONTS_DEPS = "\$GOOGLE_FONTS_DEPS"
         private const val KEY_TWINKILL_NETWORK_MODULE_DEPS = "\$TWINKILL_NETWORK_MODULE_DEPS"
         private const val KEY_RETROFIT_VERSION = "\$RETROFIT_VERSION"
@@ -124,6 +125,14 @@ class AssetManager(
     implementation 'com.squareup.moshi:moshi:1.9.2'
 
         """
+
+        private val ROOM_DEPS = """
+                // Room
+    def room_version = "2.2.5"
+    implementation "androidx.room:room-runtime:${'$'}room_version"
+    implementation "androidx.room:room-ktx:${'$'}room_version"
+    kapt "androidx.room:room-compiler:${'$'}room_version"
+        """.trimIndent()
 
         private const val GOOGLE_FONTS_DEPS =
             "implementation \"com.theapache64.twinkill:google_sans:\$twinkill_version\""
@@ -239,6 +248,12 @@ class AssetManager(
          */
         private const val KEY_NETWORK_MODULE_INC = "\$NETWORK_MODULE_INC"
         private const val NETWORK_MODULE_INC = "NetworkModule::class,"
+
+        /**
+         * Database module
+         */
+        private const val KEY_DB_MODULE_INC = "\$DB_MODULE_INC"
+        private const val DB_MODULE_INC = "DatabaseModule::class,"
 
         /**
          * Preference module
@@ -433,8 +448,17 @@ class AssetManager(
     fun getAppBuildGradle(): String {
         return withPackageNameReplacedFromAssets("app.build.gradle")
             .replace(KEY_NETWORK_DEPS, getNetworkDeps()) // Network
+            .replace(KEY_ROOM_DEPS, getRoomDeps()) // Room
             .replace(KEY_GOOGLE_FONTS_DEPS, getGoogleFonts()) // GoogleFonts
             .replace(KEY_TWINKILL_NETWORK_MODULE_DEPS, getTwinKillNetworkModuleDeps()) // TwinKillNetwork
+    }
+
+    private fun getRoomDeps(): String {
+        return if (project.isNeedRoomSupport) {
+            ROOM_DEPS
+        } else {
+            ""
+        }
     }
 
 
@@ -629,7 +653,7 @@ class AssetManager(
     }
 
     private fun getContextModuleInit(): String {
-        return if (project.isNeedLogInScreen) {
+        return if (project.isNeedLogInScreen || project.isNeedRoomSupport) {
             CONTEXT_MODULE_INIT
         } else {
             ""
@@ -808,6 +832,7 @@ class AssetManager(
 
     fun getAppModule(): String {
         return withPackageNameReplacedFromAssets("AppModule.kt")
+            .replace(KEY_DB_MODULE_INC, getDatabaseModuleInclude())
             .replace(KEY_NETWORK_MODULE_INC, getNetworkModuleInclude())
             .replace(KEY_PREFERENCE_MODULE_IMPORT, getPreferenceModuleImport())
             .replace(KEY_PREFERENCE_MODULE_INC, getPreferenceModuleInclude())
@@ -832,6 +857,14 @@ class AssetManager(
     private fun getNetworkModuleInclude(): String {
         return if (project.isNeedNetworkModule) {
             NETWORK_MODULE_INC
+        } else {
+            ""
+        }
+    }
+
+    private fun getDatabaseModuleInclude(): String {
+        return if (project.isNeedRoomSupport) {
+            DB_MODULE_INC
         } else {
             ""
         }
@@ -1084,5 +1117,25 @@ class AssetManager(
             .replace(KEY_FULL_PACKAGE_NAME, fullPackageName)
             .replace(KEY_COMPONENT_NAME_LOWER_CASE, componentNameSnakeCase)
             .replace(KEY_COMPONENT_NAME, componentName)
+    }
+
+    fun getAppDatabase(): String {
+        return getAssetContent("AppDatabase.kt")
+            .replace(KEY_PACKAGE_NAME, project.packageName)
+    }
+
+    fun getSampleDao(): String {
+        return getAssetContent("SampleDao.kt")
+            .replace(KEY_PACKAGE_NAME, project.packageName)
+    }
+
+    fun getSampleEntity(): String {
+        return getAssetContent("SampleEntity.kt")
+            .replace(KEY_PACKAGE_NAME, project.packageName)
+    }
+
+    fun getDatabaseModule(): String {
+        return getAssetContent("DatabaseModule.kt")
+            .replace(KEY_PACKAGE_NAME, project.packageName)
     }
 }

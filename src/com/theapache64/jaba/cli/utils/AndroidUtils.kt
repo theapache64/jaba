@@ -33,6 +33,13 @@ class AndroidUtils(private val projectDir: String) {
     val logInRequestFile = File("${provideRootSourcePath()}/data/remote/login/LogInRequest.kt")
     val logInResponseFile = File("${provideRootSourcePath()}/data/remote/login/LogInResponse.kt")
     val userRepoFile = File("${provideRootSourcePath()}/data/repositories/UserPrefRepository.kt")
+
+    // Database
+    val appDatabaseFile = File("${provideRootSourcePath()}/data/local/AppDatabase.kt")
+    val sampleDaoFile = File("${provideRootSourcePath()}/data/local/daos/SampleDao.kt")
+    val sampleEntityFile = File("${provideRootSourcePath()}/data/local/entities/SampleEntity.kt")
+    val databaseModuleFile = File("${provideRootSourcePath()}/di/modules/DatabaseModule.kt")
+
     val appModuleFile = File("${provideRootSourcePath()}/di/modules/AppModule.kt")
     val networkModuleFile = File("${provideRootSourcePath()}/di/modules/NetworkModule.kt")
     val viewModelModuleFile = File("${provideRootSourcePath()}/di/modules/ViewModelModule.kt")
