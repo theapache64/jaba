@@ -26,8 +26,9 @@ class MainActivity : BaseAppCompatActivity(), MainHandler {
         const val ID = R.id.MAIN_ACTIVITY_ID
 
         fun getStartIntent(context: Context): Intent {
-            val intent = Intent(context, MainActivity::class.java)
-            return intent
+            return Intent(context, MainActivity::class.java).apply {
+                // add data here
+            }
         }
     }
 
