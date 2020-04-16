@@ -665,7 +665,7 @@ class AssetManager(
     }
 
     private fun getContextModuleImport(): String {
-        return if (project.isNeedLogInScreen) {
+        return if (project.isNeedLogInScreen || project.isNeedRoomSupport) {
             CONTEXT_MODULE_IMPORT
         } else {
             ""
