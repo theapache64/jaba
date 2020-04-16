@@ -1,4 +1,4 @@
-LATEST_VERSION="1.1.0-as4.0_beta4"
+LATEST_VERSION="1.1.1-as4.1C5"
 
 # Download source code
 wget "https://github.com/theapache64/jaba/archive/v$LATEST_VERSION.zip" -O "jaba.zip" &&
